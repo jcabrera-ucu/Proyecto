@@ -3,12 +3,18 @@ using System.Text;
 namespace Library;
 
 /// <summary>
-///
+/// Error cuando dos barcos están superpuestos.
 /// </summary>
 public class BarcosSuperpuestosException : Exception
 {
+    /// <summary>
+    /// Uno de los barcos que colisionan
+    /// </summary>
     public Barco Primero { get; }
 
+    /// <summary>
+    /// Uno de los barcos que colisionan
+    /// </summary>
     public Barco Segundo { get; }
 
     public BarcosSuperpuestosException(Barco a, Barco b)
@@ -18,42 +24,34 @@ public class BarcosSuperpuestosException : Exception
     }
 }
 
-enum Celda
-{
-    Nada,
-    Barco,
-    Tocado,
-    Revelado,
-    Agua,
-}
-
 /// <summary>
-///
+/// Tablero del jugador.
 /// </summary>
 public class Tablero
 {
     /// <summary>
-    ///
+    /// Cantidad de celdas horizontalmente
     /// </summary>
     public int Ancho { get; }
 
     /// <summary>
-    ///
+    /// Cantidad de celdas verticalmente
     /// </summary>
     public int Alto { get; }
 
     /// <summary>
-    ///
+    /// Lista de los barcos del jugador.
+    /// (todos disjuntos)
     /// </summary>
     public List<Barco> Barcos { get; } = new();
 
     /// <summary>
-    ///
+    /// Lista de coordenadas que al ser atacadas, dieron "agua"
     /// </summary>
     public List<Coord> Agua { get; } = new();
 
     /// <summary>
-    ///
+    /// Construye un tablero de 10x10
     /// </summary>
     public Tablero()
         : this(10, 10)
@@ -61,18 +59,24 @@ public class Tablero
     }
 
     /// <summary>
-    ///
+    /// Construye el tablero vacío
     /// </summary>
-    /// <param name="ancho"></param>
-    /// <param name="alto"></param>
+    /// <param name="ancho">Cantidad de celdas horizontalmente</param>
+    /// <param name="alto">Cantidad de celdas verticalmente</param>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si ancho es menor que 1 o mayor que Coord.Max + 1
+    /// </exception>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si alto es menor que 1 o mayor que Coord.Max + 1
+    /// </exception>
     public Tablero(int ancho, int alto)
     {
-        if (ancho <= Coord.Min || ancho > Coord.Max)
+        if (ancho < (Coord.Min + 1) || ancho > (Coord.Max + 1))
         {
             throw new ArgumentOutOfRangeException(nameof(ancho));
         }
 
-        if (alto <= Coord.Min || alto > Coord.Max)
+        if (alto < (Coord.Min + 1) || alto > (Coord.Max + 1))
         {
             throw new ArgumentOutOfRangeException(nameof(alto));
         }
@@ -82,21 +86,31 @@ public class Tablero
     }
 
     /// <summary>
-    ///
+    /// Verifica que una coordenada esté "adentro" de éste tablero
     /// </summary>
-    /// <param name="coord"></param>
-    /// <returns></returns>
+    /// <param name="coord">Coordenada a verificar</param>
+    /// <returns>True si 'coord' es válida para este tablero</returns>
     private bool EsValida(Coord coord)
     {
         return (coord.X < Ancho) && (coord.Y < Alto);
     }
 
     /// <summary>
-    ///
+    /// Agrega un nuevo Barco al tablero
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
+    /// <param name="a">Coordenada de inicio del barco (más arriba y más a la izquierda)</param>
+    /// <param name="b">Coordenada de fin del barco (más abajo y más a la derecha)</param>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si 'a' no es válidad para las dimensiones del tablero
+    /// </exception>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si 'b' no es válidad para las dimensiones del tablero
+    /// </exception>
+    /// <exception cref="Library.BarcosSuperpuestosException">
+    /// Si el barco que se intenta crear intersecta a algún otro
+    /// barco ya existente en el tablero
+    /// </exception>
+    /// <returns>La instancia del Barco creada</returns>
     public Barco AddBarco(Coord a, Coord b)
     {
         if (!EsValida(a))
@@ -125,10 +139,10 @@ public class Tablero
     }
 
     /// <summary>
-    ///
+    /// Realiza un ataque sobre éste tablero
     /// </summary>
-    /// <param name="coord"></param>
-    /// <returns></returns>
+    /// <param name="coord">La coordenada a atacar</param>
+    /// <returns>El restulado del ataque</returns>
     public ResultadoAtaque Atacar(Coord coord)
     {
         if (!EsValida(coord))
@@ -159,7 +173,12 @@ public class Tablero
         return ResultadoAtaque.Agua;
     }
 
-    private Celda GetCelda(Coord coord)
+    /// <summary>
+    /// Dada una coordenada retorna el estado de la celda en ese punto.
+    /// </summary>
+    /// <param name="coord">La celda a obtener</param>
+    /// <returns>El contenido de la celda</returns>
+    public Celda GetCelda(Coord coord)
     {
         if (!EsValida(coord))
         {
@@ -189,10 +208,16 @@ public class Tablero
             }
         }
 
-        return Celda.Nada;
+        return Celda.Vacio;
     }
 
-    private string Imprimir(Func<Coord, char> getChar)
+    /// <summary>
+    /// Crea la representación del tablero en cadena
+    /// </summary>
+    /// <param name="getChar">Se llama con una 'Celda' y debe devolver
+    /// el caracter a presentar en el tablero</param>
+    /// <returns>Representación en texto del tablero</returns>
+    private string Imprimir(Func<Celda, char> getChar)
     {
         var builder = new StringBuilder();
         var tabulación = new string(' ', 3);
@@ -216,7 +241,7 @@ public class Tablero
 
             for (int x = 0; x < Ancho; x++)
             {
-                builder.AppendFormat("{0}|", getChar(new Coord(x, y)));
+                builder.AppendFormat("{0}|", getChar(GetCelda(new Coord(x, y))));
             }
 
             builder.Append("\n");
@@ -228,29 +253,37 @@ public class Tablero
         return builder.ToString();
     }
 
+    /// <summary>
+    /// Representación del tablero para el jugador
+    /// </summary>
+    /// <returns>Tablero desde el punto de vista del jugador</returns>
     public string ImprimirBarcos()
     {
-        return Imprimir((coord) =>
+        return Imprimir((celda) =>
         {
-            switch (GetCelda(coord))
+            switch (celda)
             {
                 case Celda.Barco:
                 case Celda.Revelado:
                 case Celda.Tocado:
                     return 'B';
                 case Celda.Agua:
-                case Celda.Nada:
+                case Celda.Vacio:
                 default:
                     return ' ';
             }
         });
     }
 
+    /// <summary>
+    /// Representación del tablero para el oponente
+    /// </summary>
+    /// <returns>El tablero desde el punto de vista del oponente</returns>
     public string ImprimirJugadas()
     {
-        return Imprimir((coord) =>
+        return Imprimir(celda =>
         {
-            switch (GetCelda(coord))
+            switch (celda)
             {
                 case Celda.Agua:
                     return 'A';
@@ -259,7 +292,7 @@ public class Tablero
                 case Celda.Tocado:
                     return 'T';
                 case Celda.Barco:
-                case Celda.Nada:
+                case Celda.Vacio:
                 default:
                     return ' ';
             }
