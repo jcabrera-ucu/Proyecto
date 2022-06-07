@@ -116,6 +116,14 @@ public class Tablero
         return barco;
     }
 
+    private void AddAgua(Coord coord)
+    {
+        if (EsValida(coord) && !Agua.Exists(x => x == coord))
+        {
+            Agua.Add(coord);
+        }
+    }
+
     /// <summary>
     /// Realiza un ataque sobre éste tablero
     /// </summary>
@@ -143,20 +151,56 @@ public class Tablero
             }
         }
 
-        if (!Agua.Exists(x => x == coord))
-        {
-            Agua.Add(coord);
-        }
+        AddAgua(coord);
 
         return ResultadoAtaque.Agua;
     }
 
+    public void Radar(Coord esqSupIzq, Coord esqInfDer)
+    {
+        if (!EsValida(esqSupIzq))
+        {
+            throw new ArgumentOutOfRangeException(nameof(esqSupIzq));
+        }
+
+        if (!EsValida(esqInfDer))
+        {
+            throw new ArgumentOutOfRangeException(nameof(esqInfDer));
+        }
+
+        for (int x = esqSupIzq.X; x <= esqInfDer.X; x++)
+        {
+            for (int y = esqSupIzq.Y; y <= esqInfDer.Y; y++)
+            {
+                var coord = new Coord(x, y);
+                var (celda, barco) = GetCelda(coord);
+                switch (celda)
+                {
+                    case Celda.Agua:
+                    case Celda.Revelado:
+                    case Celda.Tocado:
+                        break;
+                    case Celda.Barco:
+                        if (barco != null)
+                        {
+                            barco.Revelar(coord);
+                        }
+                        break;
+                    case Celda.Vacio:
+                        AddAgua(coord);
+                        break;
+                }
+            }
+        }
+    }
+
     /// <summary>
-    /// Dada una coordenada retorna el estado de la celda en ese punto.
+    /// Dada una coordenada retorna el estado de la celda en ese punto y la
+    /// instancia del barco en esa coordenada (si existe)
     /// </summary>
     /// <param name="coord">La celda a obtener</param>
-    /// <returns>El contenido de la celda</returns>
-    public Celda GetCelda(Coord coord)
+    /// <returns>Una tupla con el estado de la Celda y la posible instancia de Barco</returns>
+    public (Celda celda, Barco? barco) GetCelda(Coord coord)
     {
         if (!EsValida(coord))
         {
@@ -165,7 +209,7 @@ public class Tablero
 
         if (Agua.Exists(x => x == coord))
         {
-            return Celda.Agua;
+            return (Celda.Agua, null);
         }
 
         foreach (var barco in Barcos)
@@ -174,19 +218,19 @@ public class Tablero
             {
                 if (barco.Golpes.Any(x => x == coord))
                 {
-                    return Celda.Tocado;
+                    return (Celda.Tocado, barco);
                 }
 
                 if (barco.Revelados.Any(x => x == coord))
                 {
-                    return Celda.Revelado;
+                    return (Celda.Revelado, barco);
                 }
 
-                return Celda.Barco;
+                return (Celda.Barco, barco);
             }
         }
 
-        return Celda.Vacio;
+        return (Celda.Vacio, null);
     }
 
     /// <summary>
@@ -219,7 +263,7 @@ public class Tablero
 
             for (int x = 0; x < Ancho; x++)
             {
-                builder.AppendFormat("{0}|", getChar(GetCelda(new Coord(x, y))));
+                builder.AppendFormat("{0}|", getChar(GetCelda(new Coord(x, y)).celda));
             }
 
             builder.Append("\n");
@@ -277,4 +321,3 @@ public class Tablero
         });
     }
 }
-
