@@ -1,0 +1,10 @@
+namespace Library;
+
+/// <summary>
+/// Los diferentes resultados posibles de un ataque
+/// </summary>
+public enum Turno
+{
+    JugadorA,
+    JugadorB,
+}
