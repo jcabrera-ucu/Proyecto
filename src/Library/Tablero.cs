@@ -24,7 +24,7 @@ public class Tablero
     public List<Barco> Barcos { get; } = new();
 
     /// <summary>
-    /// Lista de coordenadas que al ser atacadas, dieron "agua"
+    /// Lista de coordenadas, que al ser atacadas, dieron "agua"
     /// </summary>
     public List<Coord> Agua { get; } = new();
 
@@ -89,7 +89,7 @@ public class Tablero
     /// barco ya existente en el tablero
     /// </exception>
     /// <returns>La instancia del Barco creada</returns>
-    public Barco AddBarco(Coord a, Coord b)
+    public Barco AgregarBarco(Coord a, Coord b)
     {
         if (!EsValida(a))
         {
@@ -116,7 +116,14 @@ public class Tablero
         return barco;
     }
 
-    private void AddAgua(Coord coord)
+    /// <summary>
+    /// Inserta una coordenada a la lista de "Agua"
+    /// </summary>
+    /// <param name="coord">
+    /// La coordenada a insertar. Si la coordenada, no es válida, o ya
+    /// existe en "Agua", no hace nada.
+    /// </param>
+    private void AgregarAgua(Coord coord)
     {
         if (EsValida(coord) && !Agua.Exists(x => x == coord))
         {
@@ -151,7 +158,7 @@ public class Tablero
             }
         }
 
-        AddAgua(coord);
+        AgregarAgua(coord);
 
         return ResultadoAtaque.Agua;
     }
@@ -199,7 +206,7 @@ public class Tablero
                         }
                         break;
                     case Celda.Vacio:
-                        AddAgua(coord);
+                        AgregarAgua(coord);
                         break;
                 }
             }
@@ -246,7 +253,7 @@ public class Tablero
     }
 
     /// <summary>
-    /// Crea la representación del tablero en cadena
+    /// Crea la representación del tablero en texto
     /// </summary>
     /// <param name="getChar">Se llama con una 'Celda' y debe devolver
     /// el caracter a presentar en el tablero</param>
