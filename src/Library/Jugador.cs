@@ -2,7 +2,7 @@ namespace Library;
 
 public class Jugador
 {
-    private string Id { get; }
+    public string Id { get; }
     public Tablero Tablero { get; }
     public string Nombre { get; set; }
     private Estadistica Estadistica { get; }
@@ -33,8 +33,8 @@ public class Jugador
             return resultado;
         }
     }
-    public void Radar(Coord esqSupIzq, Coord esqInfDer)
+    public void Radar(Coord centro)
     {
-        this.Tablero.Radar(esqSupIzq, esqInfDer);
+        this.Tablero.Radar(centro);
     }
 }

@@ -93,6 +93,17 @@ public record struct Coord
     }
 
     /// <summary>
+    ///
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public static int Distancia(Coord a, Coord b)
+    {
+        return (b.X - a.X) + (b.Y - a.Y) + 1;
+    }
+
+    /// <summary>
     /// Devuelve una representación de texto del componente X
     /// </summary>
     /// <returns>

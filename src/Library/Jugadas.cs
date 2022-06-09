@@ -1,15 +1,36 @@
 namespace Library;
+
+/// <summary>
+///
+/// </summary>
  public  class Jugada
  {
-     public TipoJugada Tipo { get; }
-     public Coord Coordenada { get; }
-     public string Id { get; }
+    /// <summary>
+    ///
+    /// </summary>
+    public string Id { get; }
 
-     public Jugada(string id, TipoJugada tipo, Coord coord)
-     {
-         Id = id;
-         Tipo = tipo;
-         Coordenada = coord;
-     }
+    /// <summary>
+    ///
+    /// </summary>
+    public TipoJugada Tipo { get; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
+    public Coord Coordenada { get; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="tipo"></param>
+    /// <param name="coord"></param>
+    public Jugada(string id, TipoJugada tipo, Coord coord)
+    {
+        Id = id;
+        Tipo = tipo;
+        Coordenada = coord;
+    }
  }

@@ -214,6 +214,25 @@ public class Tablero
     }
 
     /// <summary>
+    ///
+    /// </summary>
+    /// <param name="longitud"></param>
+    /// <returns></returns>
+    public List<Barco> BarcosConLongitud(int longitud)
+    {
+        return Barcos.FindAll(barco => barco.Count == longitud);
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public List<Barco> BarcosAFlote()
+    {
+        return Barcos.FindAll(barco => !barco.Hundido);
+    }
+
+    /// <summary>
     /// Dada una coordenada retorna el estado de la celda en ese punto y la
     /// instancia del barco en esa coordenada (si existe)
     /// </summary>
