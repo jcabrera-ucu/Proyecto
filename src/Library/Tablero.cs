@@ -156,17 +156,29 @@ public class Tablero
         return ResultadoAtaque.Agua;
     }
 
-    public void Radar(Coord esqSupIzq, Coord esqInfDer)
+    /// <summary>
+    /// Tira el Radar (cuadrícula de 3x3) con centro en 'centro'
+    /// </summary>
+    /// <param name="centro"></param>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si 'coord' no es válidad para las dimensiones del tablero
+    /// </exception>
+    public void Radar(Coord centro)
     {
-        if (!EsValida(esqSupIzq))
+        if (!EsValida(centro))
         {
-            throw new ArgumentOutOfRangeException(nameof(esqSupIzq));
+            throw new ArgumentOutOfRangeException(nameof(centro));
         }
 
-        if (!EsValida(esqInfDer))
-        {
-            throw new ArgumentOutOfRangeException(nameof(esqInfDer));
-        }
+        var esqSupIzq = new Coord(
+            Math.Min(Coord.Min, centro.X - 1),
+            Math.Min(Coord.Min, centro.Y - 1)
+        );
+
+        var esqInfDer = new Coord(
+            Math.Min(Coord.Max, centro.X + 1),
+            Math.Min(Coord.Max, centro.Y + 1)
+        );
 
         for (int x = esqSupIzq.X; x <= esqInfDer.X; x++)
         {
