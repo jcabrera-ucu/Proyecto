@@ -82,7 +82,9 @@ namespace Library
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
 
-            return this.Keywords.Any(s => message.Text.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+            var text = message.Text.Split(' ').FirstOrDefault("");
+
+            return this.Keywords.Any(s => text.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
