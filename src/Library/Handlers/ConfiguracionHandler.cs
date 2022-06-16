@@ -13,7 +13,7 @@ namespace Library
         /// <param name="next">El próximo "handler".</param>
         public ConfiguracionHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] { "chau", "adiós" };
+            this.Keywords = new string[] { "Agregar" };
         }
 
         /// <summary>
@@ -24,14 +24,57 @@ namespace Library
         /// <returns>true si el mensaje fue procesado; false en caso contrario.</returns>
         protected override bool InternalHandle(Message message, out string response)
         {
-            if (this.CanHandle(message))
+            if (CanHandle(message))
             {
-                response = "a";
-                return true;
-            }
+                var coords = LeerCoordenadas.Leer(message.Text);
+                if (coords.Count != 2)
+                {
+                    
+                }
+                var partes = message.Split(" ");
+                if (partes.Count != 3)
+                {
+                    response = string.Empty;
 
-            response = string.Empty;
-            return false;
+                    return false;
+
+                }
+                if (partes[0] != "Agregar")
+                {
+                    response = string.Empty;
+
+                    return false;
+                }
+                try
+                {
+                    var c0 = new Coord(partes[1]);
+                    var c1 = new Coord(partes[2]);
+
+                }
+                catch (ArgumentException e)
+                {
+                    response = "Formato incorrecto";
+                    return true;
+
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    response = "Coordenadas fuera de rango";
+                    return true;
+
+                }
+                catch (Exception e)
+                {
+                    response = "Error inesperado";
+                    return true;
+
+                }
+                catch (EstadoPartidaIncorrect e)
+                {
+                    response = "No se pueden agregar barcos en este momento";
+                    return true;
+                }
+            }
         }
     }
 }
