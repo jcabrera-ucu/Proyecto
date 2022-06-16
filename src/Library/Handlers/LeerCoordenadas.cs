@@ -6,7 +6,7 @@ public class LeerCoordenadas
     {
         var partes = mensaje.Split(' ');
         var coords = new List<Coord>();
-        for (int i = 1; i < partes.Count; i++)
+        for (int i = 1; i < partes.Count(); i++)
         {
             coords.Add(new Coord(partes[i]));
         }

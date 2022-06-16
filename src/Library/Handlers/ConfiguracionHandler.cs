@@ -29,10 +29,12 @@ namespace Library
                 var coords = LeerCoordenadas.Leer(message.Text);
                 if (coords.Count != 2)
                 {
-                    
+                    response = string.Empty;
+                    return false;
+
                 }
-                var partes = message.Split(" ");
-                if (partes.Count != 3)
+                var partes = message.Text.Split(" ");
+                if (partes.Count() != 3)
                 {
                     response = string.Empty;
 
@@ -51,25 +53,28 @@ namespace Library
                     var c1 = new Coord(partes[2]);
 
                 }
-                catch (ArgumentException e)
+                catch (CoordenadaFormatoIncorrecto e)
                 {
-                    response = "Formato incorrecto";
+                    switch (e.Razón)
+                    {
+              
+                        case CoordenadaFormatoIncorrecto.Error.Rango:
+                            response = $"Error de Rango: Las coordenadas {e.Value} estan fuera del tablero";
+                            return true;
+
+                            break;
+                        case CoordenadaFormatoIncorrecto.Error.Sintaxis:
+                        default:
+                            response = $"Error de Sintaxis: El formato de {e.Value} no es correcto";
+                            return true;
+
+                            break;
+                    }
+                    
                     return true;
 
                 }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    response = "Coordenadas fuera de rango";
-                    return true;
-
-                }
-                catch (Exception e)
-                {
-                    response = "Error inesperado";
-                    return true;
-
-                }
-                catch (EstadoPartidaIncorrect e)
+                catch (EstadoPartidaIncorrecto e)
                 {
                     response = "No se pueden agregar barcos en este momento";
                     return true;
