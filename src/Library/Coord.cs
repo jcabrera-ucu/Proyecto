@@ -65,7 +65,7 @@ public record struct Coord
     ///     {Letra}{Número}, donde {Letra} es una letra de la A a la Z y
     ///     {Número} es un número mayor o igual a 1 y menor o igual a 26
     /// </param>
-    /// <exception cref="System.ArgumentException">Si 'coord' no está en formato alfanumérico</exception>
+    /// <exception cref="CoordenadaFormatoIncorrecto">Si 'coord' no está en formato alfanumérico</exception>
     /// <exception cref="System.ArgumentOutOfRangeException">Si Y es menor que Min</exception>
     /// <exception cref="System.ArgumentOutOfRangeException">Si Y es mayor que Max</exception>
     public Coord(string coord)
@@ -74,7 +74,7 @@ public record struct Coord
 
         if (!match.Success)
         {
-            throw new ArgumentException(nameof(coord));
+            throw new CoordenadaFormatoIncorrecto(CoordenadaFormatoIncorrecto.Error.Sintaxis, coord);
         }
 
         var letra = match.Groups[1].Value.ToUpper();
@@ -85,22 +85,11 @@ public record struct Coord
 
         if (y < Min || y > Max)
         {
-            throw new ArgumentOutOfRangeException(nameof(y));
+            throw new CoordenadaFormatoIncorrecto(CoordenadaFormatoIncorrecto.Error.Rango, coord);
         }
 
         X = x;
         Y = y;
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    public static int Distancia(Coord a, Coord b)
-    {
-        return (b.X - a.X) + (b.Y - a.Y) + 1;
     }
 
     /// <summary>
@@ -133,5 +122,16 @@ public record struct Coord
     public string ToAlfanumérico()
     {
         return ToStringX() + ToStringY();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public static int Distancia(Coord a, Coord b)
+    {
+        return (b.X - a.X) + (b.Y - a.Y) + 1;
     }
 }
