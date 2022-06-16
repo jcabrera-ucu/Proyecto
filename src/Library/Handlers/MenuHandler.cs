@@ -4,16 +4,16 @@ namespace Library
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "chau".
     /// </summary>
-    public class InicioHandler : BaseHandler
+    public class MenuHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="InicioHandler"/>. Esta clase procesa el mensaje "chau"
+        /// Inicializa una nueva instancia de la clase <see cref="MenuHandler"/>. Esta clase procesa el mensaje "chau"
         /// y el mensaje "adiós" -un ejemplo de cómo un "handler" puede procesar comandos con sinónimos.
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public InicioHandler(BaseHandler next) : base(next)
+        public MenuHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] { "/start" };
+            this.Keywords = new string[] { "Menu" };
         }
 
         /// <summary>
@@ -26,8 +26,10 @@ namespace Library
         {
             if (this.CanHandle(message))
             {
-                response = "Bienvenido al bot de Batalla Naval del E3\n";
-                response.Append("Para comenzar escriba: Menu");
+                response = "¿Que desea hacer?\n";
+                response.Append("+Estadisticas\n");
+                response.Append("+Buscar Partida\n");
+                response.Append("+Jugar Contra Bot\n");
                 return true;
             }
 
