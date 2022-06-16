@@ -1,19 +1,18 @@
-
 namespace Library
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "chau".
     /// </summary>
-    public class ConfiguracionHandler : BaseHandler
+    public class RadarHandler : BaseHandler
     {
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="ConfiguracionHandler"/>. Esta clase procesa el mensaje "chau"
+        /// Inicializa una nueva instancia de la clase <see cref="RadarHandler"/>. Esta clase procesa el mensaje "chau"
         /// y el mensaje "adiós" -un ejemplo de cómo un "handler" puede procesar comandos con sinónimos.
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public ConfiguracionHandler(BaseHandler next) : base(next)
+        public RadarHandler(BaseHandler next) : base(next)
         {
-            this.Keywords = new string[] { "Agregar" };
+            this.Keywords = new string[] { "Radar" };
         }
 
         /// <summary>
@@ -27,21 +26,21 @@ namespace Library
             if (CanHandle(message))
             {
                 var coords = LeerCoordenadas.Leer(message.Text);
-                if (coords.Count != 2)
+                if (coords.Count != 1)
                 {
                     response = string.Empty;
                     return false;
 
                 }
                 var partes = message.Text.Split(" ");
-                if (partes.Count() != 3)
+                if (partes.Count() != 2)
                 {
                     response = string.Empty;
 
                     return false;
 
                 }
-                if (partes[0] != "Agregar")
+                if (partes[0] != "Atacar")
                 {
                     response = string.Empty;
 
@@ -50,16 +49,15 @@ namespace Library
                 try
                 {
                     var c0 = new Coord(partes[1]);
-                    var c1 = new Coord(partes[2]);
-                    ControladorJuego.AgregarBarco(message.Id, c0, c1);
-                    response = $"Barco agregado {c0.ToAlfanumérico()}-{c1.ToAlfanumérico()}";
+                    var resultado = ControladorJuego.HacerJugada(new Jugada(message.Id, TipoJugada.Radar, c0));
+                    response = $"¡{resultado}!";
                     return true;
                 }
                 catch (CoordenadaFormatoIncorrecto e)
                 {
                     switch (e.Razón)
                     {
-              
+
                         case CoordenadaFormatoIncorrecto.Error.Rango:
                             response = $"Error de Rango: Las coordenadas {e.Value} estan fuera del tablero";
                             return true;
@@ -72,7 +70,7 @@ namespace Library
 
                             break;
                     }
-                    
+
                     return true;
 
                 }
