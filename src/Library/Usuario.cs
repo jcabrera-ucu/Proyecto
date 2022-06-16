@@ -9,7 +9,7 @@ public class Usuario
     /// Guardamo la Id como un string para poder manejarla mejor más adelante.
     /// La Id es pasada por parametro desde Telegram en el constructor de Usuario con el fin de que cada usurio tenga una Id única.
     /// </summary>
-    /// <value>Valor de la Id ovtenida de telegram.</value>
+    /// <value>Valor de la Id obtenida de telegram.</value>
     public string Id { get; set; }
     public Usuario(string id)
     {

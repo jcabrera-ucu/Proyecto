@@ -1,4 +1,5 @@
 namespace Library;
+
 /// <summary>
 /// 
 /// </summary>
@@ -13,7 +14,9 @@ public class MaquinaDeEstado
     {
         Estado = EstadoTelegram.Inicio;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public void CambiarAMenu()
     {
         switch (Estado)
@@ -28,6 +31,9 @@ public class MaquinaDeEstado
                 break;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public void CambiarACreandoBot()
     {
         switch (Estado)
@@ -39,6 +45,9 @@ public class MaquinaDeEstado
                 break;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public void CambiarAJugando()
     {
         switch (Estado)
