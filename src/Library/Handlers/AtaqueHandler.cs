@@ -60,14 +60,10 @@ namespace Library
 
                         case CoordenadaFormatoIncorrecto.Error.Rango:
                             response = $"Error de Rango: Las coordenadas {e.Value} estan fuera del tablero";
-                            return true;
-
                             break;
                         case CoordenadaFormatoIncorrecto.Error.Sintaxis:
                         default:
                             response = $"Error de Sintaxis: El formato de {e.Value} no es correcto";
-                            return true;
-
                             break;
                     }
 
@@ -76,7 +72,7 @@ namespace Library
                 }
                 catch (EstadoPartidaIncorrecto e)
                 {
-                    response = "No se pueden agregar barcos en este momento";
+                    response = "No se puede atacar en este momento";
                     return true;
                 }
             }
