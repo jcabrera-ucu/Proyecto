@@ -26,11 +26,11 @@ namespace Library
             if (this.CanHandle(message))
             {
                 response = $"Estadisticas para usuario {message.Id}\n";
-                response.Append($"+Ha ganado {Usuarios[message.Id].Estadisticas.Victorias} veces\n");
-                response.Append($"+Ha perdido {Usuarios[message.Id].Estadisticas.Derrotas} veces\n");
-                response.Append($"+Ha acertado {Usuarios[message.Id].Estadisticas.Aciertos} veces\n");
-                response.Append($"+Ha fallado {Usuarios[message.Id].Estadisticas.Fallos} veces\n");
-                response.Append($"+Ha hundido {Usuarios[message.Id].Estadisticas.Hundidos} barcos\n");
+                response+=$"+Ha ganado {ListaUsuario.GetInstance().UsuariosExistentes[message.Id].Estadistica.Victorias} veces\n";
+                response+=$"+Ha perdido {ListaUsuario.GetInstance().UsuariosExistentes[message.Id].Estadistica.Derrotas} veces\n";
+                response+=$"+Ha acertado {ListaUsuario.GetInstance().UsuariosExistentes[message.Id].Estadistica.Aciertos} veces\n";
+                response+=$"+Ha fallado {ListaUsuario.GetInstance().UsuariosExistentes[message.Id].Estadistica.Fallos} veces\n";
+                response+=$"+Ha hundido {ListaUsuario.GetInstance().UsuariosExistentes[message.Id].Estadistica.Hundidos} barcos\n";
                 return true;
             }
 

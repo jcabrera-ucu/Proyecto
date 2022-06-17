@@ -11,9 +11,14 @@ public class Usuario
     /// </summary>
     /// <value>Valor de la Id ovtenida de telegram.</value>
     public string Id { get; set; }
-    public Usuario(string id)
+    public Estadistica Estadistica { get; }
+    public string Name { get; set; }
+
+    public Usuario(string id, string name)
     {
+        this.Estadistica = new Estadistica();
         Id = id;
+        this.Name = name;
     }
     /// <summary>
     /// Metodo para tener la posibilídad de volver a setear la Id del usuario.

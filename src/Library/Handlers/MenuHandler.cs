@@ -27,9 +27,9 @@ namespace Library
             if (this.CanHandle(message))
             {
                 response = "¿Que desea hacer?\n";
-                response.Append("+Estadisticas\n");
-                response.Append("+Buscar Partida\n");
-                response.Append("+Jugar Contra Bot\n");
+                response+="+Estadisticas\n";
+                response+="+Buscar Partida\n";
+                response+="+Jugar Contra Bot\n";
                 return true;
             }
 

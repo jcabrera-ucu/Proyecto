@@ -4,5 +4,7 @@ namespace Library
     {
         public string Text;
         public string Id;
+        public string NombreUsuario;
+
     }
 }
