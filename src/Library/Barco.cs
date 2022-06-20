@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Library;
 
 /// <summary>
@@ -35,18 +33,18 @@ public class Barco
     {
         get
         {
-            return Golpes.Count == Count;
+            return Golpes.Count == Largo;
         }
     }
 
     /// <summary>
     /// El largo del barco (cantidad de celdas que ocupa en el tablero)
     /// </summary>
-    public int Count
+    public int Largo
     {
         get
         {
-            return (Segunda.X - Primera.X) + (Segunda.Y - Primera.Y) + 1;
+            return Coord.Largo(Primera, Segunda);
         }
     }
 
@@ -54,17 +52,22 @@ public class Barco
     /// Contruye un barco en disposición horizontal o vertical
     /// </summary>
     /// <remark>
-    /// Para ser válido, ambas coordenadas tiene que tener el mismo componente Y o el 
-    /// mismo componente X.
+    /// Para ser válido, ambas coordenadas tiene que estar "alineadas"
+    /// (<c>Coord.Alineadas(a, b) == true</c>)
     /// </remark>
-    /// <param name="a">La primera coordenada (la más arriba y más a la izquierda)</param>
-    /// <param name="b">La segunda coordenada (la más abajo y más a la derecha)</param>
+    /// <param name="a">La primera coordenada</param>
+    /// <param name="b">La segunda coordenada</param>
     public Barco(Coord a, Coord b)
     {
-        Trace.Assert((a.X == b.X && a.Y <= b.Y) || (a.Y == b.Y && a.X <= b.X));
+        if (!Coord.Alineadas(a, b))
+        {
+            throw new CoordenadasEnDiagonal(a, b);
+        }
 
-        Primera = a;
-        Segunda = b;
+        var (primera, segunda) = Coord.Ordenar(a, b);
+
+        Primera = primera;
+        Segunda = segunda;
     }
 
     /// <summary>

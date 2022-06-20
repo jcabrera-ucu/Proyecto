@@ -65,9 +65,10 @@ public record struct Coord
     ///     {Letra}{Número}, donde {Letra} es una letra de la A a la Z y
     ///     {Número} es un número mayor o igual a 1 y menor o igual a 26
     /// </param>
-    /// <exception cref="CoordenadaFormatoIncorrecto">Si 'coord' no está en formato alfanumérico</exception>
-    /// <exception cref="System.ArgumentOutOfRangeException">Si Y es menor que Min</exception>
-    /// <exception cref="System.ArgumentOutOfRangeException">Si Y es mayor que Max</exception>
+    /// <exception cref="CoordenadaFormatoIncorrecto">
+    /// Si 'coord' no está en formato alfanumérico o si {Número} está fuera
+    /// del rango permitido.
+    /// </exception>
     public Coord(string coord)
     {
         var match = Regex.Match(coord, @"\s*([a-z])\s*(\d{1,2})", RegexOptions.IgnoreCase);
@@ -125,13 +126,70 @@ public record struct Coord
     }
 
     /// <summary>
-    ///
+    /// Verifica si un par de coordenadas están "alineadas".
     /// </summary>
-    /// <param name="a"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
-    public static int Distancia(Coord a, Coord b)
+    /// <remarks>
+    /// Dos coordenadas están alineadas si y solo si tienen la
+    /// misma componente X o la misma componente Y.
+    /// </remarks>
+    /// <param name="a">La primera coordenada del par</param>
+    /// <param name="b">La segunda coordenada del par</param>
+    /// <returns>True si lo cumplen, false si no lo hacen</returns>
+    public static bool Alineadas(Coord a, Coord b)
     {
-        return (b.X - a.X) + (b.Y - a.Y) + 1;
+        return ((a.X == b.X) || (a.Y == b.Y));
+    }
+
+    /// <summary>
+    /// Verifica si un par de coordenadas están "alineadas" y ordenadas
+    /// en la grilla.
+    /// </summary>
+    /// <remarks>
+    /// <p>Dos coordenadas están ordenadas si y solo si los componentes de
+    /// la primera son menor o igual a los componentes de la segunda
+    /// (las Xs y las Ys respectivamentes).
+    /// </p>
+    /// </remarks>
+    /// <param name="a">La primera coordenada del par</param>
+    /// <param name="b">La segunda coordenada del par</param>
+    /// <returns>True si lo cumplen, false si no lo hacen</returns>
+    public static bool AlineadasYOrdenadas(Coord a, Coord b)
+    {
+        return Alineadas(a, b) && (a.X <= b.X && a.Y <= b.Y);
+    }
+
+    /// <summary>
+    /// Dado un par de coordenadas "alineadas", retorna el par ordenado
+    /// de tal forma que cumplan "Coord.AlineadasYOrdenadas()"
+    /// </summary>
+    /// <remarks>
+    /// El orden resultante está indefinido si las coordenadas no están
+    /// "Alineadas"
+    /// </remarks>
+    /// <param name="a">La primera coordenada del par</param>
+    /// <param name="b">La segunda coordenada del par</param>
+    /// <returns>True si lo cumplen, false si no lo hacen</returns>
+    public static (Coord, Coord) Ordenar(Coord a, Coord b)
+    {
+        if (a.X <= b.X && a.Y <= b.Y)
+        {
+            return (a, b);
+        }
+
+        return (b, a);
+    }
+
+    /// <summary>
+    /// Calcula la cantidad de celdas entre dos coordenadas "Alineadas"
+    /// </summary>
+    /// <param name="a">La primera coordenada del par</param>
+    /// <param name="b">La segunda coordenada del par</param>
+    /// <returns>
+    /// La cantidad de celdas ocupadas por ambas coordenadas, o cero en
+    /// caso de que <c>Alineadas(a, b) == false</c>.
+    /// </returns>
+    public static int Largo(Coord a, Coord b)
+    {
+        return Alineadas(a, b) ? (b.X - a.X) + (b.Y - a.Y) + 1 : 0;
     }
 }
