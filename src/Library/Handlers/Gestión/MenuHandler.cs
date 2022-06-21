@@ -24,6 +24,7 @@ public class MenuHandler : BaseHandler
                     "Puede utilizar los siguientes comandos:",
                     ">> estadísticas",
                     ">> buscar partida",
+                    ">> buscar partida con reloj",
                     ">> jugar con bot",
                 };
 

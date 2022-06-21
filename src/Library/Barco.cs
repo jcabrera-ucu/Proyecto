@@ -133,4 +133,9 @@ public class Barco
 
         return false;
     }
+
+    public override string ToString()
+    {
+        return $"{Primera.ToAlfanumérico()}-{Segunda.ToAlfanumérico()}";
+    }
 }

@@ -43,7 +43,7 @@ public class RadarHandler : BasePrefijoHandler
 
             var mensajes = new List<string>()
             {
-                $"¡Radar desplegado!\n{message.Partida.MostrarJugadas(message.Usuario.Id)}",
+                $"¡Radar desplegado!",
             };
 
             mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
@@ -53,6 +53,40 @@ public class RadarHandler : BasePrefijoHandler
         catch (EstadoPartidaIncorrecto)
         {
             response = "No se puede desplegar el radar en este momento";
+            return true;
+        }
+        catch (JugadorIncorrecto)
+        {
+            response = "¡No es tu turno!";
+            return true;
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            response = "¡Coordenada fuera del tablero!";
+            return true;
+        }
+        catch (RadaresAgotados)
+        {
+            response = "¡Ya no te quedan radares!";
+            return true;
+        }
+        catch (CoordenadaFormatoIncorrecto exc)
+        {
+            switch (exc.Razón)
+            {
+                case CoordenadaFormatoIncorrecto.Error.Rango:
+                    response = $"¡Error de rango numérico en: {exc.Value}!";
+                    break;
+                case CoordenadaFormatoIncorrecto.Error.Sintaxis:
+                default:
+                    response = $"¡Error de sintaxis en: {exc.Value}!";
+                    break;
+            }
+            return true;
+        }
+        catch (Exception)
+        {
+            response = $"¡Error inesperado, intente nuevamente!";
             return true;
         }
     }

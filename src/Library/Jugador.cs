@@ -62,7 +62,8 @@ public class Jugador
         get
         {
             // FIXME: Esta lista debería ser configurable.
-            var opciones = new List<int> { 2, 3, 4, 5 };
+            //var opciones = new List<int> { 2, 3, 4, 5 };
+            var opciones = new List<int> { 2 };
 
             foreach (var barco in Tablero.Barcos)
             {
@@ -104,12 +105,20 @@ public class Jugador
     /// <exception cref="BarcoYaExiste">
     /// Si se intenta agregar un barco de un tamaño que ya existe en el tablero
     /// </exception>
+    /// <exception cref="CoordenadasNoAlineadas">
+    /// Si las coordenadas no están alineadas
+    /// </exception>
     /// <exception cref="System.ArgumentOutOfRangeException">
     /// Si alguna de las coordenadas no son válidas para el tablero
     /// </exception>
     /// <returns>La instancia del barco que fue creado</returns>
     public Barco AgregarBarco(Coord coordA, Coord coordB)
     {
+        if (!Coord.Alineadas(coordA, coordB))
+        {
+            throw new CoordenadasNoAlineadas(coordA, coordB);
+        }
+
         var longitud = Coord.Largo(coordA, coordB);
 
         if (BarcosFaltantes.Contains(longitud))
@@ -154,7 +163,14 @@ public class Jugador
     /// <returns>El resultado del ataque</returns>
     public ResultadoAtaque AtacarJugador(Jugador oponente, Coord coord)
     {
+        var oponenteEstabaEnJuego = oponente.SigueEnJuego;
+
         var resultadoAtaque = oponente.RecibirAtaque(coord);
+
+        if (SigueEnJuego && oponenteEstabaEnJuego && !oponente.SigueEnJuego)
+        {
+            Estadistica.Victorias++;
+        }
 
         switch (resultadoAtaque)
         {
@@ -201,7 +217,16 @@ public class Jugador
     /// <returns>El resultado del ataque</returns>
     public ResultadoAtaque RecibirAtaque(Coord coord)
     {
-        return Tablero.Atacar(coord);
+        var estabaEnJuego = SigueEnJuego;
+
+        var resultado = Tablero.Atacar(coord);
+
+        if (estabaEnJuego && !SigueEnJuego)
+        {
+            Estadistica.Derrotas++;
+        }
+
+        return resultado;
     }
 
     /// <summary>

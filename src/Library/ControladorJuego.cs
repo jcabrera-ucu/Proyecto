@@ -1,11 +1,16 @@
 namespace Library;
 
 /// <summary>
-/// Controlador del juego, implementa la máquina de estados para
+/// Controlador del juego, implementa el flujo de juego para
 /// la batalla naval.
 /// </summary>
 public class ControladorJuego
 {
+    /// <summary>
+    /// Estado actual del flujo del juego.
+    /// </summary>
+    public EstadoPartida Estado { get; private set; }
+
     /// <summary>
     /// Primer jugador.
     /// </summary>
@@ -17,49 +22,51 @@ public class ControladorJuego
     public Jugador JugadorB { get; }
 
     /// <summary>
-    ///
+    /// Construye un controlador de juego.
     /// </summary>
-    public EstadoPartida Estado { get; private set; }
-
-    // /// <summary>
-    // ///
-    // /// </summary>
-    // /// <returns></returns>
-    // TimeSpan relojJugadorA = new TimeSpan();
-
-    // /// <summary>
-    // ///
-    // /// </summary>
-    // /// <returns></returns>
-    // TimeSpan relojJugadorB = new TimeSpan();
-
-    public ControladorJuego(int ancho, int alto)
+    /// <remarks>
+    /// Ambos jugadores deben ser compatibles, o sea, deben tener
+    /// </remarks>
+    /// <param name="jugadorA">Instancia del primer jugador</param>
+    /// <param name="jugadorB">Instancia del segundo jugador</param>
+    public ControladorJuego(Jugador jugadorA, Jugador jugadorB)
     {
-        JugadorA = new Jugador("A", "JugadorA", new Tablero(ancho, alto));
-        JugadorB = new Jugador("B", "JugadorB", new Tablero(ancho, alto));
+        if (jugadorA.Tablero.Ancho != jugadorB.Tablero.Ancho
+            || jugadorA.Tablero.Alto != jugadorB.Tablero.Alto)
+        {
+            throw new InvalidOperationException();
+        }
 
         Estado = EstadoPartida.Configuración;
+        JugadorA = jugadorA;
+        JugadorB = jugadorB;
     }
 
-    public Jugador? ObtenerJugadorPorId(string id)
+    /// <summary>
+    /// Instancia de un jugador según su Id.
+    /// </summary>
+    /// <param name="id">Id del jugador a obtener</param>
+    /// <returns>Instancia del jugador correspondiente, o null si no existe</returns>
+    public Jugador? ObtenerJugadorPorId(Ident id)
     {
         if (JugadorA.Id == id)
         {
             return JugadorA;
         }
-        else if (JugadorB.Id == id)
+
+        if (JugadorB.Id == id)
         {
             return JugadorB;
         }
-        else
-        {
-            return null;
-        }
+
+        return null;
     }
 
 
     /// <summary>
-    ///
+    /// La instancia del jugador a quien le corresponde jugar
+    /// en el turno actual. Puede ser null si no es el turno de
+    /// ningún jugador.
     /// </summary>
     public Jugador? JugadorActual
     {
@@ -78,7 +85,9 @@ public class ControladorJuego
     }
 
     /// <summary>
-    ///
+    /// La instancia del jugador a quien le corresponde ser
+    /// "atacado" en el turno actual. Puede ser null si no es el turno de
+    /// ningún jugador.
     /// </summary>
     public Jugador? OponenteActual
     {
@@ -97,42 +106,73 @@ public class ControladorJuego
     }
 
     /// <summary>
-    ///
+    /// Instancia del jugador que ganó la partida. Si no hay ningún
+    /// ganador aún, retorna null.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="coordA"></param>
-    /// <param name="coordB"></param>
-    public void AgregarBarco(string id, Coord coordA, Coord coordB)
+    public Jugador? Ganador
+    {
+        get
+        {
+            switch (Estado)
+            {
+                case EstadoPartida.Terminado:
+                case EstadoPartida.TerminadoPorReloj:
+                    if (JugadorA.SigueEnJuego)
+                        return JugadorA;
+                    return JugadorB;
+                default:
+                    return null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Instancia del jugador que perdió la partida. Si no hay ningún
+    /// perdedor aún, retorna null.
+    /// </summary>
+    public Jugador? Perdedor
+    {
+        get
+        {
+            switch (Estado)
+            {
+                case EstadoPartida.Terminado:
+                case EstadoPartida.TerminadoPorReloj:
+                    if (JugadorA.SigueEnJuego)
+                        return JugadorB;
+                    return JugadorA;
+                default:
+                    return null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Crea un nuevo barco
+    /// </summary>
+    /// <param name="id">Identificador del jugador que desea crear un barco</param>
+    /// <param name="coordA">Primera coordenada del barco</param>
+    /// <param name="coordB">Segunda coordenada del barco</param>
+    public void AgregarBarco(Ident id, Coord coordA, Coord coordB)
     {
         if (Estado != EstadoPartida.Configuración)
         {
-            throw new Exception("Hola");
+            throw new EstadoPartidaIncorrecto(
+                esperado: EstadoPartida.Configuración,
+                encontrado: Estado
+            );
         }
 
         var jugador = ObtenerJugadorPorId(id);
-        if (jugador == null)
+        if (jugador != null)
         {
-            throw new Exception("Hola");
+            jugador.AgregarBarco(coordA, coordB);
         }
 
-        var longitud = Coord.Distancia(coordA, coordB);
-        if (2 <= longitud && longitud <= 5)
+        if (JugadorA.BarcosFaltantes.Count == 0
+            && JugadorB.BarcosFaltantes.Count == 0)
         {
-            var barcos = jugador.Tablero.BarcosConLongitud(longitud);
-            if (barcos.Count == 0)
-            {
-                jugador.Tablero.AgregarBarco(coordA, coordB);
-            }
-            else
-            {
-                throw new Exception("hola");
-            }
-        }
-
-        if (JugadorA.Tablero.Barcos.Count == 4 &&
-            JugadorB.Tablero.Barcos.Count == 4)
-        {
-            Estado = EstadoPartida.TurnoJugadorA;
+            SiguienteTurno();
         }
     }
 
@@ -142,11 +182,12 @@ public class ControladorJuego
         {
             case EstadoPartida.TurnoJugadorA:
                 Estado = EstadoPartida.TurnoJugadorB;
+                JugadorB.IniciarTurno();
                 break;
             case EstadoPartida.TurnoJugadorB:
-                Estado = EstadoPartida.TurnoJugadorA;
-                break;
             default:
+                Estado = EstadoPartida.TurnoJugadorA;
+                JugadorA.IniciarTurno();
                 break;
         }
     }
@@ -157,41 +198,112 @@ public class ControladorJuego
     /// <param name="jugada"></param>
     public ResultadoJugada HacerJugada(Jugada jugada)
     {
-        if (JugadorActual == null || jugada.Id != JugadorActual.Id)
+        var jugador = JugadorActual;
+        var oponente = OponenteActual;
+
+        if (jugador == null || oponente == null)
         {
-            throw new Exception ("Turno equivocado");
+            throw new EstadoPartidaIncorrecto(
+                esperados: new EstadoPartida[] {
+                    EstadoPartida.TurnoJugadorA,
+                    EstadoPartida.TurnoJugadorB,
+                },
+                encontrado: Estado
+            );
+        }
+
+        if (jugada.Id != jugador.Id)
+        {
+            throw new JugadorIncorrecto(jugada.Id);
+        }
+
+        switch (jugada.Tipo)
+        {
+            case TipoJugada.Ataque:
+                jugador.TerminarTurno();
+
+                if (!jugador.SigueEnJuegoReloj)
+                {
+                    Estado = EstadoPartida.TerminadoPorReloj;
+                    return ResultadoJugada.TerminadoPorReloj;
+                }
+
+                var resultadoAtaque = jugador.AtacarJugador(oponente, jugada.Coordenada);
+
+                if (!oponente.SigueEnJuego)
+                {
+                    Estado = EstadoPartida.Terminado;
+                }
+                else
+                {
+                    SiguienteTurno();
+                }
+
+                switch (resultadoAtaque)
+                {
+                    case ResultadoAtaque.Agua:
+                        return ResultadoJugada.Agua;
+                    case ResultadoAtaque.Hundido:
+                        return ResultadoJugada.Hundido;
+                    case ResultadoAtaque.Tocado:
+                        return ResultadoJugada.Tocado;
+                    default:
+                        throw new InvalidOperationException();
+                }
+            case TipoJugada.Radar:
+                jugador.LanzarRadar(oponente, jugada.Coordenada);
+
+                jugador.TerminarTurno();
+
+                if (!jugador.SigueEnJuegoReloj)
+                {
+                    Estado = EstadoPartida.TerminadoPorReloj;
+                    return ResultadoJugada.TerminadoPorReloj;
+                }
+
+                SiguienteTurno();
+
+                return ResultadoJugada.RadarDesplegado;
+            default:
+                throw new InvalidOperationException();
+        }
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="idJugador"></param>
+    /// <returns></returns>
+    public string MostrarTablero(Ident idJugador)
+    {
+        var jugador = ObtenerJugadorPorId(idJugador);
+
+        if (jugador == null)
+        {
+            throw new JugadorIncorrecto(idJugador);
+        }
+
+        return jugador.Tablero.ImprimirBarcos();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="idJugador"></param>
+    /// <returns></returns>
+    public string MostrarJugadas(Ident idJugador)
+    {
+        if (idJugador == JugadorA.Id)
+        {
+            return JugadorB.Tablero.ImprimirJugadas();
+        }
+        else if (idJugador == JugadorB.Id)
+        {
+            return JugadorA.Tablero.ImprimirJugadas();
         }
         else
         {
-            switch(jugada.Tipo)
-            {
-                case TipoJugada.Ataque:
-                    var resultadoAtaque = OponenteActual.Atacar(jugada.Coordenada);
-                    var barcosRestantes = OponenteActual.Tablero.BarcosAFlote();
-                    if (barcosRestantes.Count == 0)
-                    {
-                        Estado = EstadoPartida.Terminado;
-                    }
-                    SiguienteTurno();
-                    switch (resultadoAtaque)
-                    {
-                        case ResultadoAtaque.Agua:
-                            return ResultadoJugada.Agua;
-                        case ResultadoAtaque.Hundido:
-                            return ResultadoJugada.Hundido;
-                        case ResultadoAtaque.Tocado:
-                            return ResultadoJugada.Tocado;
-                        default:
-                            throw new Exception("Hola");
-                    }
-                case TipoJugada.Radar:
-                    OponenteActual.Radar(jugada.Coordenada);
-                    SiguienteTurno();
-                    return ResultadoJugada.RadarDesplegado;
-                default:
-                    throw new Exception("Hola");
-            }
+            throw new JugadorIncorrecto(idJugador);
         }
     }
 }
-

@@ -1,12 +1,12 @@
 namespace Library;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public class MaquinaDeEstado
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <value></value>
     public EstadoTelegram Estado { get; private set; }
@@ -15,7 +15,7 @@ public class MaquinaDeEstado
         Estado = EstadoTelegram.Inicio;
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public void CambiarAMenu()
     {
@@ -32,7 +32,7 @@ public class MaquinaDeEstado
         }
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public void CambiarACreandoBot()
     {
@@ -46,7 +46,7 @@ public class MaquinaDeEstado
         }
     }
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public void CambiarAJugando()
     {
@@ -63,6 +63,4 @@ public class MaquinaDeEstado
         }
 
     }
-
-
 }
