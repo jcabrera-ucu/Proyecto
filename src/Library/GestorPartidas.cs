@@ -6,22 +6,35 @@ namespace Library;
 public class GestorPartidas
 {
     /// <summary>
-    ///
+    /// Diccionario que asocia a cada usuario con su partida
     /// </summary>
-    /// <typeparam name="Usuario"></typeparam>
-    /// <typeparam name="ControladorJuego"></typeparam>
-    /// <returns></returns>
     public Dictionary<Usuario, ControladorJuego> Partidas { get; private set; }
 
+    /// <summary>
+    /// Una referencia a un Usuario que está actualmente buscando partida, puede ser null
+    /// </summary>
     public Usuario? EnEspera { get; private set; }
 
+    /// <summary>
+    /// Una referencia a un Usuario que está actualmente buscando partida con reloj,
+    /// puede ser null
+    /// </summary>
     public Usuario? EnEsperaConReloj { get; private set; }
 
+    /// <summary>
+    /// Construye un gestor vacío
+    /// </summary>
     public GestorPartidas()
     {
         Partidas = new();
     }
 
+    /// <summary>
+    /// Busca una partida
+    /// </summary>
+    /// <param name="usuario">Usuario que busca la partida</param>
+    /// <param name="conReloj">True si es un partida con reloj</param>
+    /// <returns>Retorna una instancia de la partida, retorna null si no encontró oponente.</returns>
     public ControladorJuego? BuscarNuevaPartida(Usuario usuario, bool conReloj = false)
     {
         if (conReloj)
@@ -99,12 +112,12 @@ public class GestorPartidas
     }
 
     /// <summary>
-    ///
+    /// Asocia una partida y sus jugadores
     /// </summary>
-    /// <param name="usuario1"></param>
-    /// <param name="usuario2"></param>
-    /// <param name="controladorJuego"></param>
-    public void AgregarPartida(Usuario usuario1, Usuario usuario2, ControladorJuego controladorJuego)
+    /// <param name="usuario1">Usuario de la partida</param>
+    /// <param name="usuario2">Usuario de la partida</param>
+    /// <param name="controladorJuego">La partida de los usuarios</param>
+    private void AgregarPartida(Usuario usuario1, Usuario usuario2, ControladorJuego controladorJuego)
     {
         Partidas.Add(usuario1, controladorJuego);
         Partidas.Add(usuario2, controladorJuego);
