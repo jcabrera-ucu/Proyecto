@@ -78,11 +78,21 @@ public class JuegoConsola
                         Partida = GestorPartidas.ObtenerPartida(UsuarioActual),
                     };
 
-                    chain.Handle(message, out response);
+                    try
+                    {
+                        chain.Handle(message, out response);
 
-                    Console.WriteLine();
-                    Console.WriteLine(response);
-                    Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine(response);
+                        Console.WriteLine();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("¡Error inesperado!");
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine();
+                    }
 
                     Estadísticas.Guardar();
                 }

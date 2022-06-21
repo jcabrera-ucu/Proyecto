@@ -220,6 +220,8 @@ public class ControladorJuego
         switch (jugada.Tipo)
         {
             case TipoJugada.Ataque:
+                var resultadoAtaque = jugador.AtacarJugador(oponente, jugada.Coordenada);
+
                 jugador.TerminarTurno();
 
                 if (!jugador.SigueEnJuegoReloj)
@@ -227,8 +229,6 @@ public class ControladorJuego
                     Estado = EstadoPartida.TerminadoPorReloj;
                     return ResultadoJugada.TerminadoPorReloj;
                 }
-
-                var resultadoAtaque = jugador.AtacarJugador(oponente, jugada.Coordenada);
 
                 if (!oponente.SigueEnJuego)
                 {
