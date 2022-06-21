@@ -105,12 +105,12 @@ public class BarcoTests
     [Test]
     public void BarcoCount()
     {
-        Assert.AreEqual(1, new Barco(new Coord(1, 0), new Coord(1, 0)).Count);
-        Assert.AreEqual(2, new Barco(new Coord(1, 0), new Coord(2, 0)).Count);
-        Assert.AreEqual(5, new Barco(new Coord(1, 0), new Coord(5, 0)).Count);
+        Assert.AreEqual(1, new Barco(new Coord(1, 0), new Coord(1, 0)).Largo);
+        Assert.AreEqual(2, new Barco(new Coord(1, 0), new Coord(2, 0)).Largo);
+        Assert.AreEqual(5, new Barco(new Coord(1, 0), new Coord(5, 0)).Largo);
 
-        Assert.AreEqual(2, new Barco(new Coord(1, 0), new Coord(1, 1)).Count);
-        Assert.AreEqual(5, new Barco(new Coord(1, 0), new Coord(1, 4)).Count);
+        Assert.AreEqual(2, new Barco(new Coord(1, 0), new Coord(1, 1)).Largo);
+        Assert.AreEqual(5, new Barco(new Coord(1, 0), new Coord(1, 4)).Largo);
     }
 
     [Test]
