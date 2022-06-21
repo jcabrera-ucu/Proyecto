@@ -6,4 +6,5 @@ public enum ResultadoJugada
     Hundido,
     Agua,
     RadarDesplegado,
+    TerminadoPorReloj,
 }
