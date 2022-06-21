@@ -33,7 +33,14 @@ public class BuscarPartidaConRelojHandler : BaseHandler
             }
             else
             {
-                response = "¡Que comience la batalla!";
+                var mensajes = new List<string>()
+                {
+                    "¡Que comience la batalla!",
+                };
+
+                mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, partida));
+
+                response = String.Join('\n', mensajes);
                 return true;
             }
         }

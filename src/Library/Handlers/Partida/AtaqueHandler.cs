@@ -6,10 +6,10 @@ public class AtaqueHandler : BasePrefijoHandler
         : base(next)
     {
         this.Keywords = new string[] {
-                "atacar",
-                "at",
-                "a",
-            };
+            "atacar",
+            "at",
+            "a",
+        };
     }
 
     protected override bool InternalHandle(Message message, out string response)
