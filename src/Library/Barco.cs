@@ -57,11 +57,14 @@ public class Barco
     /// </remark>
     /// <param name="a">La primera coordenada</param>
     /// <param name="b">La segunda coordenada</param>
+    /// <exception cref="CoordenadasNoAlineadas">
+    /// Cuando las coordenadas no están alineadas.
+    /// </exception>
     public Barco(Coord a, Coord b)
     {
         if (!Coord.Alineadas(a, b))
         {
-            throw new CoordenadasEnDiagonal(a, b);
+            throw new CoordenadasNoAlineadas(a, b);
         }
 
         var (primera, segunda) = Coord.Ordenar(a, b);

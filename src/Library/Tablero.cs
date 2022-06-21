@@ -76,8 +76,8 @@ public class Tablero
     /// <summary>
     /// Agrega un nuevo Barco al tablero
     /// </summary>
-    /// <param name="a">Coordenada de inicio del barco (más arriba y más a la izquierda)</param>
-    /// <param name="b">Coordenada de fin del barco (más abajo y más a la derecha)</param>
+    /// <param name="a">Coordenada de inicio del barco</param>
+    /// <param name="b">Coordenada de fin del barco</param>
     /// <exception cref="System.ArgumentOutOfRangeException">
     /// Si 'a' no es válidad para las dimensiones del tablero
     /// </exception>
@@ -166,7 +166,7 @@ public class Tablero
     /// <summary>
     /// Tira el Radar (cuadrícula de 3x3) con centro en 'centro'
     /// </summary>
-    /// <param name="centro"></param>
+    /// <param name="centro">El centro de acción del radar</param>
     /// <exception cref="System.ArgumentOutOfRangeException">
     /// Si 'coord' no es válidad para las dimensiones del tablero
     /// </exception>
@@ -178,8 +178,8 @@ public class Tablero
         }
 
         var esqSupIzq = new Coord(
-            Math.Min(Coord.Min, centro.X - 1),
-            Math.Min(Coord.Min, centro.Y - 1)
+            Math.Max(Coord.Min, centro.X - 1),
+            Math.Max(Coord.Min, centro.Y - 1)
         );
 
         var esqInfDer = new Coord(
@@ -220,7 +220,7 @@ public class Tablero
     /// <returns></returns>
     public List<Barco> BarcosConLongitud(int longitud)
     {
-        return Barcos.FindAll(barco => barco.Count == longitud);
+        return Barcos.FindAll(barco => barco.Largo == longitud);
     }
 
     /// <summary>
