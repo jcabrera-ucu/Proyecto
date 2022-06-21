@@ -135,6 +135,9 @@ public class Tablero
     /// Realiza un ataque sobre éste tablero
     /// </summary>
     /// <param name="coord">La coordenada a atacar</param>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si la coordenada no es válida para el tablero
+    /// </exception>
     /// <returns>El restulado del ataque</returns>
     public ResultadoAtaque Atacar(Coord coord)
     {
@@ -214,19 +217,9 @@ public class Tablero
     }
 
     /// <summary>
-    ///
+    /// Obtiene una lista con los barcos que aún no han sido hundidos
     /// </summary>
-    /// <param name="longitud"></param>
-    /// <returns></returns>
-    public List<Barco> BarcosConLongitud(int longitud)
-    {
-        return Barcos.FindAll(barco => barco.Largo == longitud);
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <returns></returns>
+    /// <returns>Lista de barcos</returns>
     public List<Barco> BarcosAFlote()
     {
         return Barcos.FindAll(barco => !barco.Hundido);
