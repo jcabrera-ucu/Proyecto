@@ -1,10 +1,18 @@
 namespace Library
 {
-    public class Message
+    public struct Message
     {
-        public string Text;
-        public string Id;
-        public string NombreUsuario;
+        public string Text { get; set; } = String.Empty;
 
+        public Usuario Usuario { get; set; }
+
+        public ControladorJuego? Partida { get; set; }
+
+        public Message(string texto, Usuario usuario, ControladorJuego? partida)
+        {
+            Text = texto;
+            Usuario = usuario;
+            Partida = partida;
+        }
     }
 }

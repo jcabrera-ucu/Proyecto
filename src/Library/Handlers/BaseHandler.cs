@@ -16,7 +16,7 @@ namespace Library
         /// Obtiene el próximo "handler".
         /// </summary>
         /// <value>El "handler" que será invocado si este "handler" no procesa el mensaje.</value>
-        public IHandler Next { get; set; }
+        public IHandler? Next { get; set; }
 
         /// <summary>
         /// Obtiene o asigna el conjunto de palabras clave que este "handler" puede procesar.
@@ -28,8 +28,9 @@ namespace Library
         /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>.
         /// </summary>
         /// <param name="next">El próximo "handler".</param>
-        public BaseHandler(IHandler next)
+        public BaseHandler(IHandler? next)
         {
+            this.Keywords = new string[] { };
             this.Next = next;
         }
 
@@ -38,7 +39,7 @@ namespace Library
         /// </summary>
         /// <param name="keywords">La lista de comandos.</param>
         /// <param name="next">El próximo "handler".</param>
-        public BaseHandler(string[] keywords, IHandler next)
+        public BaseHandler(string[] keywords, IHandler? next)
         {
             this.Keywords = keywords;
             this.Next = next;
@@ -82,9 +83,7 @@ namespace Library
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
 
-            var text = message.Text.Split(' ').FirstOrDefault("");
-
-            return this.Keywords.Any(s => text.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+            return this.Keywords.Any(s => message.Text.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace Library
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Handle(Message message, out string response)
+        public IHandler? Handle(Message message, out string response)
         {
             if (this.InternalHandle(message, out response))
             {
