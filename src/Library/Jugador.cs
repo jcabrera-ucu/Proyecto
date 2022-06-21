@@ -1,33 +1,215 @@
 namespace Library;
 
+/// <summary>
+/// Información y estado de un jugador.
+/// </summary>
 public class Jugador
 {
-    public Tablero Tablero { get; }
-    public string Id { get; set; }
+    /// <summary>
+    /// Identificador único
+    /// </summary>
+    public Ident Id { get; }
 
-    public Jugador(string id, string nombre, Tablero tablero)
+    /// <summary>
+    /// Tablero de juego
+    /// </summary>
+    public Tablero Tablero { get; }
+
+    /// <summary>
+    /// El reloj de juego del jugador, puede no tener uno (null)
+    /// </summary>
+    public Reloj? Reloj { get; }
+
+    /// <summary>
+    /// Cantidad de Radares que aún puede desplegar.
+    /// </summary>
+    public int RadaresDisponibles { get; private set; }
+
+    /// <summary>
+    /// Estadísticas globales del jugador.
+    /// </summary>
+    private Estadistica Estadistica { get; }
+
+    /// <summary>
+    /// True si el Jugador aún no ha perdido, false en caso contrario
+    /// </summary>
+    public bool SigueEnJuego
     {
-        this.Id = id;
-        this.Tablero = tablero;
-    }
-    public ResultadoAtaque Atacar(Coord coord)
-    {
-        ResultadoAtaque resultado = this.Tablero.Atacar(coord);
-        if (resultado == ResultadoAtaque.Agua)
+        get
         {
-            return resultado;
+            return SigueEnJuegoReloj && Tablero.BarcosAFlote().Count != 0;
         }
-        else if (resultado == ResultadoAtaque.Tocado)
+    }
+
+    /// <summary>
+    /// True si el Jugador aún tiene tiempo disponible en el reloj,
+    /// false en caso contrario
+    /// </summary>
+    public bool SigueEnJuegoReloj
+    {
+        get
         {
-            return resultado;
+            return Reloj != null ? Reloj.Activo : true;
+        }
+    }
+
+    /// <summary>
+    /// Lista con los "largos" de barcos que aún faltan por
+    /// configurar en el tablero.
+    /// </summary>
+    public List<int> BarcosFaltantes
+    {
+        get
+        {
+            // FIXME: Esta lista debería ser configurable.
+            var opciones = new List<int> { 2, 3, 4, 5 };
+
+            foreach (var barco in Tablero.Barcos)
+            {
+                opciones.Remove(barco.Largo);
+            }
+
+            return opciones;
+        }
+    }
+
+    /// <summary>
+    /// Construye un jugador
+    /// </summary>
+    /// <param name="id">Identificador único para el jugador</param>
+    /// <param name="tablero">Instancia de tablero del jugador</param>
+    /// <param name="reloj">Reloj del jugador, puede ser nulo</param>
+    /// <param name="estadistica">Estadísticas del jugador</param>
+    public Jugador(Ident id,
+                   Tablero tablero,
+                   Reloj? reloj,
+                   int radaresDisponibles,
+                   Estadistica estadistica)
+    {
+        Id = id;
+        Tablero = tablero;
+        Reloj = reloj;
+        RadaresDisponibles = radaresDisponibles;
+        Estadistica = estadistica;
+    }
+
+    /// <summary>
+    /// Agrega un barco al tablero
+    /// </summary>
+    /// <param name="coordA">Primera coordenada del barco</param>
+    /// <param name="coordB">Segunda coordenada del barco</param>
+    /// <exception cref="BarcosSuperpuestosException">
+    /// Si se intenta agregar un barco que intersecta otro ya existente
+    /// </exception>
+    /// <exception cref="BarcoYaExiste">
+    /// Si se intenta agregar un barco de un tamaño que ya existe en el tablero
+    /// </exception>
+    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// Si alguna de las coordenadas no son válidas para el tablero
+    /// </exception>
+    /// <returns>La instancia del barco que fue creado</returns>
+    public Barco AgregarBarco(Coord coordA, Coord coordB)
+    {
+        var longitud = Coord.Largo(coordA, coordB);
+
+        if (BarcosFaltantes.Contains(longitud))
+        {
+            return Tablero.AgregarBarco(coordA, coordB);
         }
         else
         {
-            return resultado;
+            throw new BarcoYaExiste(longitud);
         }
     }
-    public void Radar(Coord centro)
+
+    /// <summary>
+    /// Éste método debe ser llamado al iniciar el turno de éste jugador,
+    /// se encarga de controlar el reloj de juego.
+    /// </summary>
+    public void IniciarTurno()
     {
-        this.Tablero.Radar(centro);
+        if (Reloj != null)
+        {
+            Reloj.Iniciar();
+        }
+    }
+
+    /// <summary>
+    /// Éste método debe ser llamado al finalizar el turno de éste jugador,
+    /// se encarga de controlar el reloj de juego.
+    /// </summary>
+    public void TerminarTurno()
+    {
+        if (Reloj != null)
+        {
+            Reloj.Terminar();
+        }
+    }
+
+    /// <summary>
+    /// Realiza un ataque sobre otro jugador, y actualiza las estadísticas.
+    /// </summary>
+    /// <param name="oponente">Jugador al cual enviar el ataque</param>
+    /// <param name="coord">Coordenada a atacar</param>
+    /// <returns>El resultado del ataque</returns>
+    public ResultadoAtaque AtacarJugador(Jugador oponente, Coord coord)
+    {
+        var resultadoAtaque = oponente.RecibirAtaque(coord);
+
+        switch (resultadoAtaque)
+        {
+            case ResultadoAtaque.Agua:
+                Estadistica.Fallos++;
+                break;
+            case ResultadoAtaque.Tocado:
+                Estadistica.Aciertos++;
+                break;
+            case ResultadoAtaque.Hundido:
+                Estadistica.Hundidos++;
+                break;
+            default:
+                break;
+        }
+
+        return resultadoAtaque;
+    }
+
+    /// <summary>
+    /// Lanza el radar sobre un oponente
+    /// </summary>
+    /// <param name="oponente">Jugador al cual lanzarle el radar</param>
+    /// <param name="coord">Coordenada sobre la cual desplegar el radar</param>
+    public void LanzarRadar(Jugador oponente, Coord coord)
+    {
+        if (RadaresDisponibles > 0)
+        {
+            oponente.RecibirRadar(coord);
+            RadaresDisponibles--;
+
+            Estadistica.Radares += 1;
+        }
+        else
+        {
+            throw new RadaresAgotados();
+        }
+    }
+
+    /// <summary>
+    /// Recibir el ataque de otro jugador
+    /// </summary>
+    /// <param name="coord">Coordenada atacada</param>
+    /// <returns>El resultado del ataque</returns>
+    public ResultadoAtaque RecibirAtaque(Coord coord)
+    {
+        return Tablero.Atacar(coord);
+    }
+
+    /// <summary>
+    /// Recibir el radar de otro jugador
+    /// </summary>
+    /// <param name="centro">Coordenada del centro de acción del radar</param>
+    public void RecibirRadar(Coord centro)
+    {
+        Tablero.Radar(centro);
     }
 }
