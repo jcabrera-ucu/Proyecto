@@ -46,5 +46,7 @@ public class JugadorTests
         Assert.AreEqual(1, j0.Estadistica.Fallos);
         Assert.AreEqual(ResultadoAtaque.Hundido, j0.AtacarJugador(j1, new Coord(0, 2)));
         Assert.AreEqual(1, j0.Estadistica.Hundidos);
+        Assert.AreEqual(1, j0.Estadistica.Victorias);
+        Assert.AreEqual(1, j1.Estadistica.Derrotas);
     }
 }
