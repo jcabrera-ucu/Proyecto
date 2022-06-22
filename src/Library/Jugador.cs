@@ -28,7 +28,7 @@ public class Jugador
     /// <summary>
     /// Estadísticas globales del jugador.
     /// </summary>
-    private Estadistica Estadistica { get; }
+    public Estadistica Estadistica { get; }
 
     /// <summary>
     /// True si el Jugador aún no ha perdido, false en caso contrario
@@ -62,8 +62,7 @@ public class Jugador
         get
         {
             // FIXME: Esta lista debería ser configurable.
-            //var opciones = new List<int> { 2, 3, 4, 5 };
-            var opciones = new List<int> { 2 };
+            var opciones = new List<int> { 2, 3, 4, 5 };
 
             foreach (var barco in Tablero.Barcos)
             {
