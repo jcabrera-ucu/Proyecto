@@ -47,7 +47,7 @@ public class TableroTests
         var t = new Tablero();
         var c0 = new Coord(x0, y0);
         var c1 = new Coord(x1, y1);
-        var b = t.AddBarco(c0, c1);
+        var b = t.AgregarBarco(c0, c1);
 
         Assert.AreEqual(c0, b.Primera);
         Assert.AreEqual(c1, b.Segunda);
@@ -60,14 +60,14 @@ public class TableroTests
     {
         var t = new Tablero();
 
-        t.AddBarco(new Coord(1, 1), new Coord(1, 3));
+        t.AgregarBarco(new Coord(1, 1), new Coord(1, 3));
 
         var c0 = new Coord(x0, y0);
         var c1 = new Coord(x1, y1);
 
         Assert.Throws<BarcosSuperpuestosException>(() =>
         {
-            var b = t.AddBarco(c0, c1);
+            var b = t.AgregarBarco(c0, c1);
         });
     }
 
@@ -76,9 +76,9 @@ public class TableroTests
     {
         var t = new Tablero();
 
-        t.AddBarco(new Coord(1, 1), new Coord(1, 3));
-        t.AddBarco(new Coord(2, 3), new Coord(6, 3));
-        t.AddBarco(new Coord(0, 0), new Coord(0, 0));
+        t.AgregarBarco(new Coord(1, 1), new Coord(1, 3));
+        t.AgregarBarco(new Coord(2, 3), new Coord(6, 3));
+        t.AgregarBarco(new Coord(0, 0), new Coord(0, 0));
 
         Assert.AreEqual(3, t.Barcos.Count);
     }
@@ -88,9 +88,9 @@ public class TableroTests
     {
         var t = new Tablero(4, 4);
 
-        var b1 = t.AddBarco(new Coord(0, 0), new Coord(0, 0));
-        var b2 = t.AddBarco(new Coord(3, 1), new Coord(3, 3));
-        var b3 = t.AddBarco(new Coord(1, 2), new Coord(2, 2));
+        var b1 = t.AgregarBarco(new Coord(0, 0), new Coord(0, 0));
+        var b2 = t.AgregarBarco(new Coord(3, 1), new Coord(3, 3));
+        var b3 = t.AgregarBarco(new Coord(1, 2), new Coord(2, 2));
 
         {
             var celdas = new Celda[,] {
@@ -128,7 +128,7 @@ public class TableroTests
         Assert.AreEqual(ResultadoAtaque.Tocado, t.Atacar(new Coord(3, 1)));
         Assert.AreEqual(ResultadoAtaque.Hundido, t.Atacar(new Coord(0, 0)));
 
-        t.Radar(new Coord(0, 2), new Coord(1, 3));
+        t.Radar(new Coord(0, 3));
 
         {
             var celdas = new Celda[,] {

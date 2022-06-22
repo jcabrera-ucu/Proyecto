@@ -186,8 +186,8 @@ public class Tablero
         );
 
         var esqInfDer = new Coord(
-            Math.Min(Coord.Max, centro.X + 1),
-            Math.Min(Coord.Max, centro.Y + 1)
+            Math.Min(Ancho - 1, centro.X + 1),
+            Math.Min(Alto - 1, centro.Y + 1)
         );
 
         for (int x = esqSupIzq.X; x <= esqInfDer.X; x++)
