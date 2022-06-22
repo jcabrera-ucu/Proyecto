@@ -1,5 +1,5 @@
 namespace Library;
-
+// Esta clase cumple con SRP y con expert, es la clase experta en todo lo que ocurre en el juego y su unica responsabilidad es manejar el estado del mismo.
 /// <summary>
 /// Controlador del juego, implementa el flujo de juego para
 /// la batalla naval.

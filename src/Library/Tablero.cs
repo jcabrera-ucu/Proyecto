@@ -2,6 +2,8 @@ using System.Text;
 
 namespace Library;
 
+// Esta clase cumple con SRP, encargada de todo lo relacionado con las operaciones del tablero
+// tambien cumple con Creator, crea instancias de barcos ya que las utiliza muy cercanamente.
 /// <summary>
 /// Tablero del jugador.
 /// </summary>

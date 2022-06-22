@@ -2,9 +2,13 @@ using System.Text.RegularExpressions;
 
 namespace Library;
 
+
+// Esta clase cumple con SRP y expert, se encarga de representar coordenadas utilizadas por multiples clases y es experta en las mismas.
 /// <summary>
 /// Representa una coordenada (x, y) de un tablero.
 /// </summary>
+
+
 public record struct Coord
 {
     /// <summary>

@@ -1,5 +1,5 @@
 namespace Library;
-
+// Esta clase cumple con SRP, su unica responsabilidad es mantener ciertos atributos de los usuarios.
 /// <summary>
 /// Creamos la clase Usuario para poder guardar la Id de cada usuario en la clase ListaUsuario,
 /// La Id la utilizamos para conectar los handlet del telegram con el programa.

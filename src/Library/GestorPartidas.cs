@@ -1,5 +1,6 @@
 namespace Library;
 
+// Expert, esta clase es experta en partidas, es la encargada de gestionarlas y juntar jugadores para enfrentarse en juego.
 /// <summary>
 /// Mantiene registro de todas las partidas en juego.
 /// </summary>

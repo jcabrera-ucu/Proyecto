@@ -2,6 +2,7 @@ using System.Text.Json;
 
 namespace Library;
 
+// SRP, su unica responsabilidad es persistir las estadisticas.
 public class HistóricoEstadísticas
 {
     public Dictionary<string, Estadistica> Estadísticas { get; private set; }

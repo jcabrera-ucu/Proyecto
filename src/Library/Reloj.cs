@@ -2,6 +2,7 @@ namespace Library;
 
 using System;
 
+// Reloj cumple con SRP, solamente lleva una cuenta de tiempo.
 /// <summary>
 /// Reloj de juego, lleva cuenta del tiempo que dispone un jugador.
 /// </summary>

@@ -1,5 +1,6 @@
 namespace Library;
 
+// Jugador cumple SRP, solamente da informacion del jugador y sus operaciones.
 /// <summary>
 /// Información y estado de un jugador.
 /// </summary>

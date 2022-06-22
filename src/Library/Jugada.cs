@@ -1,5 +1,5 @@
 namespace Library;
-
+// Esta clase cumple con SRP, se encarga de procesar jugadas.
 /// <summary>
 ///
 /// </summary>

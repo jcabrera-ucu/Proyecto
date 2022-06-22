@@ -1,15 +1,21 @@
-# Proyecto Equipo 3
-1. ¿Qué desafíos de la entrega fueron los más difíciles?
-Tuvimos inconvenientes realizando una implementación correcta del diagrama UML.
-Tuvimos que cambiar la idea del código multiples veces debido a algunos problemas.
+## Proyecto Equipo 3
 
-2. ¿Qué cosas aprendieron enfrentándose al proyecto que no aprendieron en clase como parte de la currícula?
-Utilización de diagramas UML a fondo.
-Algunos aspectos sobre los patrones que no fueron correctamente comprendidos en clase.
+# 1. ¿Qué desafíos de la entrega fueron los más difíciles?
+El desafio mas dificil fue la gran cantidad de codigo que tuvimos que generar, el salto entre solamente el UML
+en la primera entrega y crear toda la logica en la segunda es grande, estuvimos hasta el ultimo segundo creando
+codigo, pero consideramos que llegamos a la entrega con el proyecto en un buen estado.
 
-3. ¿Qué recursos (páginas web, libros, foros, etc) encontraron que les fueron valiosos para sortear los desafíos que encontraron?
+# 2. ¿Qué cosas aprendieron enfrentándose al proyecto que no aprendieron en clase como parte de la currícula?
+Aprendimos una mejor utilizacion del github, y a implementar una cantidad de patrones en casos mas reales
+que no fueron vistos en clase.
+A su vez aprendimos a colaborar de una manera mas asincronica, simplemente mandando mensajes cuando surgia alguna necesidad,
+de esta manera el trabajo fue mas eficiente.
+
+# 3. ¿Qué recursos (páginas web, libros, foros, etc) encontraron que les fueron valiosos para sortear los desafíos que encontraron?
 lucid.app
 programmerclick.com
+refactoring.guru
+stackoverflow.com
+Recursos Varios Encontrados en Webasignatura.
 
-4. Y cualquier otro tipo de reflexión, material o comentarios sobre el trabajo en el proyecto.
-Nos parecio un proyecto interesante y lo consideramos un buen desafío. Tal vez nos falta un poco más de conocimiento para afrontar de lleno el proyecto.
+# 4. Y cualquier otro tipo de reflexión, material o comentarios sobre el trabajo en el proyecto.
