@@ -63,10 +63,18 @@ public class CoordTests
     [TestCase("-30")]
     public void ConstructorFormatoIncorrectoConString(string coord)
     {
-        Assert.Throws<System.ArgumentException>(() =>
+        var exc = Assert.Throws<CoordenadaFormatoIncorrecto>(() =>
         {
             var c = new Coord(coord);
         });
+
+        Assert.IsNotNull(exc);
+
+        if (exc != null)
+        {
+            Assert.AreEqual(CoordenadaFormatoIncorrecto.Error.Sintaxis, exc.Razón);
+            Assert.AreEqual(coord, exc.Value);
+        }
     }
 
     [Test]
@@ -74,10 +82,18 @@ public class CoordTests
     [TestCase("B0")]
     public void ConstructorRangoIncorrectoConString(string coord)
     {
-        Assert.Throws<System.ArgumentOutOfRangeException>(() =>
+        var exc = Assert.Throws<CoordenadaFormatoIncorrecto>(() =>
         {
             var c = new Coord(coord);
         });
+
+        Assert.IsNotNull(exc);
+
+        if (exc != null)
+        {
+            Assert.AreEqual(CoordenadaFormatoIncorrecto.Error.Rango, exc.Razón);
+            Assert.AreEqual(coord, exc.Value);
+        }
     }
 
     [Test]
