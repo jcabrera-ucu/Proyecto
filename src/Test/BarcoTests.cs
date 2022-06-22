@@ -156,4 +156,12 @@ public class BarcoTests
         Assert.AreEqual(true, barco.Revelar(new Coord(2, 1)));
         Assert.AreEqual(2, barco.Revelados.Count);
     }
+
+    [Test]
+    public void ToStringTest()
+    {
+        var barco = new Barco(new Coord(1, 1), new Coord(2, 1));
+
+        Assert.AreEqual("B02-C02", barco.ToString());
+    }
 }
