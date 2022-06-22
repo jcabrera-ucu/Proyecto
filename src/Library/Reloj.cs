@@ -18,6 +18,11 @@ public class Reloj
     public TimeSpan TiempoRestante { get; private set; }
 
     /// <summary>
+    /// Función para obtener la hora actual
+    /// </summary>
+    public Func<DateTime> Now { get; }
+
+    /// <summary>
     /// True si aún queda tiempo en el reloj
     /// </summary>
     public bool Activo
@@ -32,8 +37,13 @@ public class Reloj
     /// Construye un reloj
     /// </summary>
     /// <param name="tiempoRestante">Tiempo disponible</param>
-    public Reloj(TimeSpan tiempoRestante)
+    /// <param name="now">
+    /// Función que retorna "la fecha actual",
+    /// ésta es la función que se usa para obtener la hora en la clase
+    /// </param>
+    public Reloj(TimeSpan tiempoRestante, Func<DateTime> now)
     {
+        Now = now;
         TiempoRestante = tiempoRestante;
         if (TiempoRestante <= TimeSpan.Zero)
         {
@@ -42,11 +52,20 @@ public class Reloj
     }
 
     /// <summary>
+    /// Construye un reloj usando DateTime.UtcNow como "Now"
+    /// </summary>
+    /// <param name="tiempoRestante">Tiempo disponible</param>
+    public Reloj(TimeSpan tiempoRestante)
+        : this(tiempoRestante, () => DateTime.UtcNow)
+    {
+    }
+
+    /// <summary>
     /// Inicia el "turno del jugador"
     /// </summary>
     public void Iniciar()
     {
-        Inicio = DateTime.UtcNow;
+        Inicio = Now();
     }
 
     /// <summary>
@@ -54,7 +73,7 @@ public class Reloj
     /// </summary>
     public void Terminar()
     {
-        var delta = DateTime.UtcNow - Inicio;
+        var delta = Now() - Inicio;
 
         TiempoRestante -= delta;
 
