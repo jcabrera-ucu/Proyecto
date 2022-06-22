@@ -62,7 +62,6 @@ public class ControladorJuego
         return null;
     }
 
-
     /// <summary>
     /// La instancia del jugador a quien le corresponde jugar
     /// en el turno actual. Puede ser null si no es el turno de
