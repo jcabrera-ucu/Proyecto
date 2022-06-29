@@ -12,8 +12,9 @@ public class AtaqueHandler : BasePrefijoHandler
         };
     }
 
-    protected override bool InternalHandle(Message message, out string response)
+    protected override bool InternalHandle(Message message, out string response, out string response2)
     {
+        response2 = string.Empty;
         if (!CanHandle(message))
         {
             response = string.Empty;
@@ -51,6 +52,7 @@ public class AtaqueHandler : BasePrefijoHandler
 
             mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
             response = String.Join('\n', mensajes);
+            response2 = response;
             return true;
         }
         catch (EstadoPartidaIncorrecto)

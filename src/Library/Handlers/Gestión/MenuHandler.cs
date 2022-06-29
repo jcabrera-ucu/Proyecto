@@ -13,8 +13,9 @@ public class MenuHandler : BaseHandler
         };
     }
 
-    protected override bool InternalHandle(Message message, out string response)
+    protected override bool InternalHandle(Message message, out string response, out string response2)
     {
+        response2 = string.Empty;
         if (this.CanHandle(message))
         {
             if (message.Partida == null)

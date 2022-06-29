@@ -14,8 +14,9 @@ public class BuscarPartidaHandler : BaseHandler
         };
     }
 
-    protected override bool InternalHandle(Message message, out string response)
+    protected override bool InternalHandle(Message message, out string response, out string response2)
     {
+        response2 = string.Empty;
         if (this.CanHandle(message))
         {
             if (message.Partida != null)
@@ -41,6 +42,7 @@ public class BuscarPartidaHandler : BaseHandler
                 mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, partida));
 
                 response = String.Join('\n', mensajes);
+                response2 = response;
                 return true;
             }
         }

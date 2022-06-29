@@ -26,7 +26,7 @@ namespace Library
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        IHandler? Handle(Message message, out string response);
+        IHandler? Handle(Message message, out string response1, out string response2);
 
         /// <summary>
         /// Retorna este "handler" al estado inicial y cancela el próximo "handler" si existe. Es utilizado para que los

@@ -13,8 +13,9 @@ public class TableroHandler : BaseHandler
             };
     }
 
-    protected override bool InternalHandle(Message message, out string response)
+    protected override bool InternalHandle(Message message, out string response, out string response2)
     {
+        response2 = string.Empty;
         if (!CanHandle(message))
         {
             response = string.Empty;
@@ -29,7 +30,7 @@ public class TableroHandler : BaseHandler
 
         var mensajes = new List<string>()
         {
-            message.Partida.MostrarTablero(message.Usuario.Id)
+            $"{message.Partida.MostrarTablero(message.Usuario.Id)}"
         };
 
         mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));

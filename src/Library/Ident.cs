@@ -7,7 +7,7 @@ namespace Library;
 /// <summary>
 /// Representa un identificador en formato string
 /// </summary>
-public record struct Ident
+public record Ident
 {
     /// <summary>
     /// El valor interno del identificador
@@ -15,17 +15,9 @@ public record struct Ident
     public string Value { get; }
 
     /// <summary>
-    /// Construye un Id con un identificador aleatorio (Guid)
-    /// </summary>
-    public Ident()
-    {
-        Value = Guid.NewGuid().ToString();
-    }
-
-    /// <summary>
     /// Construye un Id con un identificador dado
     /// </summary>
-    public Ident(string id)
+    public Ident(string? id)
     {
         Value = id;
     }

@@ -26,7 +26,7 @@ public class MensajesDePartida
                         if (jugador.BarcosFaltantes.Count != 0)
                         {
                             mensajes.Add($"¡A configurar esos barquitos!");
-                            mensajes.Add(jugador.Tablero.ImprimirBarcos());
+                            mensajes.Add($"{jugador.Tablero.ImprimirBarcos()}");
                             mensajes.Add($" >> Faltan agregar los barcos de los siguientes tamaños:");
                             mensajes.Add($" >> ({String.Join(", ", jugador.BarcosFaltantes)})");
                             mensajes.Add($"Para agregar un barco utilice el siguiente comando:");
@@ -36,7 +36,7 @@ public class MensajesDePartida
                         else
                         {
                             mensajes.Add($"¡Ya configuraste todos tus barcos!");
-                            mensajes.Add(jugador.Tablero.ImprimirBarcos());
+                            mensajes.Add($"{jugador.Tablero.ImprimirBarcos()}");
                             mensajes.Add($"Espera a que tu oponente termine");
                         }
                     }
@@ -51,12 +51,12 @@ public class MensajesDePartida
                         if (jugador == partida.JugadorActual)
                         {
                             mensajes.Add($"¡Es tu turno!");
-                            mensajes.Add(oponente.Tablero.ImprimirJugadas());
+                            mensajes.Add($"{oponente.Tablero.ImprimirJugadas()}");
                         }
                         else
                         {
                             mensajes.Add($"¡Es el turno de tu oponente!");
-                            mensajes.Add(oponente.Tablero.ImprimirJugadas());
+                            mensajes.Add($"{oponente.Tablero.ImprimirJugadas()}");
                         }
                     }
                 }

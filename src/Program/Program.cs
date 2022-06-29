@@ -27,6 +27,8 @@ public class Program
     // obtener indicaciones sobre cómo configurarlo.
     private static string token;
 
+    private static Juego juego = new();
+
     // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
     // secreto del bot.
     private class BotSecret
@@ -59,11 +61,9 @@ public class Program
         // Lee una variable de entorno NETCORE_ENVIRONMENT que si no existe o tiene el valor 'development' indica
         // que estamos en un ambiente de desarrollo.
         var developmentEnvironment = Environment.GetEnvironmentVariable("NETCORE_ENVIRONMENT");
-        Console.WriteLine($"DEV ENV: {developmentEnvironment}");
         var isDevelopment =
             string.IsNullOrEmpty(developmentEnvironment) ||
             developmentEnvironment.ToLower() == "development";
-        Console.WriteLine($"DEV ENV: {isDevelopment}");
 
         var builder = new ConfigurationBuilder();
         builder
@@ -158,15 +158,21 @@ public class Program
     private static async Task HandleMessageReceived(ITelegramBotClient botClient, Telegram.Bot.Types.Message message)
     {
         Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
-
-        string response = string.Empty;
-
+        Console.WriteLine(message.Chat.Id.ToString());
+        var responses = juego.ProcesarMensaje(new Ident(message.Chat.Id.ToString()), message.From.FirstName, message.Text);
         //firstHandler.Handle(message, out response);
 
-      //  if (!string.IsNullOrEmpty(response))
-      //  {
-      //      await Bot.SendTextMessageAsync(message.Chat.Id, response);
-      //  }
+        if (!string.IsNullOrEmpty(responses.remitente))
+        {
+
+            await Bot.SendTextMessageAsync(message.Chat.Id, responses.remitente, ParseMode.MarkdownV2);
+        }
+        if (!string.IsNullOrEmpty(responses.oponente) && responses.idOponente != null)
+        {
+            var coso = responses.idOponente;
+            Console.WriteLine($"{coso} idoponente");
+            await Bot.SendTextMessageAsync(long.Parse(responses.idOponente), responses.oponente, ParseMode.MarkdownV2);
+        }
     }
 
     /// <summary>

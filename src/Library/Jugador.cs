@@ -63,7 +63,7 @@ public class Jugador
         get
         {
             // FIXME: Esta lista debería ser configurable.
-            var opciones = new List<int> { 2, 3, 4, 5 };
+            var opciones = new List<int> { 2  };
 
             foreach (var barco in Tablero.Barcos)
             {

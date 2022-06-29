@@ -11,8 +11,9 @@ public class JugadasHandler : BaseHandler
             };
     }
 
-    protected override bool InternalHandle(Message message, out string response)
+    protected override bool InternalHandle(Message message, out string response, out string response2)
     {
+        response2 = string.Empty;
         if (!CanHandle(message))
         {
             response = string.Empty;
@@ -27,7 +28,7 @@ public class JugadasHandler : BaseHandler
 
         var mensajes = new List<string>()
         {
-            message.Partida.MostrarJugadas(message.Usuario.Id),
+            $"{message.Partida.MostrarJugadas(message.Usuario.Id)}",
         };
 
         mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));

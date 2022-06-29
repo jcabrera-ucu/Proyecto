@@ -9,7 +9,7 @@ public class GestorPartidas
     /// <summary>
     /// Diccionario que asocia a cada usuario con su partida
     /// </summary>
-    public Dictionary<Usuario, ControladorJuego> Partidas { get; private set; }
+    public Dictionary<Ident, ControladorJuego> Partidas { get; private set; }
 
     /// <summary>
     /// Una referencia a un Usuario que está actualmente buscando partida, puede ser null
@@ -46,7 +46,7 @@ public class GestorPartidas
                 return null;
             }
 
-            if (EnEsperaConReloj == usuario)
+            if (EnEsperaConReloj.Id == usuario.Id)
             {
                 return null;
             }
@@ -82,7 +82,7 @@ public class GestorPartidas
                 return null;
             }
 
-            if (EnEspera == usuario)
+            if (EnEspera.Id == usuario.Id)
             {
                 return null;
             }
@@ -120,8 +120,8 @@ public class GestorPartidas
     /// <param name="controladorJuego">La partida de los usuarios</param>
     private void AgregarPartida(Usuario usuario1, Usuario usuario2, ControladorJuego controladorJuego)
     {
-        Partidas.Add(usuario1, controladorJuego);
-        Partidas.Add(usuario2, controladorJuego);
+        Partidas.Add(usuario1.Id, controladorJuego);
+        Partidas.Add(usuario2.Id, controladorJuego);
     }
 
     /// <summary>
@@ -131,9 +131,9 @@ public class GestorPartidas
     /// <returns>Instancia de un ControladorJuego, o null</returns>
     public ControladorJuego? ObtenerPartida(Usuario usuario)
     {
-        if (Partidas.ContainsKey(usuario))
+        if (Partidas.ContainsKey(usuario.Id))
         {
-            return Partidas[usuario];
+            return Partidas[usuario.Id];
         }
 
         return null;
