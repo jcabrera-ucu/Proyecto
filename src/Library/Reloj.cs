@@ -3,20 +3,27 @@ namespace Library;
 using System;
 
 // Reloj cumple con SRP, solamente lleva una cuenta de tiempo.
+
 /// <summary>
 /// Reloj de juego, lleva cuenta del tiempo que dispone un jugador.
 /// </summary>
 public class Reloj
 {
     /// <summary>
-    /// Momento en el que inició el turno del jugador
+    /// Momento en el que inició el turno del jugador, null
+    /// si aún no ha comenzado.
     /// </summary>
     public DateTime? Inicio { get; private set; }
 
+    /// <summary>
+    /// Dato interno, lleva cuenta del tiempo restante del jugador luego
+    /// de la última llamada a Terminar()
+    /// </summary>
     private TimeSpan _tiempoRestante;
 
     /// <summary>
-    /// Tiempo disponible
+    /// Tiempo total disponible, toma en cuenta el tiempo que está
+    /// transcurriendo mientras el turno está iniciado.
     /// </summary>
     public TimeSpan TiempoRestante
     {
