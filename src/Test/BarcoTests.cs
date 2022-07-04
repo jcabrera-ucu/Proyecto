@@ -61,6 +61,28 @@ public class BarcoTests
     };
 
     [Test]
+    public void ConstructorCorrecto()
+    {
+        var b = new Barco(new Coord(1, 2), new Coord(1, 4));
+
+        Assert.AreEqual(new Coord(1, 2), b.Primera);
+        Assert.AreEqual(new Coord(1, 4), b.Segunda);
+        Assert.AreEqual(0, b.Golpes.Count);
+        Assert.AreEqual(0, b.Revelados.Count);
+        Assert.AreEqual(false, b.Hundido);
+        Assert.AreEqual(3, b.Largo);
+    }
+
+    [Test]
+    public void ConstructorInorrecto()
+    {
+        Assert.Throws<CoordenadasNoAlineadas>(() =>
+        {
+            new Barco(new Coord(1, 2), new Coord(3, 4));
+        });
+    }
+
+    [Test]
     [TestCaseSource(nameof(noIntersectanTestCases))]
     public void BarcosNoIntersectan(Barco a, Barco b)
     {
@@ -103,7 +125,7 @@ public class BarcoTests
     }
 
     [Test]
-    public void BarcoCount()
+    public void LargoBarcos()
     {
         Assert.AreEqual(1, new Barco(new Coord(1, 0), new Coord(1, 0)).Largo);
         Assert.AreEqual(2, new Barco(new Coord(1, 0), new Coord(2, 0)).Largo);
