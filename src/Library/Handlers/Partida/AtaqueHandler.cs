@@ -2,9 +2,12 @@ namespace Library;
 
 public class AtaqueHandler : BasePrefijoHandler
 {
-    public AtaqueHandler(BaseHandler? next)
+    public GestorPartidas GestorPartidas { get; }
+
+    public AtaqueHandler(GestorPartidas gestorPartidas, BaseHandler? next)
         : base(next)
     {
+        this.GestorPartidas = gestorPartidas;
         this.Keywords = new string[] {
             "atacar",
             "at",
@@ -12,82 +15,95 @@ public class AtaqueHandler : BasePrefijoHandler
         };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
         if (!CanHandle(message))
         {
-            response = string.Empty;
+            remitente = string.Empty;
+            oponente = string.Empty;
+
             return false;
         }
 
-        if (message.Partida == null)
+        var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
+
+        if (partida == null)
         {
-            response = "No hay ninguna partida activa";
+            remitente = "No hay ninguna partida activa";
+            oponente = String.Empty;
+
             return true;
         }
 
-        try
-        {
-            var coords = LeerCoordenadas.Leer(message.Text);
+        var coords = LeerCoordenadas.Leer(message.Text);
 
-            if (coords.Count != 1)
-            {
-                response = "Se esperaba una coordenada";
-                return true;
-            }
+        if (coords.Count != 1)
+        {
+            remitente = "Se esperaba una coordenada: atacar <coordenada>";
+            oponente = string.Empty;
 
-            var resultado = message.Partida.HacerJugada(
-                new Jugada(
-                    message.Usuario.Id,
-                    TipoJugada.Ataque,
-                    coords[0]
-                )
-            );
+            return true;
+        }
 
-            var mensajes = new List<string>()
-            {
-                $"¡{resultado}!",
-            };
+        var resultado = partida.HacerJugada(
+            new Jugada(
+                message.IdJugador,
+                TipoJugada.Ataque,
+                coords[0]
+            )
+        );
 
-            mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
-            response = String.Join('\n', mensajes);
-            response2 = response;
-            return true;
-        }
-        catch (EstadoPartidaIncorrecto)
+        remitente =
+            $"{coords[0].ToAlfanumérico()} ¡{resultado}!\n" +
+            $"{partida.MostrarJugadas(message.IdJugador)}\n";
+
+        oponente =
+            $"Te atacaron en: {coords[0].ToAlfanumérico()} ¡{resultado}!\n" +
+            $"Éstas son tus jugadas hasta el momento:\n" +
+            $"{partida.MostrarJugadasDelOponente(message.IdJugador)}\n";
+
+        switch (partida.Estado)
         {
-            response = "No se puede atacar en este momento";
-            return true;
+            case EstadoPartida.Terminado:
+                {
+                    var mensajeVictoria = "¡Ganaste!\nTomate una coquita";
+                    var mensajeDerrota = "¡Perdiste!\nTomate una coquita";
+
+                    if (partida.Ganador != null && partida.Ganador.Id == message.IdJugador)
+                    {
+                        remitente += mensajeVictoria;
+                        oponente += mensajeDerrota;
+                    }
+                    else
+                    {
+                        remitente += mensajeDerrota;
+                        oponente += mensajeVictoria;
+                    }
+                }
+                break;
+            case EstadoPartida.TerminadoPorReloj:
+                {
+                    var mensajeVictoria = "¡Ganaste!\nTu oponente se quedó sin tiempo\nTomate una coquita";
+                    var mensajeDerrota = "¡Perdiste!\nTe quedaste sin tiempo\nTomate una coquita";
+
+                    if (partida.Ganador != null && partida.Ganador.Id == message.IdJugador)
+                    {
+                        remitente += mensajeVictoria;
+                        oponente += mensajeDerrota;
+                    }
+                    else
+                    {
+                        remitente += mensajeDerrota;
+                        oponente += mensajeVictoria;
+                    }
+                }
+                break;
+            default:
+                remitente += "Es el turno de tu oponente";
+                oponente += "¡Es tu turno!";
+                break;
         }
-        catch (JugadorIncorrecto)
-        {
-            response = "¡No es tu turno!";
-            return true;
-        }
-        catch (ArgumentOutOfRangeException)
-        {
-            response = "¡Coordenada fuera del tablero!";
-            return true;
-        }
-        catch (CoordenadaFormatoIncorrecto exc)
-        {
-            switch (exc.Razón)
-            {
-                case CoordenadaFormatoIncorrecto.Error.Rango:
-                    response = $"¡Error de rango numérico en: {exc.Value}!";
-                    break;
-                case CoordenadaFormatoIncorrecto.Error.Sintaxis:
-                default:
-                    response = $"¡Error de sintaxis en: {exc.Value}!";
-                    break;
-            }
-            return true;
-        }
-        catch (Exception)
-        {
-            response = $"¡Error inesperado, intente nuevamente!";
-            return true;
-        }
+
+        return true;
     }
 }

@@ -21,19 +21,19 @@ namespace Library;
 public class Program
 {
     // La instancia del bot.
-    private static TelegramBotClient Bot;
+    private static TelegramBotClient Bot = null!;
 
     // El token provisto por Telegram al crear el bot. Mira el archivo README.md en la raíz de este repo para
     // obtener indicaciones sobre cómo configurarlo.
-    private static string token;
+    private static string token = String.Empty;
 
-    private static Juego juego = new();
+    private static BatallaNaval juego = new();
 
     // Esta clase es un POCO -vean https://en.wikipedia.org/wiki/Plain_old_CLR_object- para representar el token
     // secreto del bot.
     private class BotSecret
     {
-        public string Token { get; set; }
+        public string Token { get; set; } = String.Empty;
     }
 
     // Una interfaz requerida para configurar el servicio que lee el token secreto del bot.
@@ -87,10 +87,11 @@ public class Program
 
         var serviceProvider = services.BuildServiceProvider();
         var revealer = serviceProvider.GetService<ISecretService>();
-        token = revealer.Token;
+        if (revealer != null)
+        {
+            token = revealer.Token;
+        }
     }
-
-    private static IHandler firstHandler;
 
     /// <summary>
     /// Punto de entrada al programa.
@@ -100,11 +101,6 @@ public class Program
         Start();
 
         Bot = new TelegramBotClient(token);
-
-        firstHandler =
-             new InicioHandler(
-       
-        new NullHandler());
 
         var cts = new CancellationTokenSource();
 
@@ -141,7 +137,10 @@ public class Program
             // Sólo respondemos a mensajes de texto
             if (update.Type == UpdateType.Message)
             {
-                await HandleMessageReceived(botClient, update.Message);
+                if (update.Message != null)
+                {
+                    await HandleMessageReceived(botClient, update.Message);
+                }
             }
         }
         catch (Exception e)
@@ -157,21 +156,49 @@ public class Program
     /// <returns></returns>
     private static async Task HandleMessageReceived(ITelegramBotClient botClient, Telegram.Bot.Types.Message message)
     {
-        Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
-        Console.WriteLine(message.Chat.Id.ToString());
-        var responses = juego.ProcesarMensaje(new Ident(message.Chat.Id.ToString()), message.From.FirstName, message.Text);
-        //firstHandler.Handle(message, out response);
-
-        if (!string.IsNullOrEmpty(responses.remitente))
+        if (message.From != null)
         {
-
-            await Bot.SendTextMessageAsync(message.Chat.Id, responses.remitente, ParseMode.MarkdownV2);
+            Console.WriteLine($"Received a message from {message.From.FirstName} saying: {message.Text}");
         }
-        if (!string.IsNullOrEmpty(responses.oponente) && responses.idOponente != null)
+
+        if (message.Text != null)
         {
-            var coso = responses.idOponente;
-            Console.WriteLine($"{coso} idoponente");
-            await Bot.SendTextMessageAsync(long.Parse(responses.idOponente), responses.oponente, ParseMode.MarkdownV2);
+            string nombre = String.Empty;
+            if (message.From != null)
+            {
+                nombre = message.From.FirstName;
+                if (!String.IsNullOrEmpty(message.From.LastName))
+                {
+                    nombre += $", {message.From.LastName}";
+                }
+            }
+
+            var respuesta = juego.ProcesarMensaje(new Message
+            {
+                IdJugador = new Ident(message.Chat.Id.ToString()),
+                Text = message.Text,
+                Nombre = nombre
+            });
+
+            if (!String.IsNullOrEmpty(respuesta.Remitente))
+            {
+                await Bot.SendTextMessageAsync(
+                    message.Chat.Id,
+                    $"```\n{respuesta.Remitente}\n```",
+                    ParseMode.MarkdownV2
+                );
+            }
+
+            if (!String.IsNullOrEmpty(respuesta.Oponente) && respuesta.IdOponente != null)
+            {
+                var idOponente = (Ident) respuesta.IdOponente;
+                await Bot.SendTextMessageAsync(
+                    // FIXME: Este Parse puede fallar
+                    long.Parse(idOponente.Value),
+                    $"```\n{respuesta.Oponente}\n```",
+                    ParseMode.MarkdownV2
+                );
+            }
         }
     }
 

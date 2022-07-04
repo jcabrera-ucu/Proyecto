@@ -3,7 +3,7 @@ namespace Library;
 /// <summary>
 /// Error cuando dos barcos están superpuestos.
 /// </summary>
-public class BarcosSuperpuestosException : Exception
+public class BarcosSuperpuestos : Exception
 {
     /// <summary>
     /// Uno de los barcos que colisionan
@@ -15,7 +15,7 @@ public class BarcosSuperpuestosException : Exception
     /// </summary>
     public Barco Segundo { get; }
 
-    public BarcosSuperpuestosException(Barco a, Barco b)
+    public BarcosSuperpuestos(Barco a, Barco b)
     {
         Primero = a;
         Segundo = b;

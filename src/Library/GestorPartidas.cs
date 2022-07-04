@@ -1,33 +1,64 @@
 namespace Library;
 
-// Expert, esta clase es experta en partidas, es la encargada de gestionarlas y juntar jugadores para enfrentarse en juego.
+// Expert, esta clase es experta en partidas, es la encargada de gestionarlas
+// y juntar jugadores para enfrentarse en juego.
+
 /// <summary>
 /// Mantiene registro de todas las partidas en juego.
 /// </summary>
 public class GestorPartidas
 {
+    public class Usuario
+    {
+        public Ident Id { get; set; }
+
+        public string Nombre { get; set; } = String.Empty;
+    }
+
     /// <summary>
     /// Diccionario que asocia a cada usuario con su partida
     /// </summary>
     public Dictionary<Ident, ControladorJuego> Partidas { get; private set; }
 
     /// <summary>
-    /// Una referencia a un Usuario que está actualmente buscando partida, puede ser null
+    ///
+    /// </summary>
+    public HistóricoEstadísticas Estadísicas { get; }
+
+    /// <summary>
+    /// Un identificador de usuario que está actualmente
+    /// buscando partida, puede ser null
     /// </summary>
     public Usuario? EnEspera { get; private set; }
 
     /// <summary>
-    /// Una referencia a un Usuario que está actualmente buscando partida con reloj,
-    /// puede ser null
+    /// Un identificador de usuario que está actualmente buscando
+    /// una partida con reloj, puede ser null
     /// </summary>
     public Usuario? EnEsperaConReloj { get; private set; }
 
     /// <summary>
+    ///
+    /// </summary>
+    public TimeSpan TiempoReloj { get; } = TimeSpan.FromSeconds(15);
+
+    // private System.Threading.Timer _relojesTimer;
+
+    /// <summary>
     /// Construye un gestor vacío
     /// </summary>
-    public GestorPartidas()
+    public GestorPartidas(HistóricoEstadísticas estadísiticas)
     {
         Partidas = new();
+        Estadísicas = estadísiticas;
+        // _relojesTimer = new System.Threading.Timer((x) =>
+        // {
+        //     foreach (var partida in Partidas.Values)
+        //     {
+        //         partida.VerificarRelojes();
+        //     }
+        //     Console.WriteLine("TIMER!");
+        // }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     /// <summary>
@@ -38,78 +69,78 @@ public class GestorPartidas
     /// <returns>Retorna una instancia de la partida, retorna null si no encontró oponente.</returns>
     public ControladorJuego? BuscarNuevaPartida(Usuario usuario, bool conReloj = false)
     {
+        Usuario? oponente = null;
         if (conReloj)
         {
-            if (EnEsperaConReloj == null)
+            if (EnEsperaConReloj == null || EnEsperaConReloj.Id == usuario.Id)
             {
                 EnEsperaConReloj = usuario;
-                return null;
             }
-
-            if (EnEsperaConReloj.Id == usuario.Id)
+            else
             {
-                return null;
+                oponente = EnEsperaConReloj;
             }
-
-            var controladorJuego = new ControladorJuego(
-                new Jugador(
-                    id: EnEsperaConReloj.Id,
-                    tablero: new Tablero(),
-                    reloj: new Reloj(TimeSpan.FromMinutes(5)),
-                    radaresDisponibles: 1,
-                    estadistica: EnEsperaConReloj.Estadisticas
-                ),
-                new Jugador(
-                    id: usuario.Id,
-                    tablero: new Tablero(),
-                    reloj: new Reloj(TimeSpan.FromMinutes(5)),
-                    radaresDisponibles: 1,
-                    estadistica: usuario.Estadisticas
-                )
-            );
-
-            AgregarPartida(EnEsperaConReloj, usuario, controladorJuego);
-
-            EnEsperaConReloj = null;
-
-            return controladorJuego;
         }
         else
         {
-            if (EnEspera == null)
+            if (EnEspera == null || EnEspera.Id == usuario.Id)
             {
                 EnEspera = usuario;
-                return null;
             }
-
-            if (EnEspera.Id == usuario.Id)
+            else
             {
-                return null;
+                oponente = EnEspera;
             }
-
-            var controladorJuego = new ControladorJuego(
-                new Jugador(
-                    id: EnEspera.Id,
-                    tablero: new Tablero(),
-                    reloj: null,
-                    radaresDisponibles: 1,
-                    estadistica: EnEspera.Estadisticas
-                ),
-                new Jugador(
-                    id: usuario.Id,
-                    tablero: new Tablero(),
-                    reloj: null,
-                    radaresDisponibles: 1,
-                    estadistica: usuario.Estadisticas
-                )
-            );
-
-            AgregarPartida(EnEspera, usuario, controladorJuego);
-
-            EnEspera = null;
-
-            return controladorJuego;
         }
+
+        if (oponente == null)
+        {
+            return null;
+        }
+
+        var controladorJuego = new ControladorJuego(
+            new Jugador(
+                id: oponente.Id,
+                nombre: oponente.Nombre,
+                tablero: new Tablero(),
+                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
+                radaresDisponibles: 1,
+                estadistica: Estadísicas.ObtenerEstadística(oponente.Id)
+            ),
+            new Jugador(
+                id: usuario.Id,
+                nombre: usuario.Nombre,
+                tablero: new Tablero(),
+                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
+                radaresDisponibles: 1,
+                estadistica: Estadísicas.ObtenerEstadística(usuario.Id)
+            )
+        );
+
+        AgregarPartida(oponente.Id, usuario.Id, controladorJuego);
+
+        // Estas asignaciones se hacen en este punto para evitar que éste
+        // objeto quede en un estado inválido en caso de que el código de arriba
+        // tire una excepción.
+        if (conReloj)
+        {
+            EnEsperaConReloj = null;
+        }
+        else
+        {
+            EnEspera = null;
+        }
+
+        return controladorJuego;
+    }
+
+    public void EliminarPartida(ControladorJuego partida)
+    {
+        var id1 = partida.JugadorA.Id;
+        var id2 = partida.JugadorB.Id;
+
+        Partidas.Remove(id1);
+        Partidas.Remove(id2);
     }
 
     /// <summary>
@@ -118,10 +149,10 @@ public class GestorPartidas
     /// <param name="usuario1">Usuario de la partida</param>
     /// <param name="usuario2">Usuario de la partida</param>
     /// <param name="controladorJuego">La partida de los usuarios</param>
-    private void AgregarPartida(Usuario usuario1, Usuario usuario2, ControladorJuego controladorJuego)
+    private void AgregarPartida(Ident usuario1, Ident usuario2, ControladorJuego controladorJuego)
     {
-        Partidas.Add(usuario1.Id, controladorJuego);
-        Partidas.Add(usuario2.Id, controladorJuego);
+        Partidas.Add(usuario1, controladorJuego);
+        Partidas.Add(usuario2, controladorJuego);
     }
 
     /// <summary>
@@ -129,11 +160,11 @@ public class GestorPartidas
     /// </summary>
     /// <param name="usuario">Usuario para el cual buscar su partida</param>
     /// <returns>Instancia de un ControladorJuego, o null</returns>
-    public ControladorJuego? ObtenerPartida(Usuario usuario)
+    public ControladorJuego? ObtenerPartida(Ident idJugador)
     {
-        if (Partidas.ContainsKey(usuario.Id))
+        if (Partidas.ContainsKey(idJugador))
         {
-            return Partidas[usuario.Id];
+            return Partidas[idJugador];
         }
 
         return null;

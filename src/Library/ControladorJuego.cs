@@ -1,5 +1,7 @@
 namespace Library;
+
 // Esta clase cumple con SRP y con expert, es la clase experta en todo lo que ocurre en el juego y su unica responsabilidad es manejar el estado del mismo.
+
 /// <summary>
 /// Controlador del juego, implementa el flujo de juego para
 /// la batalla naval.
@@ -22,44 +24,41 @@ public class ControladorJuego
     public Jugador JugadorB { get; }
 
     /// <summary>
+    /// Lista con las longitudes de los barcos que deben ser
+    /// agregados por cada usuario
+    /// </summary>
+    /// <remarks>
+    /// Pueden haber repetidos, e.j: 2, 2, 3 ; dos barcos de 2 y uno de 3
+    /// </remarks>
+    //public List<int> BarcosEsperados { get; } = new() { 2, 3, 4, 5 };
+    public List<int> BarcosEsperados { get; } = new() { 1, 2 };
+
+    public bool SigueEnJuego
+    {
+        get
+        {
+            return JugadorA.SigueEnJuego && JugadorB.SigueEnJuego;
+        }
+    }
+
+    /// <summary>
     /// Construye un controlador de juego.
     /// </summary>
     /// <remarks>
-    /// Ambos jugadores deben ser compatibles, o sea, deben tener
+    /// Ambos jugadores deben ser compatibles (Jugador.SonCompatibels())
     /// </remarks>
     /// <param name="jugadorA">Instancia del primer jugador</param>
     /// <param name="jugadorB">Instancia del segundo jugador</param>
     public ControladorJuego(Jugador jugadorA, Jugador jugadorB)
     {
-        if (jugadorA.Tablero.Ancho != jugadorB.Tablero.Ancho
-            || jugadorA.Tablero.Alto != jugadorB.Tablero.Alto)
+        if (!Jugador.SonCompatibles(jugadorA, jugadorB))
         {
-            throw new InvalidOperationException();
+            throw new JugadoresIncompatibles(jugadorA, jugadorB);
         }
 
         Estado = EstadoPartida.Configuración;
         JugadorA = jugadorA;
         JugadorB = jugadorB;
-    }
-
-    /// <summary>
-    /// Instancia de un jugador según su Id.
-    /// </summary>
-    /// <param name="id">Id del jugador a obtener</param>
-    /// <returns>Instancia del jugador correspondiente, o null si no existe</returns>
-    public Jugador? ObtenerJugadorPorId(Ident id)
-    {
-        if (JugadorA.Id == id)
-        {
-            return JugadorA;
-        }
-
-        if (JugadorB.Id == id)
-        {
-            return JugadorB;
-        }
-
-        return null;
     }
 
     /// <summary>
@@ -147,6 +146,78 @@ public class ControladorJuego
     }
 
     /// <summary>
+    /// Instancia de un jugador según su Id.
+    /// </summary>
+    /// <param name="id">Id del jugador a obtener</param>
+    /// <returns>Instancia del jugador correspondiente, o null si no existe</returns>
+    public Jugador? ObtenerJugadorPorId(Ident id)
+    {
+        if (JugadorA.Id == id)
+        {
+            return JugadorA;
+        }
+
+        if (JugadorB.Id == id)
+        {
+            return JugadorB;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Obtiene el oponente de un jugador
+    /// </summary>
+    /// <param name="idJugador">Id del jugador para el cual devolver su oponente</param>
+    /// <returns>Instancia de un Jugador, o null</returns>
+    public Jugador? OponenteDe(Ident idJugador)
+    {
+        if (JugadorA.Id == idJugador)
+        {
+            return JugadorB;
+        }
+        else if (JugadorB.Id == idJugador)
+        {
+            return JugadorA;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Lista con los "largos" de barcos que aún faltan por
+    /// configurar en el tablero.
+    /// </summary>
+    public List<int> BarcosFaltantes(Ident idJugador)
+    {
+        var jugador = ObtenerJugadorPorId(idJugador);
+
+        if (jugador == null)
+        {
+            throw new JugadorIncorrecto(idJugador);
+        }
+
+        var opciones = new List<int>(BarcosEsperados);
+
+        foreach (var barco in jugador.Barcos)
+        {
+            opciones.Remove(barco.Largo);
+        }
+
+        return opciones;
+    }
+
+    /// <summary>
+    /// Verifica si es el turno de un jugador dado
+    /// </summary>
+    /// <param name="idJugador">Id del jugador a verificar</param>
+    /// <returns>True si es el turno de idJugador, false si no lo es</returns>
+    public bool EsTurnoDe(Ident idJugador)
+    {
+        return JugadorActual != null && JugadorActual.Id == idJugador;
+    }
+
+    /// <summary>
     /// Crea un nuevo barco
     /// </summary>
     /// <param name="id">Identificador del jugador que desea crear un barco</param>
@@ -168,8 +239,8 @@ public class ControladorJuego
             jugador.AgregarBarco(coordA, coordB);
         }
 
-        if (JugadorA.BarcosFaltantes.Count == 0
-            && JugadorB.BarcosFaltantes.Count == 0)
+        if (BarcosFaltantes(JugadorA.Id).Count == 0
+            && BarcosFaltantes(JugadorB.Id).Count == 0)
         {
             SiguienteTurno();
         }
@@ -189,6 +260,24 @@ public class ControladorJuego
                 JugadorA.IniciarTurno();
                 break;
         }
+    }
+
+    public bool VerificarRelojes()
+    {
+        switch (Estado)
+        {
+            case EstadoPartida.TurnoJugadorA:
+            case EstadoPartida.TurnoJugadorB:
+                if (!JugadorA.SigueEnJuegoReloj || !JugadorB.SigueEnJuegoReloj)
+                {
+                    Estado = EstadoPartida.TerminadoPorReloj;
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     /// <summary>
@@ -290,6 +379,23 @@ public class ControladorJuego
     /// </summary>
     /// <param name="idJugador"></param>
     /// <returns></returns>
+    public string MostrarTableroDelOponente(Ident idJugador)
+    {
+        var jugador = OponenteDe(idJugador);
+
+        if (jugador == null)
+        {
+            throw new JugadorIncorrecto(idJugador);
+        }
+
+        return jugador.Tablero.ImprimirBarcos();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="idJugador"></param>
+    /// <returns></returns>
     public string MostrarJugadas(Ident idJugador)
     {
         if (idJugador == JugadorA.Id)
@@ -299,6 +405,27 @@ public class ControladorJuego
         else if (idJugador == JugadorB.Id)
         {
             return JugadorA.Tablero.ImprimirJugadas();
+        }
+        else
+        {
+            throw new JugadorIncorrecto(idJugador);
+        }
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="idJugador"></param>
+    /// <returns></returns>
+    public string MostrarJugadasDelOponente(Ident idJugador)
+    {
+        if (idJugador == JugadorA.Id)
+        {
+            return JugadorA.Tablero.ImprimirJugadas();
+        }
+        else if (idJugador == JugadorB.Id)
+        {
+            return JugadorB.Tablero.ImprimirJugadas();
         }
         else
         {

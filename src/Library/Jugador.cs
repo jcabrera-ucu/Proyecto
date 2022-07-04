@@ -1,6 +1,7 @@
 namespace Library;
 
 // Jugador cumple SRP, solamente da informacion del jugador y sus operaciones.
+
 /// <summary>
 /// Información y estado de un jugador.
 /// </summary>
@@ -10,6 +11,11 @@ public class Jugador
     /// Identificador único
     /// </summary>
     public Ident Id { get; }
+
+    /// <summary>
+    /// Nombre del jugador, puede estar vacío
+    /// </summary>
+    public string Nombre { get; set; } = String.Empty;
 
     /// <summary>
     /// Tablero de juego
@@ -55,22 +61,13 @@ public class Jugador
     }
 
     /// <summary>
-    /// Lista con los "largos" de barcos que aún faltan por
-    /// configurar en el tablero.
+    /// Lista con las instancias de los Barcos del jugador
     /// </summary>
-    public List<int> BarcosFaltantes
+    public IList<Barco> Barcos
     {
         get
         {
-            // FIXME: Esta lista debería ser configurable.
-            var opciones = new List<int> { 2  };
-
-            foreach (var barco in Tablero.Barcos)
-            {
-                opciones.Remove(barco.Largo);
-            }
-
-            return opciones;
+            return Tablero.Barcos;
         }
     }
 
@@ -82,12 +79,14 @@ public class Jugador
     /// <param name="reloj">Reloj del jugador, puede ser nulo</param>
     /// <param name="estadistica">Estadísticas del jugador</param>
     public Jugador(Ident id,
+                   string nombre,
                    Tablero tablero,
                    Reloj? reloj,
                    int radaresDisponibles,
                    Estadistica estadistica)
     {
         Id = id;
+        Nombre = nombre;
         Tablero = tablero;
         Reloj = reloj;
         RadaresDisponibles = radaresDisponibles;
@@ -99,7 +98,7 @@ public class Jugador
     /// </summary>
     /// <param name="coordA">Primera coordenada del barco</param>
     /// <param name="coordB">Segunda coordenada del barco</param>
-    /// <exception cref="BarcosSuperpuestosException">
+    /// <exception cref="BarcosSuperpuestos">
     /// Si se intenta agregar un barco que intersecta otro ya existente
     /// </exception>
     /// <exception cref="BarcoYaExiste">
@@ -114,21 +113,7 @@ public class Jugador
     /// <returns>La instancia del barco que fue creado</returns>
     public Barco AgregarBarco(Coord coordA, Coord coordB)
     {
-        if (!Coord.Alineadas(coordA, coordB))
-        {
-            throw new CoordenadasNoAlineadas(coordA, coordB);
-        }
-
-        var longitud = Coord.Largo(coordA, coordB);
-
-        if (BarcosFaltantes.Contains(longitud))
-        {
-            return Tablero.AgregarBarco(coordA, coordB);
-        }
-        else
-        {
-            throw new BarcoYaExiste(longitud);
-        }
+        return Tablero.AgregarBarco(coordA, coordB);
     }
 
     /// <summary>
@@ -236,5 +221,17 @@ public class Jugador
     public void RecibirRadar(Coord centro)
     {
         Tablero.Radar(centro);
+    }
+
+    /// <summary>
+    /// Verifica si dos jugadores
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public static bool SonCompatibles(Jugador a, Jugador b)
+    {
+        return a.Tablero.Ancho == b.Tablero.Ancho
+            && a.Tablero.Alto == b.Tablero.Alto;
     }
 }

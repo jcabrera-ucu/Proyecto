@@ -2,93 +2,62 @@ namespace Library;
 
 public class RadarHandler : BasePrefijoHandler
 {
-    public RadarHandler(BaseHandler? next)
+    public GestorPartidas GestorPartidas { get; set; }
+
+    public RadarHandler(GestorPartidas gestorPartidas, BaseHandler? next)
         : base(next)
     {
+        this.GestorPartidas = gestorPartidas;
         this.Keywords = new string[] {
                 "radar",
                 "r",
             };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
+        oponente = string.Empty;
         if (!CanHandle(message))
         {
-            response = string.Empty;
+            remitente = string.Empty;
             return false;
         }
 
-        if (message.Partida == null)
+        var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
+
+        if (partida == null)
         {
-            response = "No hay ninguna partida activa";
+            remitente = "No hay ninguna partida activa";
             return true;
         }
 
-        try
-        {
-            var coords = LeerCoordenadas.Leer(message.Text);
+        var coords = LeerCoordenadas.Leer(message.Text);
 
-            if (coords.Count != 1)
-            {
-                response = "Se esperaba una coordenada";
-                return true;
-            }
+        if (coords.Count != 1)
+        {
+            remitente = "Se esperaba una coordenada";
+            return true;
+        }
 
-            var resultado = message.Partida.HacerJugada(new Jugada(
-                message.Usuario.Id,
-                TipoJugada.Radar,
-                coords[0]
-            ));
+        var resultado = partida.HacerJugada(new Jugada(
+            message.IdJugador,
+            TipoJugada.Radar,
+            coords[0]
+        ));
 
-            var mensajes = new List<string>()
-            {
-                $"¡Radar desplegado!",
-            };
+        remitente =
+            $"{coords[0].ToAlfanumérico()} ¡Radar desplegado!\n" +
+            $"{partida.MostrarJugadas(message.IdJugador)}\n" +
+            $"Es el turno de tu oponente";
 
-            mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
-            response = String.Join('\n', mensajes);
-            return true;
-        }
-        catch (EstadoPartidaIncorrecto)
-        {
-            response = "No se puede desplegar el radar en este momento";
-            return true;
-        }
-        catch (JugadorIncorrecto)
-        {
-            response = "¡No es tu turno!";
-            return true;
-        }
-        catch (ArgumentOutOfRangeException)
-        {
-            response = "¡Coordenada fuera del tablero!";
-            return true;
-        }
-        catch (RadaresAgotados)
-        {
-            response = "¡Ya no te quedan radares!";
-            return true;
-        }
-        catch (CoordenadaFormatoIncorrecto exc)
-        {
-            switch (exc.Razón)
-            {
-                case CoordenadaFormatoIncorrecto.Error.Rango:
-                    response = $"¡Error de rango numérico en: {exc.Value}!";
-                    break;
-                case CoordenadaFormatoIncorrecto.Error.Sintaxis:
-                default:
-                    response = $"¡Error de sintaxis en: {exc.Value}!";
-                    break;
-            }
-            return true;
-        }
-        catch (Exception)
-        {
-            response = $"¡Error inesperado, intente nuevamente!";
-            return true;
-        }
+        oponente =
+            $"Desplegaron un radar en: {coords[0].ToAlfanumérico()}\n" +
+            $"Estos son tus barcos:\n" +
+            $"{partida.MostrarTableroDelOponente(message.IdJugador)}\n" +
+            $"Éstas son tus jugadas hasta el momento:\n" +
+            $"{partida.MostrarJugadasDelOponente(message.IdJugador)}\n" +
+            $"¡Es tu turno!";
+
+        return true;
     }
 }

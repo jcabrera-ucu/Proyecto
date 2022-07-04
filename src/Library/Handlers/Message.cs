@@ -1,18 +1,33 @@
 namespace Library
 {
+    /// <summary>
+    ///
+    /// </summary>
     public struct Message
     {
-        public string Text { get; set; } = String.Empty;
+        /// <summary>
+        ///
+        /// </summary>
+        public string Text { get; set; }
 
-        public Usuario Usuario { get; set; }
+        /// <summary>
+        ///
+        /// </summary>
+        public Ident IdJugador { get; set; }
 
-        public ControladorJuego? Partida { get; set; }
+        public string Nombre { get; set; }
 
-        public Message(string texto, Usuario usuario, ControladorJuego? partida)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <param name="idJugador"></param>
+        /// <param name="partida"></param>
+        public Message(string texto, Ident idJugador, string nombre)
         {
             Text = texto;
-            Usuario = usuario;
-            Partida = partida;
+            IdJugador = idJugador;
+            Nombre = nombre;
         }
     }
 }

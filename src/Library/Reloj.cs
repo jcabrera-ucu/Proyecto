@@ -11,12 +11,32 @@ public class Reloj
     /// <summary>
     /// Momento en el que inició el turno del jugador
     /// </summary>
-    public DateTime Inicio { get; private set; }
+    public DateTime? Inicio { get; private set; }
+
+    private TimeSpan _tiempoRestante;
 
     /// <summary>
     /// Tiempo disponible
     /// </summary>
-    public TimeSpan TiempoRestante { get; private set; }
+    public TimeSpan TiempoRestante
+    {
+        get
+        {
+            if (Inicio != null)
+            {
+                var delta = Now() - (DateTime) Inicio;
+                var restante = _tiempoRestante - delta;
+
+                if (restante <= TimeSpan.Zero)
+                {
+                    return TimeSpan.Zero;
+                }
+
+                return restante;
+            }
+            return _tiempoRestante;
+        }
+    }
 
     /// <summary>
     /// Función para obtener la hora actual
@@ -45,10 +65,10 @@ public class Reloj
     public Reloj(TimeSpan tiempoRestante, Func<DateTime> now)
     {
         Now = now;
-        TiempoRestante = tiempoRestante;
-        if (TiempoRestante <= TimeSpan.Zero)
+        _tiempoRestante = tiempoRestante;
+        if (_tiempoRestante <= TimeSpan.Zero)
         {
-            TiempoRestante = TimeSpan.Zero;
+            _tiempoRestante = TimeSpan.Zero;
         }
     }
 
@@ -74,13 +94,7 @@ public class Reloj
     /// </summary>
     public void Terminar()
     {
-        var delta = Now() - Inicio;
-
-        TiempoRestante -= delta;
-
-        if (TiempoRestante < TimeSpan.Zero)
-        {
-            TiempoRestante = TimeSpan.Zero;
-        }
+        _tiempoRestante = TiempoRestante;
+        Inicio = null;
     }
 }

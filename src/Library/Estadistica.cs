@@ -1,5 +1,7 @@
 namespace Library;
+
 // Esta clase cumple con SRP ya que su unica responsabilidad es mantener registro de las estadisticas de los distintos usuarios.
+
 /// <summary>
 /// Estadísticas globales de un jugador
 /// </summary>

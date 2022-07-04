@@ -2,9 +2,12 @@ namespace Library;
 
 public class TableroHandler : BaseHandler
 {
-    public TableroHandler(BaseHandler? next)
+    public GestorPartidas GestorPartidas { get; }
+
+    public TableroHandler(GestorPartidas gestorPartidas, BaseHandler? next)
         : base(next)
     {
+        this.GestorPartidas = gestorPartidas;
         this.Keywords = new string[] {
                 "tablero",
                 "t",
@@ -13,28 +16,29 @@ public class TableroHandler : BaseHandler
             };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
         if (!CanHandle(message))
         {
-            response = string.Empty;
+            remitente = string.Empty;
+            oponente = string.Empty;
+
             return false;
         }
 
-        if (message.Partida == null)
+        var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
+
+        if (partida == null)
         {
-            response = "No hay ninguna partida activa";
+            remitente = "No hay ninguna partida activa";
+            oponente = string.Empty;
+
             return true;
         }
 
-        var mensajes = new List<string>()
-        {
-            $"{message.Partida.MostrarTablero(message.Usuario.Id)}"
-        };
+        remitente = partida.MostrarTablero(message.IdJugador);
+        oponente = string.Empty;
 
-        mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
-        response = String.Join('\n', mensajes);
         return true;
     }
 }

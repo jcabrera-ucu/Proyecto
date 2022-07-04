@@ -4,6 +4,7 @@ namespace Library;
 
 // Esta clase cumple con SRP, encargada de todo lo relacionado con las operaciones del tablero
 // tambien cumple con Creator, crea instancias de barcos ya que las utiliza muy cercanamente.
+
 /// <summary>
 /// Tablero del jugador.
 /// </summary>
@@ -53,11 +54,13 @@ public class Tablero
     {
         if (ancho < (Coord.Min + 1) || ancho > (Coord.Max + 1))
         {
+            // FIXME: Crear exception para esto
             throw new ArgumentOutOfRangeException(nameof(ancho));
         }
 
         if (alto < (Coord.Min + 1) || alto > (Coord.Max + 1))
         {
+            // FIXME: Crear exception para esto
             throw new ArgumentOutOfRangeException(nameof(alto));
         }
 
@@ -86,7 +89,7 @@ public class Tablero
     /// <exception cref="System.ArgumentOutOfRangeException">
     /// Si 'b' no es válidad para las dimensiones del tablero
     /// </exception>
-    /// <exception cref="Library.BarcosSuperpuestosException">
+    /// <exception cref="Library.BarcosSuperpuestos">
     /// Si el barco que se intenta crear intersecta a algún otro
     /// barco ya existente en el tablero
     /// </exception>
@@ -95,12 +98,12 @@ public class Tablero
     {
         if (!EsValida(a))
         {
-            throw new ArgumentOutOfRangeException(nameof(a));
+            throw new CoordenadaFueraDelTablero(a, this);
         }
 
         if (!EsValida(b))
         {
-            throw new ArgumentOutOfRangeException(nameof(b));
+            throw new CoordenadaFueraDelTablero(b, this);
         }
 
         var barco = new Barco(a, b);
@@ -109,7 +112,7 @@ public class Tablero
         {
             if (x.Intersecta(barco))
             {
-                throw new BarcosSuperpuestosException(barco, x);
+                throw new BarcosSuperpuestos(barco, x);
             }
         }
 
@@ -145,7 +148,7 @@ public class Tablero
     {
         if (!EsValida(coord))
         {
-            throw new ArgumentOutOfRangeException(nameof(coord));
+            throw new CoordenadaFueraDelTablero(coord, this);
         }
 
         foreach (var barco in Barcos)
@@ -179,7 +182,7 @@ public class Tablero
     {
         if (!EsValida(centro))
         {
-            throw new ArgumentOutOfRangeException(nameof(centro));
+            throw new CoordenadaFueraDelTablero(centro, this);
         }
 
         var esqSupIzq = new Coord(
@@ -237,7 +240,7 @@ public class Tablero
     {
         if (!EsValida(coord))
         {
-            throw new ArgumentOutOfRangeException(nameof(coord));
+            throw new CoordenadaFueraDelTablero(coord, this);
         }
 
         if (Agua.Exists(x => x == coord))
@@ -264,6 +267,23 @@ public class Tablero
         }
 
         return (Celda.Vacio, null);
+    }
+
+    public MatrizCeldas ObtenerMatrizCeldas()
+    {
+        MatrizCeldas celdas = new(Ancho, Alto);
+
+        for (int x = 0; x < Ancho; x++)
+        {
+            for (int y = 0; y < Alto; y++)
+            {
+                var coord = new Coord(x, y);
+
+                celdas[coord] = GetCelda(coord).celda;
+            }
+        }
+
+        return celdas;
     }
 
     /// <summary>
@@ -312,31 +332,43 @@ public class Tablero
     /// Representación del tablero para el jugador
     /// </summary>
     /// <returns>Tablero desde el punto de vista del jugador</returns>
-    public string ImprimirBarcos()
+    public string ImprimirBarcos(bool incluirLeyenda = true)
     {
-        return Imprimir((celda) =>
+        var tablero = Imprimir((celda) =>
         {
             switch (celda)
             {
                 case Celda.Barco:
-                case Celda.Revelado:
-                case Celda.Tocado:
                     return 'B';
+                case Celda.Revelado:
+                    return 'R';
+                case Celda.Tocado:
+                    return 'X';
                 case Celda.Agua:
                 case Celda.Vacio:
                 default:
                     return ' ';
             }
         });
+
+        if (incluirLeyenda)
+        {
+            return $"{tablero}" +
+                $" >> B: Barco (no tocado)\n" +
+                $" >> R: Celda de un barco revelado por un radar\n" +
+                $" >> X: Barco (tocado)";
+        }
+
+        return tablero;
     }
 
     /// <summary>
     /// Representación del tablero para el oponente
     /// </summary>
     /// <returns>El tablero desde el punto de vista del oponente</returns>
-    public string ImprimirJugadas()
+    public string ImprimirJugadas(bool incluirLeyenda = true)
     {
-        return Imprimir(celda =>
+        var tablero = Imprimir(celda =>
         {
             switch (celda)
             {
@@ -352,5 +384,15 @@ public class Tablero
                     return ' ';
             }
         });
+
+        if (incluirLeyenda)
+        {
+            return $"{tablero}" +
+                $" >> A: Agua\n" +
+                $" >> B: Celda de un barco revelado por un radar\n" +
+                $" >> T: Tocado";
+        }
+
+        return tablero;
     }
 }

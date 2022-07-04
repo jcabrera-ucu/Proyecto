@@ -2,37 +2,37 @@ namespace Library;
 
 public class JugadasHandler : BaseHandler
 {
-    public JugadasHandler(BaseHandler? next)
+    public GestorPartidas GestorPartidas { get; }
+
+    public JugadasHandler(GestorPartidas gestorPartidas, BaseHandler? next)
         : base(next)
     {
+        this.GestorPartidas = gestorPartidas;
         this.Keywords = new string[] {
                 "jugadas",
                 "j",
             };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
+        oponente = string.Empty;
+
         if (!CanHandle(message))
         {
-            response = string.Empty;
+            remitente = string.Empty;
             return false;
         }
 
-        if (message.Partida == null)
+        var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
+
+        if (partida == null)
         {
-            response = "No hay ninguna partida activa";
+            remitente = "No hay ninguna partida activa";
             return true;
         }
 
-        var mensajes = new List<string>()
-        {
-            $"{message.Partida.MostrarJugadas(message.Usuario.Id)}",
-        };
-
-        mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
-        response = String.Join('\n', mensajes);
+        remitente = partida.MostrarJugadas(message.IdJugador);
         return true;
     }
 }

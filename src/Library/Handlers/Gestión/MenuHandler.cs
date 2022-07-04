@@ -2,8 +2,11 @@ namespace Library;
 
 public class MenuHandler : BaseHandler
 {
-    public MenuHandler(BaseHandler next) : base(next)
+    public GestorPartidas GestorPartidas { get; set; }
+
+    public MenuHandler(GestorPartidas gestorPartidas, BaseHandler next) : base(next)
     {
+        this.GestorPartidas = gestorPartidas;
         this.Keywords = new string[]
         {
                 "menu",
@@ -13,41 +16,74 @@ public class MenuHandler : BaseHandler
         };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
-        if (this.CanHandle(message))
+        if (!this.CanHandle(message))
         {
-            if (message.Partida == null)
+            oponente = string.Empty;
+            remitente = string.Empty;
+
+            return false;
+        }
+
+        remitente =
+            $"Puede utilizar los siguientes comandos:\n" +
+            $" >> menu\n" +
+            $" >> estadisticas\n" +
+            $"    stats\n";
+
+        var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
+
+        if (partida == null)
+        {
+            remitente +=
+                $" >> buscar partida\n" +
+                $"    buscar\n" +
+                $" >> buscar partida con reloj\n" +
+                $"    buscar con reloj\n";
+        }
+
+        if (partida != null)
+        {
+            remitente +=
+                $" >> tablero\n" +
+                $"    t\n" +
+                $" >> jugadas\n" +
+                $"    j\n";
+
+            switch (partida.Estado)
             {
-                var mensajes = new string[]
-                {
-                    "Puede utilizar los siguientes comandos:",
-                    ">> estadísticas",
-                    ">> buscar partida",
-                    ">> buscar partida con reloj",
-                    ">> jugar con bot",
-                };
-
-                response = String.Join('\n', mensajes);
-                return true;
-            }
-            else
-            {
-                var mensajes = new string[]
-                {
-                    "Puede utilizar los siguientes comandos:",
-                    ">> atacar <coordenada> (e.j: atacar A8)",
-                    ">> radar <coordenada> (e.j: radar C1)",
-                };
-
-
-                response = String.Join('\n', mensajes);
-                return true;
+                case EstadoPartida.Configuración:
+                    remitente +=
+                        $" >> agregar <coordenada-1> <coordenada-2> (e.j: agregar a1 a2)\n" +
+                        $"    ag <coordenada-1> <coordenada-2> (e.j: ag c3 e3)\n";
+                    break;
+                case EstadoPartida.TurnoJugadorA:
+                case EstadoPartida.TurnoJugadorB:
+                    {
+                        var jugador = partida.ObtenerJugadorPorId(message.IdJugador);
+                        if (jugador != null)
+                        {
+                            if (partida.JugadorActual != null && partida.JugadorActual.Id == message.IdJugador)
+                            {
+                                remitente +=
+                                    $" >> atacar <coordenada> (e.j: atacar a1)\n" +
+                                    $"    a <coordenada> (e.j: a f4)\n" +
+                                    $" >> radar <coordenada> (e.j: radar a1)\n" +
+                                    $"    r <coordenada> (e.j: r f4)\n";
+                            }
+                        }
+                    }
+                    break;
+                case EstadoPartida.Terminado:
+                case EstadoPartida.TerminadoPorReloj:
+                default:
+                    break;
             }
         }
 
-        response = string.Empty;
-        return false;
+        oponente = String.Empty;
+
+        return true;
     }
 }

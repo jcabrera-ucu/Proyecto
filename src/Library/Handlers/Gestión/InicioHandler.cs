@@ -7,22 +7,22 @@ public class InicioHandler : BaseHandler
         this.Keywords = new string[] { "/start" };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
-        if (this.CanHandle(message))
+        if (!this.CanHandle(message))
         {
-            var mensajes = new string[]
-            {
-                "Bienvenido al bot de Batalla Naval del Equipo 3",
-                "Para comenzar escriba: Menu",
-            };
+            oponente = String.Empty;
+            remitente = String.Empty;
 
-            response = String.Join('\n', mensajes);
-            return true;
+            return false;
         }
 
-        response = string.Empty;
-        return false;
+        remitente =
+            "Bienvenido al bot de Batalla Naval del Equipo 3\n" +
+            "Para comenzar escriba: menu";
+
+        oponente = string.Empty;
+
+        return true;
     }
 }

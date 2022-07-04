@@ -50,9 +50,8 @@ namespace Library
         /// true o no lo procesa y retorna false.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
-        /// <param name="response">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool InternalHandle(Message message, out string responder1, out string responder2)
+        protected virtual bool InternalHandle(Message message, out string remitente, out string oponente)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }

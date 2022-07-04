@@ -3,6 +3,7 @@ using System.Text.Json;
 namespace Library;
 
 // SRP, su unica responsabilidad es persistir las estadisticas.
+
 /// <summary>
 /// Maneja la persistencia de las estadísticas de los usuarios
 /// </summary>
@@ -11,12 +12,16 @@ public class HistóricoEstadísticas
     /// <summary>
     /// Asociación entre ids de usuarios y su estadística
     /// </summary>
-    public Dictionary<string, Estadistica> Estadísticas { get; private set; }
+    /// <remarks>
+    /// Aquí usamos string en vez de Ident para no tener que implementar la
+    /// conversión para que el JsonSerializer funcione.
+    /// </remarks>
+    private Dictionary<string, Estadistica> Estadísticas { get; set; }
 
     /// <summary>
     /// Ruta al archivo donde se guardan los datos
     /// </summary>
-    public string RutaArchivo { get; }
+    public string RutaBaseDeDatos { get; }
 
     /// <summary>
     /// Construye el gestor con ruta "bdd.json"
@@ -31,7 +36,7 @@ public class HistóricoEstadísticas
     /// <param name="rutaArchivo">Ruta al archivo de datos</param>
     public HistóricoEstadísticas(string rutaArchivo)
     {
-        RutaArchivo = rutaArchivo;
+        RutaBaseDeDatos = rutaArchivo;
         Estadísticas = new();
 
         Cargar();
@@ -57,7 +62,7 @@ public class HistóricoEstadísticas
     /// </summary>
     public void Guardar()
     {
-        File.WriteAllText(RutaArchivo, JsonSerializer.Serialize(Estadísticas));
+        File.WriteAllText(RutaBaseDeDatos, JsonSerializer.Serialize(Estadísticas));
     }
 
     /// <summary>
@@ -65,9 +70,7 @@ public class HistóricoEstadísticas
     /// </summary>
     public void Cargar()
     {
-        var json = CargarJson();
-
-        var datos = JsonSerializer.Deserialize<Dictionary<string, Estadistica>>(json);
+        var datos = JsonSerializer.Deserialize<Dictionary<string, Estadistica>>(CargarJson());
 
         if (datos != null)
         {
@@ -79,11 +82,11 @@ public class HistóricoEstadísticas
     /// Lee el json del archivo
     /// </summary>
     /// <returns>El contenido del archivo, o un Json "vacío"</returns>
-    private string CargarJson()
+    public string CargarJson()
     {
         try
         {
-            return File.ReadAllText(RutaArchivo);
+            return File.ReadAllText(RutaBaseDeDatos);
         }
         catch
         {

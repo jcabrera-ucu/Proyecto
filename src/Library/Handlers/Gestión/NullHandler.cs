@@ -6,20 +6,11 @@ public class NullHandler : BaseHandler
     {
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
-        var mensajes = new List<string>();
+        remitente = "¡Comando no reconocido!\nUtilice el comando 'menu' para ver las opciones disponibles";
+        oponente = string.Empty;
 
-        if (message.Partida != null)
-        {
-            mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
-        }
-        else
-        {
-            mensajes.Add("¡Comando no reconocido!");
-        }
-        response = String.Join('\n', mensajes);
         return true;
     }
 }

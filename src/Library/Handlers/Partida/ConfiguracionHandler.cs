@@ -2,91 +2,92 @@ namespace Library;
 
 public class ConfiguracionHandler : BasePrefijoHandler
 {
-    public ConfiguracionHandler(BaseHandler? next)
+    public GestorPartidas GestorPartidas { get; }
+
+    public ConfiguracionHandler(GestorPartidas gestorPartidas, BaseHandler? next)
         : base(next)
     {
+        this.GestorPartidas = gestorPartidas;
         this.Keywords = new string[] {
             "agregar",
             "ag",
         };
     }
 
-    protected override bool InternalHandle(Message message, out string response, out string response2)
+    protected override bool InternalHandle(Message message, out string remitente, out string oponente)
     {
-        response2 = string.Empty;
+        oponente = String.Empty;
+
         if (!CanHandle(message))
         {
-            response = string.Empty;
+            remitente = String.Empty;
+            oponente = String.Empty;
+
             return false;
         }
 
-        if (message.Partida == null)
+        var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
+
+        if (partida == null)
         {
-            response = "No hay ninguna partida activa";
+            remitente = "No hay ninguna partida activa";
+            oponente = String.Empty;
+
             return true;
         }
 
-        try
+        var coords = LeerCoordenadas.Leer(message.Text);
+
+        if (coords.Count != 2)
         {
-            var coords = LeerCoordenadas.Leer(message.Text);
+            remitente = "Error: se esperaban dos coordenadas";
+            oponente = String.Empty;
 
-            if (coords.Count != 2)
-            {
-                response = "Se esperaban dos coordenadas";
-                return true;
-            }
-
-            message.Partida.AgregarBarco(message.Usuario.Id, coords[0], coords[1]);
-
-            var mensajes = new List<string>()
-            {
-                $"Barco agregado {coords[0].ToAlfanumérico()}-{coords[1].ToAlfanumérico()}",
-            };
-
-            mensajes.AddRange(MensajesDePartida.Mensajes(message.Usuario, message.Partida));
-            response = String.Join('\n', mensajes);
             return true;
         }
-        catch (CoordenadasNoAlineadas exc)
+
+        partida.AgregarBarco(message.IdJugador, coords[0], coords[1]);
+
+        oponente = String.Empty;
+
+        remitente =
+            $"Barco agregado {coords[0].ToAlfanumérico()}-{coords[1].ToAlfanumérico()}\n" +
+            $"{partida.MostrarTablero(message.IdJugador)}\n";
+
+        if (partida.BarcosFaltantes(message.IdJugador).Count != 0)
         {
-            response = $"¡Las coordenadas no están en línea recta!\n"
-                     + $" >> {exc.Primera.ToAlfanumérico()} y {exc.Segunda.ToAlfanumérico()}";
-            return true;
+            remitente +=
+                $"Aún te faltan agregar barcos de los siguientes tamaños:\n" +
+                $" => ({String.Join(", ", partida.BarcosFaltantes(message.IdJugador))})\n";
         }
-        catch (CoordenadaFormatoIncorrecto exc)
+        else
         {
-            switch (exc.Razón)
+            remitente +=
+                $"¡Ya has agregado todos tus barcos!\n" +
+                $"Espera a que tu oponente termine\n";
+
+            switch (partida.Estado)
             {
-                case CoordenadaFormatoIncorrecto.Error.Rango:
-                    response = $"¡Error de rango numérico en: {exc.Value}!";
+                case EstadoPartida.TurnoJugadorA:
+                case EstadoPartida.TurnoJugadorB:
+                    if (partida.EsTurnoDe(message.IdJugador))
+                    {
+                        remitente +=
+                            "¡Es tu turno!\n";
+                        oponente = "Es el turno de tu oponente";
+                    }
+                    else
+                    {
+                        remitente += "Es el turno de tu oponente";
+                        oponente = "¡Es tu turno!";
+                    }
                     break;
-                case CoordenadaFormatoIncorrecto.Error.Sintaxis:
                 default:
-                    response = $"¡Error de sintaxis en: {exc.Value}!";
                     break;
             }
-            return true;
+
         }
-        catch (BarcosSuperpuestosException exc)
-        {
-            response = $"El barco que está intentando agregar se superpone con otro\n"
-                     + $" >> ({exc.Primero}) y ({exc.Segundo})";
-            return true;
-        }
-        catch (BarcoYaExiste exc)
-        {
-            response = $"¡Ya existe un barco de tamaño {exc.Largo}";
-            return true;
-        }
-        catch (EstadoPartidaIncorrecto)
-        {
-            response = "No se pueden agregar barcos en este momento";
-            return true;
-        }
-        catch (Exception)
-        {
-            response = $"¡Error inesperado, intente nuevamente!";
-            return true;
-        }
+
+        return true;
     }
 }
