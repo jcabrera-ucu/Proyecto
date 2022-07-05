@@ -98,18 +98,6 @@ public class Jugador
     /// </summary>
     /// <param name="coordA">Primera coordenada del barco</param>
     /// <param name="coordB">Segunda coordenada del barco</param>
-    /// <exception cref="BarcosSuperpuestos">
-    /// Si se intenta agregar un barco que intersecta otro ya existente
-    /// </exception>
-    /// <exception cref="BarcoYaExiste">
-    /// Si se intenta agregar un barco de un tamaño que ya existe en el tablero
-    /// </exception>
-    /// <exception cref="CoordenadasNoAlineadas">
-    /// Si las coordenadas no están alineadas
-    /// </exception>
-    /// <exception cref="System.ArgumentOutOfRangeException">
-    /// Si alguna de las coordenadas no son válidas para el tablero
-    /// </exception>
     /// <returns>La instancia del barco que fue creado</returns>
     public Barco AgregarBarco(Coord coordA, Coord coordB)
     {
