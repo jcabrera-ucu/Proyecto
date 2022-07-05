@@ -126,4 +126,44 @@ public class CoordTests
         var coord = new Coord(x, y);
         Assert.AreEqual(expected, new Coord(x, y).ToStringY());
     }
+
+    [Test]
+    public void Alineadas()
+    {
+        Assert.IsTrue(Coord.Alineadas(new Coord(3, 4), new Coord(3, 4)));
+        Assert.IsTrue(Coord.Alineadas(new Coord(4, 1), new Coord(4, 2)));
+        Assert.IsTrue(Coord.Alineadas(new Coord(4, 3), new Coord(2, 3)));
+        Assert.IsFalse(Coord.Alineadas(new Coord(4, 3), new Coord(2, 2)));
+    }
+
+    [Test]
+    public void AlineadasYOrdenadas()
+    {
+        Assert.IsTrue(Coord.AlineadasYOrdenadas(new Coord(0, 0), new Coord(0, 0)));
+        Assert.IsTrue(Coord.AlineadasYOrdenadas(new Coord(0, 0), new Coord(3, 0)));
+        Assert.IsTrue(Coord.AlineadasYOrdenadas(new Coord(2, 1), new Coord(2, 3)));
+        Assert.IsFalse(Coord.AlineadasYOrdenadas(new Coord(2, 0), new Coord(0, 0)));
+        Assert.IsFalse(Coord.AlineadasYOrdenadas(new Coord(2, 1), new Coord(3, 4)));
+    }
+
+    [Test]
+    public void Ordenar()
+    {
+        Assert.AreEqual(new Coord(0, 0), Coord.Ordenar(new Coord(0, 0), new Coord(0, 0)).Item1);
+        Assert.AreEqual(new Coord(0, 0), Coord.Ordenar(new Coord(0, 0), new Coord(0, 0)).Item2);
+
+        Assert.AreEqual(new Coord(0, 0), Coord.Ordenar(new Coord(2, 0), new Coord(0, 0)).Item1);
+        Assert.AreEqual(new Coord(2, 0), Coord.Ordenar(new Coord(2, 0), new Coord(0, 0)).Item2);
+
+        Assert.AreEqual(new Coord(2, 1), Coord.Ordenar(new Coord(2, 2), new Coord(2, 1)).Item1);
+        Assert.AreEqual(new Coord(2, 2), Coord.Ordenar(new Coord(2, 2), new Coord(2, 1)).Item2);
+    }
+
+    [Test]
+    public void Largo()
+    {
+        Assert.AreEqual(1, Coord.Largo(new Coord(0, 0), new Coord(0, 0)));
+        Assert.AreEqual(2, Coord.Largo(new Coord(0, 0), new Coord(1, 0)));
+        Assert.AreEqual(0, Coord.Largo(new Coord(1, 0), new Coord(0, 0)));
+    }
 }

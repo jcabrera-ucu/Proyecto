@@ -186,4 +186,50 @@ public class ControladorJuegoTests
         Assert.IsFalse(c.EsTurnoDe(j1.Id));
         Assert.IsFalse(c.EsTurnoDe(new Ident()));
     }
+
+    [Test]
+    public void AgregarBarco()
+    {
+        var idJugadorA = new Ident();
+        var idJugadorB = new Ident();
+
+        var j0 = new Jugador(
+            idJugadorA,
+            "JugadorA",
+            new Tablero(),
+            null,
+            1,
+            new Estadistica()
+        );
+
+        var j1 = new Jugador(
+            idJugadorB,
+            "JugadorB",
+            new Tablero(),
+            null,
+            1,
+            new Estadistica()
+        );
+
+        var c = new ControladorJuego(j0, j1);
+
+        c.AgregarBarco(j0.Id, new Coord(0, 0), new Coord(0, 1));
+        Assert.AreEqual(new Coord(0, 0), j0.Tablero.Barcos[0].Primera);
+        Assert.AreEqual(new Coord(0, 1), j0.Tablero.Barcos[0].Segunda);
+
+        Assert.Throws<CoordenadasNoAlineadas>(() =>
+        {
+            c.AgregarBarco(j0.Id, new Coord(0, 0), new Coord(1, 1));
+        });
+
+        Assert.Throws<BarcoLargoIncorrecto>(() =>
+        {
+            c.AgregarBarco(j0.Id, new Coord(0, 0), new Coord(0, 20));
+        });
+
+        Assert.Throws<BarcoYaExiste>(() =>
+        {
+            c.AgregarBarco(j0.Id, new Coord(0, 0), new Coord(0, 1));
+        });
+    }
 }
