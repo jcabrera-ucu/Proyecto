@@ -1,6 +1,9 @@
 using System;
 namespace Library;
 
+// Esta clase aplica el patrón Expert, ya que contiene toda la información
+// para gestionar múltiples partidas.
+
 /// <summary>
 /// Une todas las piezas para soportar multiples partidas de BatallaNaval.
 /// Entre personas y entre una persona y un bot
@@ -8,24 +11,27 @@ namespace Library;
 public class BatallaNaval
 {
     /// <summary>
-    ///
+    /// Gestor de estadísticas
     /// </summary>
     public HistóricoEstadísticas Estadísticas { get; }
 
     /// <summary>
-    ///
+    /// Gestor de partidas
     /// </summary>
     public GestorPartidas GestorPartidas { get; }
 
+    /// <summary>
+    /// Instancia del Gestor de bots
+    /// </summary>
     public GestorBots GestorBots { get; }
 
     /// <summary>
-    ///
+    /// Punto de entrada a la cadena de handlers
     /// </summary>
     public IHandler Chain { get; }
 
     /// <summary>
-    ///
+    /// Construye una instancia de BatallaNaval
     /// </summary>
     public BatallaNaval()
     {
@@ -48,6 +54,11 @@ public class BatallaNaval
             new NullHandler()))))))))))));
     }
 
+    /// <summary>
+    /// Procesa un mensaje y devuelve la respuesta
+    /// </summary>
+    /// <param name="mensaje">Mensaje a procesar</param>
+    /// <returns>Instancia de una Respuesta a enviar a los jugadores</returns>
     public Respuesta ProcesarMensaje(Message mensaje)
     {
         try
@@ -147,6 +158,10 @@ public class BatallaNaval
         }
     }
 
+    /// <summary>
+    /// Corre todos los bots y devuelve sus mensajes a ejecutar
+    /// </summary>
+    /// <returns>Lista de mensajes enviados por los bots</returns>
     public List<Message> EjecutarBots()
     {
         return GestorBots.EjecutarBots();
