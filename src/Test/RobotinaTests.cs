@@ -14,6 +14,10 @@ public class RobotinaTests
     [Test]
     public void ComandosSiguiente()
     {
+        // Para poder testear correctamente esta funcionalidad
+        // habría que parametrizar "Robotina" con un generador de
+        // números pseudoaleatorios que pueda controlar.
+
         var idJugadorA = new Ident();
         var idBot = new Ident();
 

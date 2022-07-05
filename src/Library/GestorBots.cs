@@ -1,7 +1,8 @@
 namespace Library;
 
-//
-//
+// Cumple con SRP ya que su única responsabilidad es el almacenamiento de los bots
+// Cumple con Law of Demeter ya que el usuario de la clase no necesita
+// conocer como funcionan los tipos internos, ni accederlos.
 
 /// <summary>
 /// Gestiona los Bots que están jugando
