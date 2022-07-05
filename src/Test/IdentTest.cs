@@ -19,10 +19,13 @@ public class IdentTests
     }
 
     [Test]
-    public void IdentSinValor()
+    public void IdentAleatorio()
     {
         var a = new Ident();
+        var b = new Ident();
 
-        Assert.AreEqual("", a.Value);
+        Assert.AreNotSame(a.Value, b.Value);
+        Assert.AreNotSame("", a.Value);
+        Assert.AreNotSame("", b.Value);
     }
 }
