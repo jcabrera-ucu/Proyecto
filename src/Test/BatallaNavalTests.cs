@@ -411,4 +411,220 @@ public class BatallaNavalTests
             Assert.That(res.Oponente, Contains.Substring("Es tu turno"));
         }
     }
+    [Test]
+    public void GanadorPerdedorTest()
+    {
+        var batalla = new BatallaNaval();
+
+        var idJugadorA = new Ident();
+        var idJugadorB = new Ident();
+
+        batalla.ProcesarMensaje(new Message(
+            "buscar",
+            idJugadorA,
+            "Jugador A"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "buscar",
+            idJugadorB,
+            "Jugador B"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar a1 a2",
+            idJugadorA,
+            "Jugador A"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar b1 b3",
+            idJugadorA,
+            "Jugador A"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar c1 c4",
+            idJugadorA,
+            "Jugador A"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar d1 d5",
+            idJugadorA,
+            "Jugador A"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar a1 a2",
+            idJugadorB,
+            "Jugador B"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar b1 b3",
+            idJugadorB,
+            "Jugador B"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar c1 c4",
+            idJugadorB,
+            "Jugador B"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "agregar d1 d5",
+            idJugadorB,
+            "Jugador B"
+        ));
+
+
+        batalla.ProcesarMensaje(new Message(
+            "atacar a1",
+            idJugadorA,
+            "Jugador A"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "atacar a1",
+            idJugadorB,
+            "Jugador B"
+        ));
+
+        batalla.ProcesarMensaje(new Message(
+            "atacar a2",
+            idJugadorA,
+            "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar a2",
+            idJugadorB,
+            "Jugador B"
+        ));
+        batalla.ProcesarMensaje(new Message(
+           "atacar c1",
+           idJugadorA,
+           "Jugador A"
+       ));
+        batalla.ProcesarMensaje(new Message(
+      "atacar c1",
+      idJugadorB,
+      "Jugador B"
+        ));
+        batalla.ProcesarMensaje(new Message(
+           "atacar c2",
+           idJugadorA,
+           "Jugador A"
+       ));
+        batalla.ProcesarMensaje(new Message(
+         "atacar c2",
+         idJugadorB,
+         "Jugador B"
+        ));
+        batalla.ProcesarMensaje(new Message(
+          "atacar c3",
+          idJugadorA,
+          "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+          "atacar c3",
+          idJugadorB,
+          "Jugador B"
+        ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar c4",
+        idJugadorA,
+        "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+           "atacar c4",
+           idJugadorB,
+           "Jugador B"
+       ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar b1",
+        idJugadorA,
+        "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+         "atacar b1",
+         idJugadorB,
+         "Jugador B"
+     ));
+        batalla.ProcesarMensaje(new Message(
+     "atacar b2",
+ idJugadorA,
+ "Jugador A"
+ ));
+        batalla.ProcesarMensaje(new Message(
+          "atacar b2",
+          idJugadorB,
+          "Jugador B"
+      ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar b3",
+        idJugadorA,
+        "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+          "atacar b3",
+          idJugadorB,
+          "Jugador B"
+      ));
+        //Cut
+        batalla.ProcesarMensaje(new Message(
+        "atacar d1",
+        idJugadorA,
+        "Jugador A"
+      ));
+        batalla.ProcesarMensaje(new Message(
+          "atacar d1",
+          idJugadorB,
+          "Jugador B"
+        ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar d2",
+        idJugadorA,
+        "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+           "atacar d2",
+           idJugadorB,
+           "Jugador B"
+       ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar d3",
+        idJugadorA,
+        "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+         "atacar d3",
+         idJugadorB,
+         "Jugador B"
+     ));
+        batalla.ProcesarMensaje(new Message(
+     "atacar d4",
+ idJugadorA,
+ "Jugador A"
+ ));
+        batalla.ProcesarMensaje(new Message(
+          "atacar d4",
+          idJugadorB,
+          "Jugador B"
+      ));
+        {
+            var res = batalla.ProcesarMensaje(new Message(
+                "atacar d5",
+                idJugadorA,
+                "Jugador A"
+            ));
+
+            Assert.AreEqual(idJugadorA, res.IdRemitente);
+            Assert.AreEqual(idJugadorB, res.IdOponente);
+            Assert.That(res.Remitente, Contains.Substring("Ganaste"));
+            Assert.That(res.Oponente, Contains.Substring("Perdiste"));
+        }
+
+    }
 }
