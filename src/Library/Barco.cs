@@ -1,6 +1,7 @@
 namespace Library;
 
-// Esta clase cumple con el patron SRP, su responsabilidad es manejar todo lo relacionado con los barcos.
+// Esta clase cumple con el patron SRP, su responsabilidad es
+// manejar todo lo relacionado con los barcos.
 
 /// <summary>
 /// Posición y estado de un barco.
