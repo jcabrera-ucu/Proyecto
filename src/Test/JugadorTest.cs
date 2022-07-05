@@ -11,10 +11,11 @@ public class JugadorTests
     }
 
     [Test]
-    public void IdentConValor()
+    public void SecuenciaDeBarcosYAtaques()
     {
         var j0 = new Jugador(
             new Ident(),
+            "JugadorA",
             new Tablero(),
             null,
             1,
@@ -25,6 +26,7 @@ public class JugadorTests
 
         var j1 = new Jugador(
             new Ident(),
+            "JugadorB",
             new Tablero(),
             null,
             1,
@@ -35,10 +37,6 @@ public class JugadorTests
 
         Assert.IsTrue(j0.SigueEnJuego);
         Assert.IsTrue(j0.SigueEnJuegoReloj);
-
-        Assert.Contains(2, j0.BarcosFaltantes);
-        Assert.Contains(4, j0.BarcosFaltantes);
-        Assert.Contains(5, j0.BarcosFaltantes);
 
         Assert.AreEqual(ResultadoAtaque.Tocado, j0.AtacarJugador(j1, new Coord(0, 1)));
         Assert.AreEqual(1, j0.Estadistica.Aciertos);

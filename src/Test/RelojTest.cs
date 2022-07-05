@@ -12,7 +12,7 @@ public class RelojTests
     }
 
     [Test]
-    public void Pruebas()
+    public void RelojInicioYTerminación()
     {
         var now = DateTime.UtcNow;
 
