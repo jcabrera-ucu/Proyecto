@@ -4,12 +4,21 @@ namespace Library;
 //
 
 /// <summary>
-///
+/// Gestiona los Bots que están jugando
 /// </summary>
 public class GestorBots
 {
+    /// <summary>
+    /// Lista de todos los bots en juego
+    /// </summary>
     public List<Robotina> Bots { get; private set; } = new();
 
+    /// <summary>
+    /// Crea un nuevo bot
+    /// </summary>
+    /// <param name="idBot">Id del nuevo Bot</param>
+    /// <param name="partida">Partida en la que está jugando</param>
+    /// <returns>Instancia del bot creado</returns>
     public Robotina Nuevo(Ident idBot, ControladorJuego partida)
     {
         var bot = new Robotina(idBot, partida);
@@ -17,6 +26,10 @@ public class GestorBots
         return bot;
     }
 
+    /// <summary>
+    /// Ejecuta todos los bots
+    /// </summary>
+    /// <returns>Los mensajes que generan cada uno de los bots</returns>
     public List<Message> EjecutarBots()
     {
         var eliminar = new List<Robotina>();

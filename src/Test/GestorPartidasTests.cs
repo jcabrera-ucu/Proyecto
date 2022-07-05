@@ -13,14 +13,14 @@ public class GestorPartidasTests
     [Test]
     public void PruebaBúsqueda()
     {
-        var g = new GestorPartidas();
+        var g = new GestorPartidas(new HistóricoEstadísticas());
 
-        var u0 = new Usuario
+        var u0 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
 
-        var u1 = new Usuario
+        var u1 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
@@ -32,14 +32,14 @@ public class GestorPartidasTests
     [Test]
     public void PruebaBúsquedaReloj()
     {
-        var g = new GestorPartidas();
+        var g = new GestorPartidas(new HistóricoEstadísticas());
 
-        var u0 = new Usuario
+        var u0 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
 
-        var u1 = new Usuario
+        var u1 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
@@ -51,24 +51,24 @@ public class GestorPartidasTests
     [Test]
     public void PruebaBúsquedaMezclada()
     {
-        var g = new GestorPartidas();
+        var g = new GestorPartidas(new HistóricoEstadísticas());
 
-        var u0 = new Usuario
+        var u0 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
 
-        var u1 = new Usuario
+        var u1 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
 
-        var u2 = new Usuario
+        var u2 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
 
-        var u3 = new Usuario
+        var u3 = new GestorPartidas.Usuario
         {
             Id = new Ident(),
         };
