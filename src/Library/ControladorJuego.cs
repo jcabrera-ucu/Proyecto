@@ -279,24 +279,6 @@ public class ControladorJuego
         }
     }
 
-    public bool VerificarRelojes()
-    {
-        switch (Estado)
-        {
-            case EstadoPartida.TurnoJugadorA:
-            case EstadoPartida.TurnoJugadorB:
-                if (!JugadorA.SigueEnJuegoReloj || !JugadorB.SigueEnJuegoReloj)
-                {
-                    Estado = EstadoPartida.TerminadoPorReloj;
-                    return false;
-                }
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
     /// <summary>
     ///
     /// </summary>
