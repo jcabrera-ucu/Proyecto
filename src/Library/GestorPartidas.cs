@@ -42,8 +42,6 @@ public class GestorPartidas
     /// </summary>
     public TimeSpan TiempoReloj { get; } = TimeSpan.FromSeconds(15);
 
-    // private System.Threading.Timer _relojesTimer;
-
     /// <summary>
     /// Construye un gestor vacío
     /// </summary>
@@ -51,14 +49,6 @@ public class GestorPartidas
     {
         Partidas = new();
         Estadísicas = estadísiticas;
-        // _relojesTimer = new System.Threading.Timer((x) =>
-        // {
-        //     foreach (var partida in Partidas.Values)
-        //     {
-        //         partida.VerificarRelojes();
-        //     }
-        //     Console.WriteLine("TIMER!");
-        // }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     /// <summary>
@@ -115,6 +105,10 @@ public class GestorPartidas
         return controladorJuego;
     }
 
+    /// <summary>
+    /// Remueve una partida del gestor
+    /// </summary>
+    /// <param name="partida">Partida a eliminar</param>
     public void EliminarPartida(ControladorJuego partida)
     {
         var id1 = partida.JugadorA.Id;
@@ -124,6 +118,13 @@ public class GestorPartidas
         Partidas.Remove(id2);
     }
 
+    /// <summary>
+    /// Agrega una nueva partida
+    /// </summary>
+    /// <param name="usuarioA">Usuario jugador</param>
+    /// <param name="usuarioB">Usuario jugador</param>
+    /// <param name="conReloj">True si la partida tiene reloj</param>
+    /// <returns>Instancia de la partida</returns>
     public ControladorJuego NuevaPartida(Usuario usuarioA, Usuario usuarioB, bool conReloj = false)
     {
         var controladorJuego = new ControladorJuego(
