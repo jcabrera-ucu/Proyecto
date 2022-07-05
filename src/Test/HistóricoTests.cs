@@ -12,14 +12,12 @@ public class HistóricoTests
     }
 
     [Test]
-    public void Pruebas()
+    public void Persistencia()
     {
         {
             File.Delete("bdd.json");
 
             var h = new HistóricoEstadísticas("bdd.json");
-
-            Assert.AreEqual(0, h.Estadísticas.Count);
 
             var i0 = new Ident("0");
 
