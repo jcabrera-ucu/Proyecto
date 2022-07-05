@@ -65,7 +65,7 @@ public class TableroTests
         var c0 = new Coord(x0, y0);
         var c1 = new Coord(x1, y1);
 
-        Assert.Throws<BarcosSuperpuestosException>(() =>
+        Assert.Throws<BarcosSuperpuestos>(() =>
         {
             var b = t.AgregarBarco(c0, c1);
         });

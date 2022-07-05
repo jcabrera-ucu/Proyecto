@@ -12,9 +12,12 @@ public record struct Ident
     /// </summary>
     public string Value { get; }
 
+    /// <summary>
+    /// Construye un Id con un identificador aleatorio (Guid)
+    /// </summary>
     public Ident()
     {
-        Value = String.Empty;
+        Value = Guid.NewGuid().ToString();
     }
 
     /// <summary>

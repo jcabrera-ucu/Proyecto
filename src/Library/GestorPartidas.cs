@@ -98,26 +98,7 @@ public class GestorPartidas
             return null;
         }
 
-        var controladorJuego = new ControladorJuego(
-            new Jugador(
-                id: oponente.Id,
-                nombre: oponente.Nombre,
-                tablero: new Tablero(),
-                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
-                radaresDisponibles: 1,
-                estadistica: Estadísicas.ObtenerEstadística(oponente.Id)
-            ),
-            new Jugador(
-                id: usuario.Id,
-                nombre: usuario.Nombre,
-                tablero: new Tablero(),
-                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
-                radaresDisponibles: 1,
-                estadistica: Estadísicas.ObtenerEstadística(usuario.Id)
-            )
-        );
-
-        AgregarPartida(oponente.Id, usuario.Id, controladorJuego);
+        var controladorJuego = NuevaPartida(usuario, oponente, conReloj);
 
         // Estas asignaciones se hacen en este punto para evitar que éste
         // objeto quede en un estado inválido en caso de que el código de arriba
@@ -141,6 +122,32 @@ public class GestorPartidas
 
         Partidas.Remove(id1);
         Partidas.Remove(id2);
+    }
+
+    public ControladorJuego NuevaPartida(Usuario usuarioA, Usuario usuarioB, bool conReloj = false)
+    {
+        var controladorJuego = new ControladorJuego(
+            new Jugador(
+                id: usuarioB.Id,
+                nombre: usuarioB.Nombre,
+                tablero: new Tablero(),
+                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
+                radaresDisponibles: 1,
+                estadistica: Estadísicas.ObtenerEstadística(usuarioB.Id)
+            ),
+            new Jugador(
+                id: usuarioA.Id,
+                nombre: usuarioA.Nombre,
+                tablero: new Tablero(),
+                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
+                radaresDisponibles: 1,
+                estadistica: Estadísicas.ObtenerEstadística(usuarioA.Id)
+            )
+        );
+
+        AgregarPartida(usuarioA.Id, usuarioB.Id, controladorJuego);
+
+        return controladorJuego;
     }
 
     /// <summary>

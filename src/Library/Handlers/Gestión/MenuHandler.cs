@@ -40,7 +40,8 @@ public class MenuHandler : BaseHandler
                 $" >> buscar partida\n" +
                 $"    buscar\n" +
                 $" >> buscar partida con reloj\n" +
-                $"    buscar con reloj\n";
+                $"    buscar con reloj\n" +
+                $" >> jugar con bot\n";
         }
 
         if (partida != null)

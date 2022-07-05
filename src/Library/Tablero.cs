@@ -269,22 +269,22 @@ public class Tablero
         return (Celda.Vacio, null);
     }
 
-    public MatrizCeldas ObtenerMatrizCeldas()
-    {
-        MatrizCeldas celdas = new(Ancho, Alto);
+    // public MatrizCeldas ObtenerMatrizCeldas()
+    // {
+    //     MatrizCeldas celdas = new(Ancho, Alto);
 
-        for (int x = 0; x < Ancho; x++)
-        {
-            for (int y = 0; y < Alto; y++)
-            {
-                var coord = new Coord(x, y);
+    //     for (int x = 0; x < Ancho; x++)
+    //     {
+    //         for (int y = 0; y < Alto; y++)
+    //         {
+    //             var coord = new Coord(x, y);
 
-                celdas[coord] = GetCelda(coord).celda;
-            }
-        }
+    //             celdas[coord] = GetCelda(coord).celda;
+    //         }
+    //     }
 
-        return celdas;
-    }
+    //     return celdas;
+    // }
 
     /// <summary>
     /// Crea la representación del tablero en texto
@@ -306,9 +306,9 @@ public class Tablero
         }
 
         builder.Append("\n");
-        builder.Append(tabulación);
-        builder.Append(líneaHorizontal);
-        builder.Append("\n");
+        // builder.Append(tabulación);
+        // builder.Append(líneaHorizontal);
+        // builder.Append("\n");
 
         for (int y = 0; y < Alto; y++)
         {
@@ -320,9 +320,9 @@ public class Tablero
             }
 
             builder.Append("\n");
-            builder.Append(tabulación);
-            builder.Append(líneaHorizontal);
-            builder.Append("\n");
+            // builder.Append(tabulación);
+            // builder.Append(líneaHorizontal);
+            // builder.Append("\n");
         }
 
         return builder.ToString();
@@ -345,6 +345,7 @@ public class Tablero
                 case Celda.Tocado:
                     return 'X';
                 case Celda.Agua:
+                    return '-';
                 case Celda.Vacio:
                 default:
                     return ' ';
@@ -356,7 +357,8 @@ public class Tablero
             return $"{tablero}" +
                 $" >> B: Barco (no tocado)\n" +
                 $" >> R: Celda de un barco revelado por un radar\n" +
-                $" >> X: Barco (tocado)";
+                $" >> X: Barco (tocado)\n" +
+                $" >> -: Posición atacada por el oponente";
         }
 
         return tablero;

@@ -30,8 +30,7 @@ public class ControladorJuego
     /// <remarks>
     /// Pueden haber repetidos, e.j: 2, 2, 3 ; dos barcos de 2 y uno de 3
     /// </remarks>
-    //public List<int> BarcosEsperados { get; } = new() { 2, 3, 4, 5 };
-    public List<int> BarcosEsperados { get; } = new() { 1, 2 };
+    public List<int> BarcosEsperados { get; } = new() { 2, 3, 4, 5 };
 
     public bool SigueEnJuego
     {
@@ -236,6 +235,22 @@ public class ControladorJuego
         var jugador = ObtenerJugadorPorId(id);
         if (jugador != null)
         {
+            if (!Coord.Alineadas(coordA, coordB))
+            {
+                throw new CoordenadasNoAlineadas(coordA, coordB);
+            }
+
+            var largo = Coord.Largo(coordA, coordB);
+            if (!BarcosEsperados.Exists(x => x == largo))
+            {
+                throw new BarcoLargoIncorrecto(coordA, coordB);
+            }
+
+            if (!BarcosFaltantes(jugador.Id).Exists(x => x == largo))
+            {
+                throw new BarcoYaExiste(largo);
+            }
+
             jugador.AgregarBarco(coordA, coordB);
         }
 

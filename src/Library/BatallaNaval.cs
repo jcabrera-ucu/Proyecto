@@ -2,7 +2,8 @@ using System;
 namespace Library;
 
 /// <summary>
-/// Une todas las piezas para soportar una partida de BatallaNaval.
+/// Une todas las piezas para soportar multiples partidas de BatallaNaval.
+/// Entre personas y entre una persona y un bot
 /// </summary>
 public class BatallaNaval
 {
@@ -16,6 +17,8 @@ public class BatallaNaval
     /// </summary>
     public GestorPartidas GestorPartidas { get; }
 
+    public GestorBots GestorBots { get; }
+
     /// <summary>
     ///
     /// </summary>
@@ -28,11 +31,13 @@ public class BatallaNaval
     {
         Estadísticas = new();
         GestorPartidas = new(Estadísticas);
+        GestorBots = new();
         Chain =
             new InicioHandler(
             new MenuHandler(GestorPartidas,
             new BuscarPartidaHandler(GestorPartidas, conReloj: false,
             new BuscarPartidaHandler(GestorPartidas, conReloj: true,
+            new JugarConBotHandler(GestorPartidas, GestorBots,
             new EstadisticasHandler(Estadísticas,
             new AtaqueHandler(GestorPartidas,
             new ConfiguracionHandler(GestorPartidas,
@@ -40,7 +45,7 @@ public class BatallaNaval
             new RelojHandler(GestorPartidas,
             new RadarHandler(GestorPartidas,
             new TableroHandler(GestorPartidas,
-            new NullHandler())))))))))));
+            new NullHandler()))))))))))));
     }
 
     public Respuesta ProcesarMensaje(Message mensaje)
@@ -121,7 +126,14 @@ public class BatallaNaval
         }
         catch (BarcoYaExiste exc)
         {
-            return new Respuesta(remitente: $"¡Ya existe un barco de tamaño {exc.Largo}",
+            return new Respuesta(remitente: $"¡Ya existe un barco de tamaño {exc.Largo}!",
+                                 oponente: "",
+                                 idRemitente: mensaje.IdJugador,
+                                 idOponente: ObtenterIdOponente(mensaje.IdJugador));
+        }
+        catch (BarcoLargoIncorrecto exc)
+        {
+            return new Respuesta(remitente: $"¡No se puede agregar un barco de tamaño {exc.Largo}!",
                                  oponente: "",
                                  idRemitente: mensaje.IdJugador,
                                  idOponente: ObtenterIdOponente(mensaje.IdJugador));
@@ -133,6 +145,11 @@ public class BatallaNaval
                                  idRemitente: mensaje.IdJugador,
                                  idOponente: ObtenterIdOponente(mensaje.IdJugador));
         }
+    }
+
+    public List<Message> EjecutarBots()
+    {
+        return GestorBots.EjecutarBots();
     }
 
     /// <summary>

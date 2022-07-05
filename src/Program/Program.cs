@@ -1,22 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InputFiles;
 
-
-
-namespace Library;
-
-
+using Library;
 
 public class Program
 {
@@ -149,6 +139,38 @@ public class Program
         }
     }
 
+    private static async Task ProcesarMensaje(Library.Message mensaje)
+    {
+        var respuesta = juego.ProcesarMensaje(mensaje);
+
+        if (!String.IsNullOrEmpty(respuesta.Remitente))
+        {
+            long chatId;
+            if (long.TryParse(mensaje.IdJugador.Value, out chatId))
+            {
+                await Bot.SendTextMessageAsync(
+                    chatId,
+                    $"```\n{respuesta.Remitente}\n```",
+                    ParseMode.MarkdownV2
+                );
+            }
+        }
+
+        if (!String.IsNullOrEmpty(respuesta.Oponente) && respuesta.IdOponente != null)
+        {
+            var idOponente = (Ident)respuesta.IdOponente;
+            long chatId;
+            if (long.TryParse(idOponente.Value, out chatId))
+            {
+                await Bot.SendTextMessageAsync(
+                    chatId,
+                    $"```\n{respuesta.Oponente}\n```",
+                    ParseMode.MarkdownV2
+                );
+            }
+        }
+    }
+
     /// <summary>
     /// Maneja los mensajes que se envían al bot a través de handlers de una chain of responsibility.
     /// </summary>
@@ -173,31 +195,17 @@ public class Program
                 }
             }
 
-            var respuesta = juego.ProcesarMensaje(new Message
+            await ProcesarMensaje(new Library.Message
             {
                 IdJugador = new Ident(message.Chat.Id.ToString()),
                 Text = message.Text,
                 Nombre = nombre
             });
 
-            if (!String.IsNullOrEmpty(respuesta.Remitente))
+            foreach (var mensaje in juego.EjecutarBots())
             {
-                await Bot.SendTextMessageAsync(
-                    message.Chat.Id,
-                    $"```\n{respuesta.Remitente}\n```",
-                    ParseMode.MarkdownV2
-                );
-            }
-
-            if (!String.IsNullOrEmpty(respuesta.Oponente) && respuesta.IdOponente != null)
-            {
-                var idOponente = (Ident) respuesta.IdOponente;
-                await Bot.SendTextMessageAsync(
-                    // FIXME: Este Parse puede fallar
-                    long.Parse(idOponente.Value),
-                    $"```\n{respuesta.Oponente}\n```",
-                    ParseMode.MarkdownV2
-                );
+                Console.WriteLine($"# {mensaje.Nombre} ({mensaje.IdJugador.Value}), dijo: {mensaje.Text}");
+                await ProcesarMensaje(mensaje);
             }
         }
     }
