@@ -240,10 +240,12 @@ public class ControladorJuego
                 throw new CoordenadasNoAlineadas(coordA, coordB);
             }
 
-            var largo = Coord.Largo(coordA, coordB);
+            var coords = Coord.Ordenar(coordA, coordB);
+
+            var largo = Coord.Largo(coords.Item1, coords.Item2);
             if (!BarcosEsperados.Exists(x => x == largo))
             {
-                throw new BarcoLargoIncorrecto(coordA, coordB);
+                throw new BarcoLargoIncorrecto(coords.Item1, coords.Item2);
             }
 
             if (!BarcosFaltantes(jugador.Id).Exists(x => x == largo))
@@ -251,7 +253,7 @@ public class ControladorJuego
                 throw new BarcoYaExiste(largo);
             }
 
-            jugador.AgregarBarco(coordA, coordB);
+            jugador.AgregarBarco(coords.Item1, coords.Item2);
         }
 
         if (BarcosFaltantes(JugadorA.Id).Count == 0
