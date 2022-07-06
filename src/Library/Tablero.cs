@@ -83,13 +83,13 @@ public class Tablero
     /// </summary>
     /// <param name="a">Coordenada de inicio del barco</param>
     /// <param name="b">Coordenada de fin del barco</param>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="CoordenadaFueraDelTablero">
     /// Si 'a' no es válidad para las dimensiones del tablero
     /// </exception>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="CoordenadaFueraDelTablero">
     /// Si 'b' no es válidad para las dimensiones del tablero
     /// </exception>
-    /// <exception cref="Library.BarcosSuperpuestos">
+    /// <exception cref="BarcosSuperpuestos">
     /// Si el barco que se intenta crear intersecta a algún otro
     /// barco ya existente en el tablero
     /// </exception>
@@ -140,7 +140,7 @@ public class Tablero
     /// Realiza un ataque sobre éste tablero
     /// </summary>
     /// <param name="coord">La coordenada a atacar</param>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="CoordenadaFueraDelTablero">
     /// Si la coordenada no es válida para el tablero
     /// </exception>
     /// <returns>El restulado del ataque</returns>
@@ -175,7 +175,7 @@ public class Tablero
     /// Tira el Radar (cuadrícula de 3x3) con centro en 'centro'
     /// </summary>
     /// <param name="centro">El centro de acción del radar</param>
-    /// <exception cref="System.ArgumentOutOfRangeException">
+    /// <exception cref="CoordenadaFueraDelTablero">
     /// Si 'coord' no es válidad para las dimensiones del tablero
     /// </exception>
     public void Radar(Coord centro)
@@ -269,23 +269,6 @@ public class Tablero
         return (Celda.Vacio, null);
     }
 
-    // public MatrizCeldas ObtenerMatrizCeldas()
-    // {
-    //     MatrizCeldas celdas = new(Ancho, Alto);
-
-    //     for (int x = 0; x < Ancho; x++)
-    //     {
-    //         for (int y = 0; y < Alto; y++)
-    //         {
-    //             var coord = new Coord(x, y);
-
-    //             celdas[coord] = GetCelda(coord).celda;
-    //         }
-    //     }
-
-    //     return celdas;
-    // }
-
     /// <summary>
     /// Crea la representación del tablero en texto
     /// </summary>
@@ -296,7 +279,6 @@ public class Tablero
     {
         var builder = new StringBuilder();
         var tabulación = new string(' ', 3);
-        var líneaHorizontal = new string('-', 2 * Ancho + 1);
 
         builder.Append(tabulación);
 
@@ -306,9 +288,6 @@ public class Tablero
         }
 
         builder.Append("\n");
-        // builder.Append(tabulación);
-        // builder.Append(líneaHorizontal);
-        // builder.Append("\n");
 
         for (int y = 0; y < Alto; y++)
         {
@@ -320,9 +299,6 @@ public class Tablero
             }
 
             builder.Append("\n");
-            // builder.Append(tabulación);
-            // builder.Append(líneaHorizontal);
-            // builder.Append("\n");
         }
 
         return builder.ToString();
