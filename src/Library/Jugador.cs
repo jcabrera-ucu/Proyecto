@@ -1,6 +1,8 @@
 namespace Library;
 
 // Jugador cumple SRP, solamente da informacion del jugador y sus operaciones.
+// Aplica Law of Demeter ya que las operaciones de sus objetos internos
+// se acceden por medio de jugador
 
 /// <summary>
 /// Información y estado de un jugador.

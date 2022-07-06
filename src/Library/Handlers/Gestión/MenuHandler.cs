@@ -34,7 +34,9 @@ public class MenuHandler : BaseHandler
 
         var partida = GestorPartidas.ObtenerPartida(message.IdJugador);
 
-        if (partida == null)
+        if (partida == null
+            || partida.Estado == EstadoPartida.Terminado
+            || partida.Estado == EstadoPartida.TerminadoPorReloj)
         {
             remitente +=
                 $" >> buscar partida\n" +
@@ -65,6 +67,12 @@ public class MenuHandler : BaseHandler
                         var jugador = partida.ObtenerJugadorPorId(message.IdJugador);
                         if (jugador != null)
                         {
+                            if (jugador.Reloj != null)
+                            {
+                                remitente +=
+                                    $" >> reloj\n";
+                            }
+
                             if (partida.JugadorActual != null && partida.JugadorActual.Id == message.IdJugador)
                             {
                                 remitente +=
