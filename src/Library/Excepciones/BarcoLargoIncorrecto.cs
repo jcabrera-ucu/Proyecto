@@ -1,6 +1,7 @@
 namespace Library;
 
 /// <summary>
+/// Se intentó agregar un barco de un largo que no es soportado
 /// </summary>
 public class BarcoLargoIncorrecto : Exception
 {

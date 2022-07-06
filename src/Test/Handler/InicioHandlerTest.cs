@@ -21,7 +21,7 @@ public class InicioHandlerTest
         string response;
         string response2;
 
-        IHandler result = handler.Handle(message, out response, out response2);
+        IHandler? result = handler.Handle(message, out response, out response2);
 
         Assert.That(result, Is.Not.Null);
         Assert.That(response, Contains.Substring("Bienvenido al bot"));
@@ -36,7 +36,7 @@ public class InicioHandlerTest
         string response;
         string response2;
 
-        IHandler result = handler.Handle(message, out response, out response2);
+        IHandler? result = handler.Handle(message, out response, out response2);
 
         Assert.That(result, Is.Not.Null);
         Assert.That(response, Contains.Substring("Comando no reconocido"));

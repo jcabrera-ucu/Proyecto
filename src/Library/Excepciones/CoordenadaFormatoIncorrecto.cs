@@ -1,5 +1,8 @@
 namespace Library;
 
+/// <summary>
+/// Error al 'parsear' una coordenada
+/// </summary>
 public class CoordenadaFormatoIncorrecto : Exception
 {
     public enum Error

@@ -1,38 +1,62 @@
 namespace Library;
 
+/// <summary>
+/// Autómata que juega a la batalla naval
+/// </summary>
 public class Robotina
 {
+    /// <summary>
+    /// Representación de cada comando que realiza el bot
+    /// </summary>
     public class Comando
     {
         public enum Tipo
         {
-            /// <summary></summary>
+            /// <summary>No hacer nada</summary>
             Esperar,
 
-            /// <summary></summary>
+            /// <summary>Autodestruir el bot</summary>
             Eliminar,
 
-            /// <summary></summary>
+            /// <summary>Comando de agregación de un barco</summary>
             Agregar,
 
-            /// <summary></summary>
+            /// <summary>Atacar al oponente</summary>
             Atacar,
 
-            /// <summary></summary>
+            /// <summary>Desplegar un radar</summary>
             Radar,
         }
 
+        /// <summary>
+        /// Coordenadas de este comando (los parámetros)
+        /// </summary>
         public List<Coord> Coordenadas { get; set; } = new();
 
+        /// <summary>
+        /// Tipo del comando
+        /// </summary>
         public Tipo Accion { get; set; }
     }
 
+    /// <summary>
+    /// Partida en la que está jugando el bot
+    /// </summary>
     public ControladorJuego Partida { get; }
 
+    /// <summary>
+    /// Instancia del tablero del oponente del bot
+    /// </summary>
     public Tablero TableroOponente { get; }
 
+    /// <summary>
+    /// Id del bot
+    /// </summary>
     public Ident IdBot { get; }
 
+    /// <summary>
+    /// Devuelve el nombre del bot según haya sido guardado en la partida
+    /// </summary>
     public string Nombre
     {
         get
@@ -48,12 +72,24 @@ public class Robotina
         }
     }
 
+    /// <summary>
+    /// Generador de números aleatorios
+    /// </summary>
     private Random _rng;
 
+    /// <summary>
+    /// Coordenada del primer tocado, puede ser null
+    /// </summary>
     private Coord? _tocadoInicial;
 
+    /// <summary>
+    /// Coordenada del tocado actual, puede ser null
+    /// </summary>
     private Coord? _tocadoActual;
 
+    /// <summary>
+    /// Construye un bot
+    /// </summary>
     public Robotina(Ident idBot, ControladorJuego partida)
     {
         Partida = partida;
@@ -69,6 +105,10 @@ public class Robotina
         TableroOponente = oponente.Tablero;
     }
 
+    /// <summary>
+    /// Avanza la lógica del bot
+    /// </summary>
+    /// <returns>Una lista de comandos a ejecutar en el juego</returns>
     public List<Comando> Siguiente()
     {
         switch (Partida.Estado)
