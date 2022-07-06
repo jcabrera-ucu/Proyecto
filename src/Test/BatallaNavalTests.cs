@@ -544,40 +544,40 @@ public class BatallaNavalTests
        ));
         batalla.ProcesarMensaje(new Message(
             "atacar b1",
-        idJugadorA,
-        "Jugador A"
+            idJugadorA,
+            "Jugador A"
         ));
         batalla.ProcesarMensaje(new Message(
-         "atacar b1",
-         idJugadorB,
-         "Jugador B"
-     ));
+            "atacar b1",
+            idJugadorB,
+            "Jugador B"
+        ));
         batalla.ProcesarMensaje(new Message(
-     "atacar b2",
- idJugadorA,
- "Jugador A"
- ));
+            "atacar b2",
+            idJugadorA,
+            "Jugador A"
+        ));
         batalla.ProcesarMensaje(new Message(
           "atacar b2",
           idJugadorB,
           "Jugador B"
-      ));
-        batalla.ProcesarMensaje(new Message(
-            "atacar b3",
-        idJugadorA,
-        "Jugador A"
         ));
         batalla.ProcesarMensaje(new Message(
-          "atacar b3",
-          idJugadorB,
-          "Jugador B"
-      ));
+            "atacar b3",
+            idJugadorA,
+            "Jugador A"
+        ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar b3",
+            idJugadorB,
+            "Jugador B"
+        ));
         //Cut
         batalla.ProcesarMensaje(new Message(
-        "atacar d1",
-        idJugadorA,
-        "Jugador A"
-      ));
+            "atacar d1",
+            idJugadorA,
+            "Jugador A"
+        ));
         batalla.ProcesarMensaje(new Message(
           "atacar d1",
           idJugadorB,
@@ -585,29 +585,29 @@ public class BatallaNavalTests
         ));
         batalla.ProcesarMensaje(new Message(
             "atacar d2",
-        idJugadorA,
-        "Jugador A"
+            idJugadorA,
+            "Jugador A"
         ));
         batalla.ProcesarMensaje(new Message(
            "atacar d2",
            idJugadorB,
            "Jugador B"
-       ));
-        batalla.ProcesarMensaje(new Message(
-            "atacar d3",
-        idJugadorA,
-        "Jugador A"
         ));
         batalla.ProcesarMensaje(new Message(
-         "atacar d3",
-         idJugadorB,
-         "Jugador B"
-     ));
+            "atacar d3",
+            idJugadorA,
+            "Jugador A"
+        ));
         batalla.ProcesarMensaje(new Message(
-     "atacar d4",
- idJugadorA,
- "Jugador A"
- ));
+            "atacar d3",
+            idJugadorB,
+            "Jugador B"
+        ));
+        batalla.ProcesarMensaje(new Message(
+            "atacar d4",
+            idJugadorA,
+            "Jugador A"
+        ));
         batalla.ProcesarMensaje(new Message(
           "atacar d4",
           idJugadorB,
