@@ -1,0 +1,151 @@
+\hypertarget{class_gestor_partidas}{}\doxysection{Gestor\+Partidas Class Reference}
+\label{class_gestor_partidas}\index{GestorPartidas@{GestorPartidas}}
+
+
+Mantiene registro de todas las partidas en juego.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gestor_partidas_a6ee2f2f71ef562873956079587d9ddda}\label{class_gestor_partidas_a6ee2f2f71ef562873956079587d9ddda}} 
+{\bfseries Gestor\+Partidas} (Histórico\+Estadísticas estadísiticas)
+\begin{DoxyCompactList}\small\item\em Construye un gestor vacío \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}}? \mbox{\hyperlink{class_gestor_partidas_a8c14deda806821c3cc846b5d646171cc}{Buscar\+Nueva\+Partida}} (\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} usuario, bool con\+Reloj=false)
+\begin{DoxyCompactList}\small\item\em Busca una partida \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestor_partidas_a008bc0a9e62547a24b128227df4c3b27}{Eliminar\+Partida}} (\mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}} partida)
+\begin{DoxyCompactList}\small\item\em Remueve una partida del gestor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}} \mbox{\hyperlink{class_gestor_partidas_a7b6b856ed862fe102695107e40f94100}{Nueva\+Partida}} (\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} usuarioA, \mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} usuarioB, bool con\+Reloj=false)
+\begin{DoxyCompactList}\small\item\em Agrega una nueva partida \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}}? \mbox{\hyperlink{class_gestor_partidas_a3aade4e5260b95393596b42ada97329d}{Obtener\+Partida}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\begin{DoxyCompactList}\small\item\em Devuelve instancia de la partida que le corresponde a un usuario \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gestor_partidas_a515eb48a0b4db6a52af2ed9e4c93cb60}\label{class_gestor_partidas_a515eb48a0b4db6a52af2ed9e4c93cb60}} 
+Dictionary$<$ \mbox{\hyperlink{struct_ident}{Ident}}, \mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}} $>$ {\bfseries Partidas}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Diccionario que asocia a cada usuario con su partida \end{DoxyCompactList}\item 
+Histórico\+Estadísticas \mbox{\hyperlink{class_gestor_partidas_a92dde7ae308eb2c8e3a73d09631223ab}{Estadísicas}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_gestor_partidas_a12c757d0ebf7c49cc3861eb76356f6de}\label{class_gestor_partidas_a12c757d0ebf7c49cc3861eb76356f6de}} 
+\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}}? {\bfseries En\+Espera}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Un identificador de usuario que está actualmente buscando partida, puede ser null \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_gestor_partidas_a57ea7256e3ff53073fa228e35b4bc490}\label{class_gestor_partidas_a57ea7256e3ff53073fa228e35b4bc490}} 
+\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}}? {\bfseries En\+Espera\+Con\+Reloj}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Un identificador de usuario que está actualmente buscando una partida con reloj, puede ser null \end{DoxyCompactList}\item 
+Time\+Span \mbox{\hyperlink{class_gestor_partidas_a47c7c7106bf7f2a328459730d577789f}{Tiempo\+Reloj}} = Time\+Span.\+From\+Minutes(2)\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Mantiene registro de todas las partidas en juego. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gestor_partidas_a8c14deda806821c3cc846b5d646171cc}\label{class_gestor_partidas_a8c14deda806821c3cc846b5d646171cc}} 
+\index{GestorPartidas@{GestorPartidas}!BuscarNuevaPartida@{BuscarNuevaPartida}}
+\index{BuscarNuevaPartida@{BuscarNuevaPartida}!GestorPartidas@{GestorPartidas}}
+\doxysubsubsection{\texorpdfstring{BuscarNuevaPartida()}{BuscarNuevaPartida()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}}? Gestor\+Partidas.\+Buscar\+Nueva\+Partida (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}}}]{usuario,  }\item[{bool}]{con\+Reloj = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Busca una partida 
+
+
+\begin{DoxyParams}{Parameters}
+{\em usuario} & \mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} que busca la partida\\
+\hline
+{\em con\+Reloj} & True si es un partida con reloj\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retorna una instancia de la partida, retorna null si no encontró oponente.
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gestor_partidas_a008bc0a9e62547a24b128227df4c3b27}\label{class_gestor_partidas_a008bc0a9e62547a24b128227df4c3b27}} 
+\index{GestorPartidas@{GestorPartidas}!EliminarPartida@{EliminarPartida}}
+\index{EliminarPartida@{EliminarPartida}!GestorPartidas@{GestorPartidas}}
+\doxysubsubsection{\texorpdfstring{EliminarPartida()}{EliminarPartida()}}
+{\footnotesize\ttfamily void Gestor\+Partidas.\+Eliminar\+Partida (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}}}]{partida }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Remueve una partida del gestor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em partida} & Partida a eliminar\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gestor_partidas_a7b6b856ed862fe102695107e40f94100}\label{class_gestor_partidas_a7b6b856ed862fe102695107e40f94100}} 
+\index{GestorPartidas@{GestorPartidas}!NuevaPartida@{NuevaPartida}}
+\index{NuevaPartida@{NuevaPartida}!GestorPartidas@{GestorPartidas}}
+\doxysubsubsection{\texorpdfstring{NuevaPartida()}{NuevaPartida()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}} Gestor\+Partidas.\+Nueva\+Partida (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}}}]{usuarioA,  }\item[{\mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}}}]{usuarioB,  }\item[{bool}]{con\+Reloj = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Agrega una nueva partida 
+
+
+\begin{DoxyParams}{Parameters}
+{\em usuarioA} & \mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} jugador\\
+\hline
+{\em usuarioB} & \mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} jugador\\
+\hline
+{\em con\+Reloj} & True si la partida tiene reloj\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Instancia de la partida
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gestor_partidas_a3aade4e5260b95393596b42ada97329d}\label{class_gestor_partidas_a3aade4e5260b95393596b42ada97329d}} 
+\index{GestorPartidas@{GestorPartidas}!ObtenerPartida@{ObtenerPartida}}
+\index{ObtenerPartida@{ObtenerPartida}!GestorPartidas@{GestorPartidas}}
+\doxysubsubsection{\texorpdfstring{ObtenerPartida()}{ObtenerPartida()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}}? Gestor\+Partidas.\+Obtener\+Partida (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve instancia de la partida que le corresponde a un usuario 
+
+
+\begin{DoxyParams}{Parameters}
+{\em usuario} & \mbox{\hyperlink{class_gestor_partidas_1_1_usuario}{Usuario}} para el cual buscar su partida\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Instancia de un \mbox{\hyperlink{class_controlador_juego}{Controlador\+Juego}}, o null
+\end{DoxyReturn}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_gestor_partidas_a92dde7ae308eb2c8e3a73d09631223ab}\label{class_gestor_partidas_a92dde7ae308eb2c8e3a73d09631223ab}} 
+\index{GestorPartidas@{GestorPartidas}!Estadísicas@{Estadísicas}}
+\index{Estadísicas@{Estadísicas}!GestorPartidas@{GestorPartidas}}
+\doxysubsubsection{\texorpdfstring{Estadísicas}{Estadísicas}}
+{\footnotesize\ttfamily Histórico\+Estadísticas Gestor\+Partidas.\+Estadísicas\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+
+
+\mbox{\Hypertarget{class_gestor_partidas_a47c7c7106bf7f2a328459730d577789f}\label{class_gestor_partidas_a47c7c7106bf7f2a328459730d577789f}} 
+\index{GestorPartidas@{GestorPartidas}!TiempoReloj@{TiempoReloj}}
+\index{TiempoReloj@{TiempoReloj}!GestorPartidas@{GestorPartidas}}
+\doxysubsubsection{\texorpdfstring{TiempoReloj}{TiempoReloj}}
+{\footnotesize\ttfamily Time\+Span Gestor\+Partidas.\+Tiempo\+Reloj = Time\+Span.\+From\+Minutes(2)\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Gestor\+Partidas.\+cs\end{DoxyCompactItemize}

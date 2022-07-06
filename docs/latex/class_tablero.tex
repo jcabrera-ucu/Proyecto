@@ -1,0 +1,220 @@
+\hypertarget{class_tablero}{}\doxysection{Tablero Class Reference}
+\label{class_tablero}\index{Tablero@{Tablero}}
+
+
+\mbox{\hyperlink{class_tablero}{Tablero}} del jugador.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tablero_a54483f0f5c390eb515bf2b0023f89682}\label{class_tablero_a54483f0f5c390eb515bf2b0023f89682}} 
+{\bfseries Tablero} ()
+\begin{DoxyCompactList}\small\item\em Construye un tablero de 10x10 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tablero_a6e54ced487c813a26b7ab7dd145d3c98}{Tablero}} (int ancho, int alto)
+\begin{DoxyCompactList}\small\item\em Construye el tablero vacío \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_barco}{Barco}} \mbox{\hyperlink{class_tablero_ae9faab43bbf7ee29548014579366a51c}{Agregar\+Barco}} (\mbox{\hyperlink{struct_coord}{Coord}} a, \mbox{\hyperlink{struct_coord}{Coord}} b)
+\begin{DoxyCompactList}\small\item\em Agrega un nuevo \mbox{\hyperlink{class_barco}{Barco}} al tablero \end{DoxyCompactList}\item 
+Resultado\+Ataque \mbox{\hyperlink{class_tablero_ad1f77277931d1032b23c0aa34c423aff}{Atacar}} (\mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Realiza un ataque sobre éste tablero \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tablero_a7b3b8031f99978c5f22d0c18cfb45169}{Radar}} (\mbox{\hyperlink{struct_coord}{Coord}} centro)
+\begin{DoxyCompactList}\small\item\em Tira el Radar (cuadrícula de 3x3) con centro en \textquotesingle{}centro\textquotesingle{} \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{class_barco}{Barco}} $>$ \mbox{\hyperlink{class_tablero_a9a08abf2d8eeb8fdc9b1bf934437da0a}{Barcos\+AFlote}} ()
+\begin{DoxyCompactList}\small\item\em Obtiene una lista con los barcos que aún no han sido hundidos \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tablero_a11117ac8d2513c96a1f763e8558d1d3f}\label{class_tablero_a11117ac8d2513c96a1f763e8558d1d3f}} 
+Celda? \mbox{\hyperlink{class_barco}{Barco}} barco {\bfseries Get\+Celda} (\mbox{\hyperlink{struct_coord}{Coord}} coord)
+\item 
+string \mbox{\hyperlink{class_tablero_a46ddce4fdd609c7daf17528e93d4d5da}{Imprimir\+Barcos}} (bool incluir\+Leyenda=true)
+\begin{DoxyCompactList}\small\item\em Representación del tablero para el jugador \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_tablero_a0b601c85e746be684d280b5d6129aae6}{Imprimir\+Jugadas}} (bool incluir\+Leyenda=true)
+\begin{DoxyCompactList}\small\item\em Representación del tablero para el oponente \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Celda \mbox{\hyperlink{class_tablero_aafac5bcbd368bf4f4353f7aded28dc3d}{celda}}
+\begin{DoxyCompactList}\small\item\em Dada una coordenada retorna el estado de la celda en ese punto y la instancia del barco en esa coordenada (si existe) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tablero_a7f956586aee9fdff69a141da91b63c8a}\label{class_tablero_a7f956586aee9fdff69a141da91b63c8a}} 
+int {\bfseries Ancho}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Cantidad de celdas horizontalmente \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tablero_a584abe161ddd796b6f86c60f7a155f6f}\label{class_tablero_a584abe161ddd796b6f86c60f7a155f6f}} 
+int {\bfseries Alto}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Cantidad de celdas verticalmente \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tablero_ac52858f1f70e460a7ffd0967321fcfe7}\label{class_tablero_ac52858f1f70e460a7ffd0967321fcfe7}} 
+List$<$ \mbox{\hyperlink{class_barco}{Barco}} $>$ {\bfseries Barcos} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Lista de los barcos del jugador. (todos disjuntos) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tablero_a0c87569b9b42e702895ed6578ff03c58}\label{class_tablero_a0c87569b9b42e702895ed6578ff03c58}} 
+List$<$ \mbox{\hyperlink{struct_coord}{Coord}} $>$ {\bfseries Agua} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Lista de coordenadas, que al ser atacadas, dieron \char`\"{}agua\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_tablero}{Tablero}} del jugador. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tablero_a6e54ced487c813a26b7ab7dd145d3c98}\label{class_tablero_a6e54ced487c813a26b7ab7dd145d3c98}} 
+\index{Tablero@{Tablero}!Tablero@{Tablero}}
+\index{Tablero@{Tablero}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{Tablero()}{Tablero()}}
+{\footnotesize\ttfamily Tablero.\+Tablero (\begin{DoxyParamCaption}\item[{int}]{ancho,  }\item[{int}]{alto }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye el tablero vacío 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ancho} & Cantidad de celdas horizontalmente\\
+\hline
+{\em alto} & Cantidad de celdas verticalmente\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em System.\+Argument\+Out\+Of\+Range\+Exception} & Si ancho es menor que 1 o mayor que \mbox{\hyperlink{struct_coord_aece1598a61cc55abd2b7de4e2baf3611}{Coord.\+Max}} + 1 \\
+\hline
+{\em System.\+Argument\+Out\+Of\+Range\+Exception} & Si alto es menor que 1 o mayor que \mbox{\hyperlink{struct_coord_aece1598a61cc55abd2b7de4e2baf3611}{Coord.\+Max}} + 1 \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tablero_ae9faab43bbf7ee29548014579366a51c}\label{class_tablero_ae9faab43bbf7ee29548014579366a51c}} 
+\index{Tablero@{Tablero}!AgregarBarco@{AgregarBarco}}
+\index{AgregarBarco@{AgregarBarco}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{AgregarBarco()}{AgregarBarco()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_barco}{Barco}} Tablero.\+Agregar\+Barco (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{a,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Agrega un nuevo \mbox{\hyperlink{class_barco}{Barco}} al tablero 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Coordenada de inicio del barco\\
+\hline
+{\em b} & Coordenada de fin del barco\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Coordenada\+Fuera\+Del\+Tablero} & Si \textquotesingle{}a\textquotesingle{} no es válidad para las dimensiones del tablero \\
+\hline
+{\em Coordenada\+Fuera\+Del\+Tablero} & Si \textquotesingle{}b\textquotesingle{} no es válidad para las dimensiones del tablero \\
+\hline
+{\em Barcos\+Superpuestos} & Si el barco que se intenta crear intersecta a algún otro barco ya existente en el tablero \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+La instancia del \mbox{\hyperlink{class_barco}{Barco}} creada
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tablero_ad1f77277931d1032b23c0aa34c423aff}\label{class_tablero_ad1f77277931d1032b23c0aa34c423aff}} 
+\index{Tablero@{Tablero}!Atacar@{Atacar}}
+\index{Atacar@{Atacar}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{Atacar()}{Atacar()}}
+{\footnotesize\ttfamily Resultado\+Ataque Tablero.\+Atacar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Realiza un ataque sobre éste tablero 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & La coordenada a atacar\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Coordenada\+Fuera\+Del\+Tablero} & Si la coordenada no es válida para el tablero \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+El restulado del ataque
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tablero_a9a08abf2d8eeb8fdc9b1bf934437da0a}\label{class_tablero_a9a08abf2d8eeb8fdc9b1bf934437da0a}} 
+\index{Tablero@{Tablero}!BarcosAFlote@{BarcosAFlote}}
+\index{BarcosAFlote@{BarcosAFlote}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{BarcosAFlote()}{BarcosAFlote()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{class_barco}{Barco}} $>$ Tablero.\+Barcos\+AFlote (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Obtiene una lista con los barcos que aún no han sido hundidos 
+
+\begin{DoxyReturn}{Returns}
+Lista de barcos
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tablero_a46ddce4fdd609c7daf17528e93d4d5da}\label{class_tablero_a46ddce4fdd609c7daf17528e93d4d5da}} 
+\index{Tablero@{Tablero}!ImprimirBarcos@{ImprimirBarcos}}
+\index{ImprimirBarcos@{ImprimirBarcos}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{ImprimirBarcos()}{ImprimirBarcos()}}
+{\footnotesize\ttfamily string Tablero.\+Imprimir\+Barcos (\begin{DoxyParamCaption}\item[{bool}]{incluir\+Leyenda = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Representación del tablero para el jugador 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_tablero}{Tablero}} desde el punto de vista del jugador
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tablero_a0b601c85e746be684d280b5d6129aae6}\label{class_tablero_a0b601c85e746be684d280b5d6129aae6}} 
+\index{Tablero@{Tablero}!ImprimirJugadas@{ImprimirJugadas}}
+\index{ImprimirJugadas@{ImprimirJugadas}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{ImprimirJugadas()}{ImprimirJugadas()}}
+{\footnotesize\ttfamily string Tablero.\+Imprimir\+Jugadas (\begin{DoxyParamCaption}\item[{bool}]{incluir\+Leyenda = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Representación del tablero para el oponente 
+
+\begin{DoxyReturn}{Returns}
+El tablero desde el punto de vista del oponente
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tablero_a7b3b8031f99978c5f22d0c18cfb45169}\label{class_tablero_a7b3b8031f99978c5f22d0c18cfb45169}} 
+\index{Tablero@{Tablero}!Radar@{Radar}}
+\index{Radar@{Radar}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{Radar()}{Radar()}}
+{\footnotesize\ttfamily void Tablero.\+Radar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{centro }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tira el Radar (cuadrícula de 3x3) con centro en \textquotesingle{}centro\textquotesingle{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em centro} & El centro de acción del radar\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Coordenada\+Fuera\+Del\+Tablero} & Si \textquotesingle{}coord\textquotesingle{} no es válidad para las dimensiones del tablero \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tablero_aafac5bcbd368bf4f4353f7aded28dc3d}\label{class_tablero_aafac5bcbd368bf4f4353f7aded28dc3d}} 
+\index{Tablero@{Tablero}!celda@{celda}}
+\index{celda@{celda}!Tablero@{Tablero}}
+\doxysubsubsection{\texorpdfstring{celda}{celda}}
+{\footnotesize\ttfamily Celda Tablero.\+celda}
+
+
+
+Dada una coordenada retorna el estado de la celda en ese punto y la instancia del barco en esa coordenada (si existe) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & La celda a obtener\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Una tupla con el estado de la Celda y la posible instancia de \mbox{\hyperlink{class_barco}{Barco}}
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Tablero.\+cs\end{DoxyCompactItemize}

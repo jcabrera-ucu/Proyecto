@@ -1,0 +1,268 @@
+\hypertarget{class_controlador_juego}{}\doxysection{Controlador\+Juego Class Reference}
+\label{class_controlador_juego}\index{ControladorJuego@{ControladorJuego}}
+
+
+Controlador del juego, implementa el flujo de juego para la batalla naval.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_controlador_juego_a79a009ac89ab12a9f0038b18c03032e3}{Controlador\+Juego}} (\mbox{\hyperlink{class_jugador}{Jugador}} jugadorA, \mbox{\hyperlink{class_jugador}{Jugador}} jugadorB)
+\begin{DoxyCompactList}\small\item\em Construye un controlador de juego. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_jugador}{Jugador}}? \mbox{\hyperlink{class_controlador_juego_a2cedd588543de5435b394eb33881039f}{Obtener\+Jugador\+Por\+Id}} (\mbox{\hyperlink{struct_ident}{Ident}} id)
+\begin{DoxyCompactList}\small\item\em Instancia de un jugador según su Id. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_jugador}{Jugador}}? \mbox{\hyperlink{class_controlador_juego_a6204e11ab58a0396f48b07cda75c576b}{Oponente\+De}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\begin{DoxyCompactList}\small\item\em Obtiene el oponente de un jugador \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_a4c0ec16bfcfa1ef7b0af28cd70267898}\label{class_controlador_juego_a4c0ec16bfcfa1ef7b0af28cd70267898}} 
+List$<$ int $>$ {\bfseries Barcos\+Faltantes} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\begin{DoxyCompactList}\small\item\em Lista con los \char`\"{}largos\char`\"{} de barcos que aún faltan por configurar en el tablero. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_controlador_juego_abbfc5ed305d6411810a7a4664aa1642d}{Es\+Turno\+De}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\begin{DoxyCompactList}\small\item\em Verifica si es el turno de un jugador dado \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_controlador_juego_a33f6b87d4800dafa01f833b398b1b7a2}{Agregar\+Barco}} (\mbox{\hyperlink{struct_ident}{Ident}} id, \mbox{\hyperlink{struct_coord}{Coord}} coordA, \mbox{\hyperlink{struct_coord}{Coord}} coordB)
+\begin{DoxyCompactList}\small\item\em Crea un nuevo barco \end{DoxyCompactList}\item 
+Resultado\+Jugada \mbox{\hyperlink{class_controlador_juego_a69c4dac87fd6c1753bc3b295d7979bb1}{Hacer\+Jugada}} (\mbox{\hyperlink{class_jugada}{Jugada}} jugada)
+\item 
+string \mbox{\hyperlink{class_controlador_juego_ab5e92c74af2b474748cd800ed8b4ead8}{Mostrar\+Tablero}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\item 
+string \mbox{\hyperlink{class_controlador_juego_ae80f5c7d0ec95cf1e28aeb0c4b5ca3a1}{Mostrar\+Tablero\+Del\+Oponente}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\item 
+string \mbox{\hyperlink{class_controlador_juego_a1467e7626558f72af740426e35dd5b88}{Mostrar\+Jugadas}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\item 
+string \mbox{\hyperlink{class_controlador_juego_ad6b2ed4581eb96f269ea15eb6a35f6a7}{Mostrar\+Jugadas\+Del\+Oponente}} (\mbox{\hyperlink{struct_ident}{Ident}} id\+Jugador)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_controlador_juego_a4313dc3d910eae41354072f02948606d}\label{class_controlador_juego_a4313dc3d910eae41354072f02948606d}} 
+Estado\+Partida {\bfseries Estado}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Estado actual del flujo del juego. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_a46e8ee90593c35bee512c023ef5c4393}\label{class_controlador_juego_a46e8ee90593c35bee512c023ef5c4393}} 
+\mbox{\hyperlink{class_jugador}{Jugador}} {\bfseries JugadorA}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Primer jugador. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_a95076b5d1d8f8ed79c783f9d34c21e6e}\label{class_controlador_juego_a95076b5d1d8f8ed79c783f9d34c21e6e}} 
+\mbox{\hyperlink{class_jugador}{Jugador}} {\bfseries JugadorB}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Segundo jugador. \end{DoxyCompactList}\item 
+List$<$ int $>$ \mbox{\hyperlink{class_controlador_juego_a283408bb91d8eabeb491e30983d72df8}{Barcos\+Esperados}} = new() \{ 2, 3, 4, 5 \}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Lista con las longitudes de los barcos que deben ser agregados por cada usuario \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_aa8222cb4dd64be56d6d992d0624070ef}\label{class_controlador_juego_aa8222cb4dd64be56d6d992d0624070ef}} 
+bool {\bfseries Sigue\+En\+Juego}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_controlador_juego_aed7e7d2ef58cbfefaa0e4fa1b7995860}\label{class_controlador_juego_aed7e7d2ef58cbfefaa0e4fa1b7995860}} 
+\mbox{\hyperlink{class_jugador}{Jugador}}? {\bfseries Jugador\+Actual}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em La instancia del jugador a quien le corresponde jugar en el turno actual. Puede ser null si no es el turno de ningún jugador. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_aafece74aa4a3beef2dd41a79042e808a}\label{class_controlador_juego_aafece74aa4a3beef2dd41a79042e808a}} 
+\mbox{\hyperlink{class_jugador}{Jugador}}? {\bfseries Oponente\+Actual}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em La instancia del jugador a quien le corresponde ser \char`\"{}atacado\char`\"{} en el turno actual. Puede ser null si no es el turno de ningún jugador. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_a8e88d713ce144566fad90dd61cc0f1fe}\label{class_controlador_juego_a8e88d713ce144566fad90dd61cc0f1fe}} 
+\mbox{\hyperlink{class_jugador}{Jugador}}? {\bfseries Ganador}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Instancia del jugador que ganó la partida. Si no hay ningún ganador aún, retorna null. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_controlador_juego_a96f50863aa9213388500e2f4851ea917}\label{class_controlador_juego_a96f50863aa9213388500e2f4851ea917}} 
+\mbox{\hyperlink{class_jugador}{Jugador}}? {\bfseries Perdedor}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Instancia del jugador que perdió la partida. Si no hay ningún perdedor aún, retorna null. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Controlador del juego, implementa el flujo de juego para la batalla naval. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_controlador_juego_a79a009ac89ab12a9f0038b18c03032e3}\label{class_controlador_juego_a79a009ac89ab12a9f0038b18c03032e3}} 
+\index{ControladorJuego@{ControladorJuego}!ControladorJuego@{ControladorJuego}}
+\index{ControladorJuego@{ControladorJuego}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{ControladorJuego()}{ControladorJuego()}}
+{\footnotesize\ttfamily Controlador\+Juego.\+Controlador\+Juego (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_jugador}{Jugador}}}]{jugadorA,  }\item[{\mbox{\hyperlink{class_jugador}{Jugador}}}]{jugadorB }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye un controlador de juego. 
+
+Ambos jugadores deben ser compatibles (Jugador.\+Son\+Compatibels()) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jugadorA} & Instancia del primer jugador\\
+\hline
+{\em jugadorB} & Instancia del segundo jugador\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_controlador_juego_a33f6b87d4800dafa01f833b398b1b7a2}\label{class_controlador_juego_a33f6b87d4800dafa01f833b398b1b7a2}} 
+\index{ControladorJuego@{ControladorJuego}!AgregarBarco@{AgregarBarco}}
+\index{AgregarBarco@{AgregarBarco}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{AgregarBarco()}{AgregarBarco()}}
+{\footnotesize\ttfamily void Controlador\+Juego.\+Agregar\+Barco (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coordA,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coordB }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Crea un nuevo barco 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Identificador del jugador que desea crear un barco\\
+\hline
+{\em coordA} & Primera coordenada del barco\\
+\hline
+{\em coordB} & Segunda coordenada del barco\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_controlador_juego_abbfc5ed305d6411810a7a4664aa1642d}\label{class_controlador_juego_abbfc5ed305d6411810a7a4664aa1642d}} 
+\index{ControladorJuego@{ControladorJuego}!EsTurnoDe@{EsTurnoDe}}
+\index{EsTurnoDe@{EsTurnoDe}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{EsTurnoDe()}{EsTurnoDe()}}
+{\footnotesize\ttfamily bool Controlador\+Juego.\+Es\+Turno\+De (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica si es el turno de un jugador dado 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Jugador} & Id del jugador a verificar\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si es el turno de id\+Jugador, false si no lo es
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controlador_juego_a69c4dac87fd6c1753bc3b295d7979bb1}\label{class_controlador_juego_a69c4dac87fd6c1753bc3b295d7979bb1}} 
+\index{ControladorJuego@{ControladorJuego}!HacerJugada@{HacerJugada}}
+\index{HacerJugada@{HacerJugada}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{HacerJugada()}{HacerJugada()}}
+{\footnotesize\ttfamily Resultado\+Jugada Controlador\+Juego.\+Hacer\+Jugada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_jugada}{Jugada}}}]{jugada }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em jugada} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_controlador_juego_a1467e7626558f72af740426e35dd5b88}\label{class_controlador_juego_a1467e7626558f72af740426e35dd5b88}} 
+\index{ControladorJuego@{ControladorJuego}!MostrarJugadas@{MostrarJugadas}}
+\index{MostrarJugadas@{MostrarJugadas}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{MostrarJugadas()}{MostrarJugadas()}}
+{\footnotesize\ttfamily string Controlador\+Juego.\+Mostrar\+Jugadas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Jugador} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controlador_juego_ad6b2ed4581eb96f269ea15eb6a35f6a7}\label{class_controlador_juego_ad6b2ed4581eb96f269ea15eb6a35f6a7}} 
+\index{ControladorJuego@{ControladorJuego}!MostrarJugadasDelOponente@{MostrarJugadasDelOponente}}
+\index{MostrarJugadasDelOponente@{MostrarJugadasDelOponente}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{MostrarJugadasDelOponente()}{MostrarJugadasDelOponente()}}
+{\footnotesize\ttfamily string Controlador\+Juego.\+Mostrar\+Jugadas\+Del\+Oponente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Jugador} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controlador_juego_ab5e92c74af2b474748cd800ed8b4ead8}\label{class_controlador_juego_ab5e92c74af2b474748cd800ed8b4ead8}} 
+\index{ControladorJuego@{ControladorJuego}!MostrarTablero@{MostrarTablero}}
+\index{MostrarTablero@{MostrarTablero}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{MostrarTablero()}{MostrarTablero()}}
+{\footnotesize\ttfamily string Controlador\+Juego.\+Mostrar\+Tablero (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Jugador} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controlador_juego_ae80f5c7d0ec95cf1e28aeb0c4b5ca3a1}\label{class_controlador_juego_ae80f5c7d0ec95cf1e28aeb0c4b5ca3a1}} 
+\index{ControladorJuego@{ControladorJuego}!MostrarTableroDelOponente@{MostrarTableroDelOponente}}
+\index{MostrarTableroDelOponente@{MostrarTableroDelOponente}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{MostrarTableroDelOponente()}{MostrarTableroDelOponente()}}
+{\footnotesize\ttfamily string Controlador\+Juego.\+Mostrar\+Tablero\+Del\+Oponente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Jugador} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controlador_juego_a2cedd588543de5435b394eb33881039f}\label{class_controlador_juego_a2cedd588543de5435b394eb33881039f}} 
+\index{ControladorJuego@{ControladorJuego}!ObtenerJugadorPorId@{ObtenerJugadorPorId}}
+\index{ObtenerJugadorPorId@{ObtenerJugadorPorId}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{ObtenerJugadorPorId()}{ObtenerJugadorPorId()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_jugador}{Jugador}}? Controlador\+Juego.\+Obtener\+Jugador\+Por\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Instancia de un jugador según su Id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Id del jugador a obtener\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Instancia del jugador correspondiente, o null si no existe
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_controlador_juego_a6204e11ab58a0396f48b07cda75c576b}\label{class_controlador_juego_a6204e11ab58a0396f48b07cda75c576b}} 
+\index{ControladorJuego@{ControladorJuego}!OponenteDe@{OponenteDe}}
+\index{OponenteDe@{OponenteDe}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{OponenteDe()}{OponenteDe()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_jugador}{Jugador}}? Controlador\+Juego.\+Oponente\+De (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id\+Jugador }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Obtiene el oponente de un jugador 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id\+Jugador} & Id del jugador para el cual devolver su oponente\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Instancia de un \mbox{\hyperlink{class_jugador}{Jugador}}, o null
+\end{DoxyReturn}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_controlador_juego_a283408bb91d8eabeb491e30983d72df8}\label{class_controlador_juego_a283408bb91d8eabeb491e30983d72df8}} 
+\index{ControladorJuego@{ControladorJuego}!BarcosEsperados@{BarcosEsperados}}
+\index{BarcosEsperados@{BarcosEsperados}!ControladorJuego@{ControladorJuego}}
+\doxysubsubsection{\texorpdfstring{BarcosEsperados}{BarcosEsperados}}
+{\footnotesize\ttfamily List$<$int$>$ Controlador\+Juego.\+Barcos\+Esperados = new() \{ 2, 3, 4, 5 \}\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Lista con las longitudes de los barcos que deben ser agregados por cada usuario 
+
+Pueden haber repetidos, e.\+j\+: 2, 2, 3 ; dos barcos de 2 y uno de 3 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Controlador\+Juego.\+cs\end{DoxyCompactItemize}

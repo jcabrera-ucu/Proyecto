@@ -1,0 +1,78 @@
+\hypertarget{class_reloj}{}\doxysection{Reloj Class Reference}
+\label{class_reloj}\index{Reloj@{Reloj}}
+
+
+\mbox{\hyperlink{class_reloj}{Reloj}} de juego, lleva cuenta del tiempo que dispone un jugador.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_reloj_a158bcc68ce65351aaad07827048c1561}{Reloj}} (Time\+Span tiempo\+Restante, Func$<$ Date\+Time $>$ now)
+\begin{DoxyCompactList}\small\item\em Construye un reloj \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_reloj_a953c1bcd427896b20780e01e8a89a796}{Reloj}} (Time\+Span tiempo\+Restante)
+\begin{DoxyCompactList}\small\item\em Construye un reloj usando Date\+Time.\+Utc\+Now como \char`\"{}\+Now\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_reloj_a073ac5df358662e518bcff2d3eb0abef}\label{class_reloj_a073ac5df358662e518bcff2d3eb0abef}} 
+void {\bfseries Iniciar} ()
+\begin{DoxyCompactList}\small\item\em Inicia el \char`\"{}turno del jugador\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_reloj_ac5ca3745e881fc86ec8aff49cf0ca843}\label{class_reloj_ac5ca3745e881fc86ec8aff49cf0ca843}} 
+void {\bfseries Terminar} ()
+\begin{DoxyCompactList}\small\item\em Termina el \char`\"{}turno del jugador\char`\"{} y actualiza el tiempo restante. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_reloj_ade6fcf4596d3a6636a728f24c61651f4}\label{class_reloj_ade6fcf4596d3a6636a728f24c61651f4}} 
+Date\+Time? {\bfseries Inicio}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Momento en el que inició el turno del jugador, null si aún no ha comenzado. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_reloj_a433174b9d8c412c19cbef6722041780d}\label{class_reloj_a433174b9d8c412c19cbef6722041780d}} 
+Time\+Span {\bfseries Tiempo\+Restante}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Tiempo total disponible, toma en cuenta el tiempo que está transcurriendo mientras el turno está iniciado. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_reloj_a9dda6818a23b57e011ee14ac8094e077}\label{class_reloj_a9dda6818a23b57e011ee14ac8094e077}} 
+Func$<$ Date\+Time $>$ {\bfseries Now}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Función para obtener la hora actual \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_reloj_a1d10f5caaf1fb6aa797455f2c498d19c}\label{class_reloj_a1d10f5caaf1fb6aa797455f2c498d19c}} 
+bool {\bfseries Activo}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em True si aún queda tiempo en el reloj \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_reloj}{Reloj}} de juego, lleva cuenta del tiempo que dispone un jugador. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_reloj_a158bcc68ce65351aaad07827048c1561}\label{class_reloj_a158bcc68ce65351aaad07827048c1561}} 
+\index{Reloj@{Reloj}!Reloj@{Reloj}}
+\index{Reloj@{Reloj}!Reloj@{Reloj}}
+\doxysubsubsection{\texorpdfstring{Reloj()}{Reloj()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Reloj.\+Reloj (\begin{DoxyParamCaption}\item[{Time\+Span}]{tiempo\+Restante,  }\item[{Func$<$ Date\+Time $>$}]{now }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye un reloj 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tiempo\+Restante} & Tiempo disponible\\
+\hline
+{\em now} & Función que retorna \char`\"{}la fecha actual\char`\"{}, ésta es la función que se usa para obtener la hora en la clase \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_reloj_a953c1bcd427896b20780e01e8a89a796}\label{class_reloj_a953c1bcd427896b20780e01e8a89a796}} 
+\index{Reloj@{Reloj}!Reloj@{Reloj}}
+\index{Reloj@{Reloj}!Reloj@{Reloj}}
+\doxysubsubsection{\texorpdfstring{Reloj()}{Reloj()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Reloj.\+Reloj (\begin{DoxyParamCaption}\item[{Time\+Span}]{tiempo\+Restante }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye un reloj usando Date\+Time.\+Utc\+Now como \char`\"{}\+Now\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tiempo\+Restante} & Tiempo disponible\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Reloj.\+cs\end{DoxyCompactItemize}

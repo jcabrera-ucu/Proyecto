@@ -1,0 +1,208 @@
+\hypertarget{class_jugador}{}\doxysection{Jugador Class Reference}
+\label{class_jugador}\index{Jugador@{Jugador}}
+
+
+Información y estado de un jugador.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_jugador_a093d80e9645105850027a90e3f85113e}{Jugador}} (\mbox{\hyperlink{struct_ident}{Ident}} id, string nombre, \mbox{\hyperlink{class_tablero}{Tablero}} tablero, \mbox{\hyperlink{class_reloj}{Reloj}}? reloj, int radares\+Disponibles, \mbox{\hyperlink{class_estadistica}{Estadistica}} estadistica)
+\begin{DoxyCompactList}\small\item\em Construye un jugador \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_barco}{Barco}} \mbox{\hyperlink{class_jugador_ac025ac68ffc9a6fb97191877a335ccaf}{Agregar\+Barco}} (\mbox{\hyperlink{struct_coord}{Coord}} coordA, \mbox{\hyperlink{struct_coord}{Coord}} coordB)
+\begin{DoxyCompactList}\small\item\em Agrega un barco al tablero \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_afc929567c6cc1c1dae219d0c0e8ac44b}\label{class_jugador_afc929567c6cc1c1dae219d0c0e8ac44b}} 
+void {\bfseries Iniciar\+Turno} ()
+\begin{DoxyCompactList}\small\item\em Éste método debe ser llamado al iniciar el turno de éste jugador, se encarga de controlar el reloj de juego. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_a8234782d0a57497f1ff929df7f079af1}\label{class_jugador_a8234782d0a57497f1ff929df7f079af1}} 
+void {\bfseries Terminar\+Turno} ()
+\begin{DoxyCompactList}\small\item\em Éste método debe ser llamado al finalizar el turno de éste jugador, se encarga de controlar el reloj de juego. \end{DoxyCompactList}\item 
+Resultado\+Ataque \mbox{\hyperlink{class_jugador_ab2840e8a9fc4b489f0b7c195a86ea523}{Atacar\+Jugador}} (\mbox{\hyperlink{class_jugador}{Jugador}} oponente, \mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Realiza un ataque sobre otro jugador, y actualiza las estadísticas. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_jugador_a4f3265f1cd063589778d6e737d8ed100}{Lanzar\+Radar}} (\mbox{\hyperlink{class_jugador}{Jugador}} oponente, \mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Lanza el radar sobre un oponente \end{DoxyCompactList}\item 
+Resultado\+Ataque \mbox{\hyperlink{class_jugador_ad4110b9498d13757c3a79a7be6e2d168}{Recibir\+Ataque}} (\mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Recibir el ataque de otro jugador \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_jugador_a38308335f46eb28f304ecd3e1b8d238e}{Recibir\+Radar}} (\mbox{\hyperlink{struct_coord}{Coord}} centro)
+\begin{DoxyCompactList}\small\item\em Recibir el radar de otro jugador \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_jugador_a8a3e45ab56aa14c1d2c9656cbca3d345}{Son\+Compatibles}} (\mbox{\hyperlink{class_jugador}{Jugador}} a, \mbox{\hyperlink{class_jugador}{Jugador}} b)
+\begin{DoxyCompactList}\small\item\em Verifica si dos jugadores \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_jugador_a5ac3b653b6b44c9074a8c3d4b83ef994}\label{class_jugador_a5ac3b653b6b44c9074a8c3d4b83ef994}} 
+\mbox{\hyperlink{struct_ident}{Ident}} {\bfseries Id}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Identificador único \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_aa2a31d0090066d6ac579e3ac12734c60}\label{class_jugador_aa2a31d0090066d6ac579e3ac12734c60}} 
+string {\bfseries Nombre} = String.\+Empty\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Nombre del jugador, puede estar vacío \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_a394addd0f6ee2c7e8994c6b1c614e95f}\label{class_jugador_a394addd0f6ee2c7e8994c6b1c614e95f}} 
+\mbox{\hyperlink{class_tablero}{Tablero}} {\bfseries Tablero}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_tablero}{Tablero}} de juego \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_a9bcd3703bc5dfca257941932497596ba}\label{class_jugador_a9bcd3703bc5dfca257941932497596ba}} 
+\mbox{\hyperlink{class_reloj}{Reloj}}? {\bfseries Reloj}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em El reloj de juego del jugador, puede no tener uno (null) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_a66891d841626f990913014d212ad82e2}\label{class_jugador_a66891d841626f990913014d212ad82e2}} 
+int {\bfseries Radares\+Disponibles}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Cantidad de Radares que aún puede desplegar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_acb4593141f73cf88347779168852490c}\label{class_jugador_acb4593141f73cf88347779168852490c}} 
+\mbox{\hyperlink{class_estadistica}{Estadistica}} {\bfseries Estadistica}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Estadísticas globales del jugador. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_affbba92ff2d1fdd5ee26e1c33834ce44}\label{class_jugador_affbba92ff2d1fdd5ee26e1c33834ce44}} 
+bool {\bfseries Sigue\+En\+Juego}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em True si el \mbox{\hyperlink{class_jugador}{Jugador}} aún no ha perdido, false en caso contrario \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_a4ae006555c8c8d98dcc207fe5a27e81c}\label{class_jugador_a4ae006555c8c8d98dcc207fe5a27e81c}} 
+bool {\bfseries Sigue\+En\+Juego\+Reloj}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em True si el \mbox{\hyperlink{class_jugador}{Jugador}} aún tiene tiempo disponible en el reloj, false en caso contrario \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_jugador_a3d78ac3cd10026750e47dbb6ef54c290}\label{class_jugador_a3d78ac3cd10026750e47dbb6ef54c290}} 
+IList$<$ \mbox{\hyperlink{class_barco}{Barco}} $>$ {\bfseries Barcos}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Lista con las instancias de los Barcos del jugador \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Información y estado de un jugador. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_jugador_a093d80e9645105850027a90e3f85113e}\label{class_jugador_a093d80e9645105850027a90e3f85113e}} 
+\index{Jugador@{Jugador}!Jugador@{Jugador}}
+\index{Jugador@{Jugador}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{Jugador()}{Jugador()}}
+{\footnotesize\ttfamily Jugador.\+Jugador (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ident}{Ident}}}]{id,  }\item[{string}]{nombre,  }\item[{\mbox{\hyperlink{class_tablero}{Tablero}}}]{tablero,  }\item[{\mbox{\hyperlink{class_reloj}{Reloj}}?}]{reloj,  }\item[{int}]{radares\+Disponibles,  }\item[{\mbox{\hyperlink{class_estadistica}{Estadistica}}}]{estadistica }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye un jugador 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Identificador único para el jugador\\
+\hline
+{\em tablero} & Instancia de tablero del jugador\\
+\hline
+{\em reloj} & \mbox{\hyperlink{class_reloj}{Reloj}} del jugador, puede ser nulo\\
+\hline
+{\em estadistica} & Estadísticas del jugador\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_jugador_ac025ac68ffc9a6fb97191877a335ccaf}\label{class_jugador_ac025ac68ffc9a6fb97191877a335ccaf}} 
+\index{Jugador@{Jugador}!AgregarBarco@{AgregarBarco}}
+\index{AgregarBarco@{AgregarBarco}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{AgregarBarco()}{AgregarBarco()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_barco}{Barco}} Jugador.\+Agregar\+Barco (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coordA,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coordB }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Agrega un barco al tablero 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coordA} & Primera coordenada del barco\\
+\hline
+{\em coordB} & Segunda coordenada del barco\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+La instancia del barco que fue creado
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_jugador_ab2840e8a9fc4b489f0b7c195a86ea523}\label{class_jugador_ab2840e8a9fc4b489f0b7c195a86ea523}} 
+\index{Jugador@{Jugador}!AtacarJugador@{AtacarJugador}}
+\index{AtacarJugador@{AtacarJugador}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{AtacarJugador()}{AtacarJugador()}}
+{\footnotesize\ttfamily Resultado\+Ataque Jugador.\+Atacar\+Jugador (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_jugador}{Jugador}}}]{oponente,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Realiza un ataque sobre otro jugador, y actualiza las estadísticas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em oponente} & \mbox{\hyperlink{class_jugador}{Jugador}} al cual enviar el ataque\\
+\hline
+{\em coord} & Coordenada a atacar\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+El resultado del ataque
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_jugador_a4f3265f1cd063589778d6e737d8ed100}\label{class_jugador_a4f3265f1cd063589778d6e737d8ed100}} 
+\index{Jugador@{Jugador}!LanzarRadar@{LanzarRadar}}
+\index{LanzarRadar@{LanzarRadar}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{LanzarRadar()}{LanzarRadar()}}
+{\footnotesize\ttfamily void Jugador.\+Lanzar\+Radar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_jugador}{Jugador}}}]{oponente,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Lanza el radar sobre un oponente 
+
+
+\begin{DoxyParams}{Parameters}
+{\em oponente} & \mbox{\hyperlink{class_jugador}{Jugador}} al cual lanzarle el radar\\
+\hline
+{\em coord} & Coordenada sobre la cual desplegar el radar\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_jugador_ad4110b9498d13757c3a79a7be6e2d168}\label{class_jugador_ad4110b9498d13757c3a79a7be6e2d168}} 
+\index{Jugador@{Jugador}!RecibirAtaque@{RecibirAtaque}}
+\index{RecibirAtaque@{RecibirAtaque}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{RecibirAtaque()}{RecibirAtaque()}}
+{\footnotesize\ttfamily Resultado\+Ataque Jugador.\+Recibir\+Ataque (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Recibir el ataque de otro jugador 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & Coordenada atacada\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+El resultado del ataque
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_jugador_a38308335f46eb28f304ecd3e1b8d238e}\label{class_jugador_a38308335f46eb28f304ecd3e1b8d238e}} 
+\index{Jugador@{Jugador}!RecibirRadar@{RecibirRadar}}
+\index{RecibirRadar@{RecibirRadar}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{RecibirRadar()}{RecibirRadar()}}
+{\footnotesize\ttfamily void Jugador.\+Recibir\+Radar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{centro }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Recibir el radar de otro jugador 
+
+
+\begin{DoxyParams}{Parameters}
+{\em centro} & Coordenada del centro de acción del radar\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_jugador_a8a3e45ab56aa14c1d2c9656cbca3d345}\label{class_jugador_a8a3e45ab56aa14c1d2c9656cbca3d345}} 
+\index{Jugador@{Jugador}!SonCompatibles@{SonCompatibles}}
+\index{SonCompatibles@{SonCompatibles}!Jugador@{Jugador}}
+\doxysubsubsection{\texorpdfstring{SonCompatibles()}{SonCompatibles()}}
+{\footnotesize\ttfamily static bool Jugador.\+Son\+Compatibles (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_jugador}{Jugador}}}]{a,  }\item[{\mbox{\hyperlink{class_jugador}{Jugador}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Verifica si dos jugadores 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Jugador.\+cs\end{DoxyCompactItemize}

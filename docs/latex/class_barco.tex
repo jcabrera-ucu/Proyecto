@@ -1,0 +1,152 @@
+\hypertarget{class_barco}{}\doxysection{Barco Class Reference}
+\label{class_barco}\index{Barco@{Barco}}
+
+
+Posición y estado de un barco.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_barco_aac5fe9d3e8e1bad15ad5c89b73a1cfbd}{Barco}} (\mbox{\hyperlink{struct_coord}{Coord}} a, \mbox{\hyperlink{struct_coord}{Coord}} b)
+\begin{DoxyCompactList}\small\item\em Contruye un barco en disposición horizontal o vertical \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_barco_a21e227fb7209ee24e4630b91f6beff6b}{Intersecta}} (\mbox{\hyperlink{class_barco}{Barco}} barco)
+\begin{DoxyCompactList}\small\item\em Verifica la intersección entre éste barco y otro \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_barco_a9fce6bebc50a0c48b34bd4b0203c4d6c}{Intersecta}} (\mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Verifica la intersección entre éste barco y una coordenada \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_barco_a37b7825fc123b0847b5e732a35a08f2f}{Golpear}} (\mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Verifica y agrega un \textquotesingle{}golpe\textquotesingle{} al barco \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_barco_a4f67e7a1521c98afdd904c9eb31dd853}{Revelar}} (\mbox{\hyperlink{struct_coord}{Coord}} coord)
+\begin{DoxyCompactList}\small\item\em Verifica y agrega un \textquotesingle{}revelado\textquotesingle{} al barco \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_barco_af466927a648e7cc156df4dde391c2e8b}\label{class_barco_af466927a648e7cc156df4dde391c2e8b}} 
+override string {\bfseries To\+String} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_barco_a27e486a555c17fd98d791fc34188345c}\label{class_barco_a27e486a555c17fd98d791fc34188345c}} 
+\mbox{\hyperlink{struct_coord}{Coord}} {\bfseries Primera}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Primera coordenada del barco (la más arriba y más a la izquierda). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_barco_ad9b5e2647b1f52c4f2d0ddd57e98999a}\label{class_barco_ad9b5e2647b1f52c4f2d0ddd57e98999a}} 
+\mbox{\hyperlink{struct_coord}{Coord}} {\bfseries Segunda}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Segunda coordenada del barco (la más abajo y más a la derecha). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_barco_ac6f71e76b59376cc7a2cca04a4c06f69}\label{class_barco_ac6f71e76b59376cc7a2cca04a4c06f69}} 
+Hash\+Set$<$ \mbox{\hyperlink{struct_coord}{Coord}} $>$ {\bfseries Golpes} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Conjunto de todos los golpes recibidos por el barco. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_barco_af76ff992fa423e35ac3239da65e7935a}\label{class_barco_af76ff992fa423e35ac3239da65e7935a}} 
+Hash\+Set$<$ \mbox{\hyperlink{struct_coord}{Coord}} $>$ {\bfseries Revelados} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Conjunto de las coordenadas del barco que fueron reveladas por algún \textquotesingle{}radar\textquotesingle{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_barco_a20ff005d95c56933ee383bc65bff7cee}\label{class_barco_a20ff005d95c56933ee383bc65bff7cee}} 
+bool {\bfseries Hundido}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Devuelve \textquotesingle{}true\textquotesingle{} si éste barco ya fue hundido \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_barco_acbc3fe424db0085cd759752922860386}\label{class_barco_acbc3fe424db0085cd759752922860386}} 
+int {\bfseries Largo}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em El largo del barco (cantidad de celdas que ocupa en el tablero) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Posición y estado de un barco. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_barco_aac5fe9d3e8e1bad15ad5c89b73a1cfbd}\label{class_barco_aac5fe9d3e8e1bad15ad5c89b73a1cfbd}} 
+\index{Barco@{Barco}!Barco@{Barco}}
+\index{Barco@{Barco}!Barco@{Barco}}
+\doxysubsubsection{\texorpdfstring{Barco()}{Barco()}}
+{\footnotesize\ttfamily Barco.\+Barco (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{a,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Contruye un barco en disposición horizontal o vertical 
+
+$<$remark$>$ Para ser válido, ambas coordenadas tiene que estar \char`\"{}alineadas\char`\"{} ({\ttfamily Coord.\+Alineadas(a, b) == true}) $<$/remark$>$ 
+\begin{DoxyParams}{Parameters}
+{\em a} & La primera coordenada\\
+\hline
+{\em b} & La segunda coordenada\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Coordenadas\+No\+Alineadas} & Cuando las coordenadas no están alineadas. \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_barco_a37b7825fc123b0847b5e732a35a08f2f}\label{class_barco_a37b7825fc123b0847b5e732a35a08f2f}} 
+\index{Barco@{Barco}!Golpear@{Golpear}}
+\index{Golpear@{Golpear}!Barco@{Barco}}
+\doxysubsubsection{\texorpdfstring{Golpear()}{Golpear()}}
+{\footnotesize\ttfamily bool Barco.\+Golpear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica y agrega un \textquotesingle{}golpe\textquotesingle{} al barco 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & La coordenada donde se \textquotesingle{}golpea\textquotesingle{} al barco, si \textquotesingle{}coord\textquotesingle{} no intersecta al barco, no hace nada. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si coord intersecta al barco, False si no lo hace
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_barco_a21e227fb7209ee24e4630b91f6beff6b}\label{class_barco_a21e227fb7209ee24e4630b91f6beff6b}} 
+\index{Barco@{Barco}!Intersecta@{Intersecta}}
+\index{Intersecta@{Intersecta}!Barco@{Barco}}
+\doxysubsubsection{\texorpdfstring{Intersecta()}{Intersecta()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Barco.\+Intersecta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_barco}{Barco}}}]{barco }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica la intersección entre éste barco y otro 
+
+
+\begin{DoxyParams}{Parameters}
+{\em barco} & El barco con el cual probar la intersección\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si hay intersección entre éste y \textquotesingle{}barco\textquotesingle{}
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_barco_a9fce6bebc50a0c48b34bd4b0203c4d6c}\label{class_barco_a9fce6bebc50a0c48b34bd4b0203c4d6c}} 
+\index{Barco@{Barco}!Intersecta@{Intersecta}}
+\index{Intersecta@{Intersecta}!Barco@{Barco}}
+\doxysubsubsection{\texorpdfstring{Intersecta()}{Intersecta()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Barco.\+Intersecta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica la intersección entre éste barco y una coordenada 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & La coordenada con el cual probar la intersección\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si hay intersección entre éste barco y \textquotesingle{}coord\textquotesingle{}
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_barco_a4f67e7a1521c98afdd904c9eb31dd853}\label{class_barco_a4f67e7a1521c98afdd904c9eb31dd853}} 
+\index{Barco@{Barco}!Revelar@{Revelar}}
+\index{Revelar@{Revelar}!Barco@{Barco}}
+\doxysubsubsection{\texorpdfstring{Revelar()}{Revelar()}}
+{\footnotesize\ttfamily bool Barco.\+Revelar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica y agrega un \textquotesingle{}revelado\textquotesingle{} al barco 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & La coordenada donde se \textquotesingle{}revela\textquotesingle{} el barco, si \textquotesingle{}coord\textquotesingle{} no intersecta al barco, no hace nada. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si coord intersecta al barco, False si no lo hace
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Barco.\+cs\end{DoxyCompactItemize}

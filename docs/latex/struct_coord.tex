@@ -1,0 +1,242 @@
+\hypertarget{struct_coord}{}\doxysection{Coord Struct Reference}
+\label{struct_coord}\index{Coord@{Coord}}
+
+
+Representa una coordenada (x, y) de un tablero.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_coord_a99a7e129ccdcae99d14ffc7faee71828}{Coord}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Construye una coordenada \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_coord_a72eb36bac494ff45358b6fae9ce50f20}{Coord}} (string coord)
+\begin{DoxyCompactList}\small\item\em Construye una coordenada \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{struct_coord_ac540eaf3eb456b677b1f6d9b5ae36982}{To\+StringX}} ()
+\begin{DoxyCompactList}\small\item\em Devuelve una representación de texto del componente X \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{struct_coord_ae126ac39a1ee3ad08429f00d6cbccce1}{To\+StringY}} ()
+\begin{DoxyCompactList}\small\item\em Devuelve una representación de texto del componente Y \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{struct_coord_a09b449a2d0d5774d36792cd9eba8f2dd}{To\+Alfanumérico}} ()
+\begin{DoxyCompactList}\small\item\em Convierte la coordenada a su representación alfanumérica \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{struct_coord_a6db4bc2a94bb67c4e23abb9e633cf027}{Alineadas}} (\mbox{\hyperlink{struct_coord}{Coord}} a, \mbox{\hyperlink{struct_coord}{Coord}} b)
+\begin{DoxyCompactList}\small\item\em Verifica si un par de coordenadas están \char`\"{}alineadas\char`\"{}. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{struct_coord_acb9bf059837ef988169505caa518cde6}{Alineadas\+YOrdenadas}} (\mbox{\hyperlink{struct_coord}{Coord}} a, \mbox{\hyperlink{struct_coord}{Coord}} b)
+\begin{DoxyCompactList}\small\item\em Verifica si un par de coordenadas están \char`\"{}alineadas\char`\"{} y ordenadas en la grilla. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_coord_ad6fc215163a5ad1dee48f8ee1ea1f5a1}\label{struct_coord_ad6fc215163a5ad1dee48f8ee1ea1f5a1}} 
+static \mbox{\hyperlink{struct_coord}{Coord}} {\bfseries Ordenar} (\mbox{\hyperlink{struct_coord}{Coord}} a, \mbox{\hyperlink{struct_coord}{Coord}} b)
+\item 
+static int \mbox{\hyperlink{struct_coord_a176142a93fe0bc9a4f7bdb8fc0422fd8}{Largo}} (\mbox{\hyperlink{struct_coord}{Coord}} a, \mbox{\hyperlink{struct_coord}{Coord}} b)
+\begin{DoxyCompactList}\small\item\em Calcula la cantidad de celdas entre dos coordenadas \char`\"{}\+Alineadas\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{struct_coord_a9a0fe9d8c84475668776fabc04299a1b}{Coord}}
+\begin{DoxyCompactList}\small\item\em Dado un par de coordenadas \char`\"{}alineadas\char`\"{}, retorna el par ordenado de tal forma que cumplan \char`\"{}\+Coord.\+Alineadas\+YOrdenadas()\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_coord_a8a31e93b065f05aea317d2fcd0e02e9c}\label{struct_coord_a8a31e93b065f05aea317d2fcd0e02e9c}} 
+int {\bfseries X}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em La componente X (horizontal) de la coordenada. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_coord_a8ec281b0f81b525c2bf46dea8d550982}\label{struct_coord_a8ec281b0f81b525c2bf46dea8d550982}} 
+int {\bfseries Y}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em La componente Y (vertical) de la coordenada. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_coord_ab4bfd4cc105ddd1a44b3564d910f50c2}\label{struct_coord_ab4bfd4cc105ddd1a44b3564d910f50c2}} 
+static int {\bfseries Min} = 0\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em El valor mínimo para cada componente \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_coord_aece1598a61cc55abd2b7de4e2baf3611}\label{struct_coord_aece1598a61cc55abd2b7de4e2baf3611}} 
+static int {\bfseries Max} = 25\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em El valor máximo para cada componente \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Representa una coordenada (x, y) de un tablero. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_coord_a99a7e129ccdcae99d14ffc7faee71828}\label{struct_coord_a99a7e129ccdcae99d14ffc7faee71828}} 
+\index{Coord@{Coord}!Coord@{Coord}}
+\index{Coord@{Coord}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{Coord()}{Coord()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Coord.\+Coord (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye una coordenada 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & La componente horizontal\\
+\hline
+{\em y} & La componente vertical\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em System.\+Argument\+Out\+Of\+Range\+Exception} & Si x es menor que Min\\
+\hline
+{\em System.\+Argument\+Out\+Of\+Range\+Exception} & Si x es mayor que Max\\
+\hline
+{\em System.\+Argument\+Out\+Of\+Range\+Exception} & Si y es menor que Min\\
+\hline
+{\em System.\+Argument\+Out\+Of\+Range\+Exception} & Si y es mayor que Max\\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{struct_coord_a72eb36bac494ff45358b6fae9ce50f20}\label{struct_coord_a72eb36bac494ff45358b6fae9ce50f20}} 
+\index{Coord@{Coord}!Coord@{Coord}}
+\index{Coord@{Coord}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{Coord()}{Coord()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Coord.\+Coord (\begin{DoxyParamCaption}\item[{string}]{coord }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construye una coordenada 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coord} & La coordenada en formato alfanumérico (e.\+j\+: B12) Formato\+: \{Letra\}\{Número\}, donde \{Letra\} es una letra de la A a la Z y \{Número\} es un número mayor o igual a 1 y menor o igual a 26 \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Coordenada\+Formato\+Incorrecto} & Si \textquotesingle{}coord\textquotesingle{} no está en formato alfanumérico o si \{Número\} está fuera del rango permitido. \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_coord_a6db4bc2a94bb67c4e23abb9e633cf027}\label{struct_coord_a6db4bc2a94bb67c4e23abb9e633cf027}} 
+\index{Coord@{Coord}!Alineadas@{Alineadas}}
+\index{Alineadas@{Alineadas}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{Alineadas()}{Alineadas()}}
+{\footnotesize\ttfamily static bool Coord.\+Alineadas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{a,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Verifica si un par de coordenadas están \char`\"{}alineadas\char`\"{}. 
+
+Dos coordenadas están alineadas si y solo si tienen la misma componente X o la misma componente Y. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & La primera coordenada del par\\
+\hline
+{\em b} & La segunda coordenada del par\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si lo cumplen, false si no lo hacen
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_coord_acb9bf059837ef988169505caa518cde6}\label{struct_coord_acb9bf059837ef988169505caa518cde6}} 
+\index{Coord@{Coord}!AlineadasYOrdenadas@{AlineadasYOrdenadas}}
+\index{AlineadasYOrdenadas@{AlineadasYOrdenadas}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{AlineadasYOrdenadas()}{AlineadasYOrdenadas()}}
+{\footnotesize\ttfamily static bool Coord.\+Alineadas\+YOrdenadas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{a,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Verifica si un par de coordenadas están \char`\"{}alineadas\char`\"{} y ordenadas en la grilla. 
+
+Dos coordenadas están ordenadas si y solo si los componentes de la primera son menor o igual a los componentes de la segunda (las Xs y las Ys respectivamentes). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & La primera coordenada del par\\
+\hline
+{\em b} & La segunda coordenada del par\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si lo cumplen, false si no lo hacen
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_coord_a176142a93fe0bc9a4f7bdb8fc0422fd8}\label{struct_coord_a176142a93fe0bc9a4f7bdb8fc0422fd8}} 
+\index{Coord@{Coord}!Largo@{Largo}}
+\index{Largo@{Largo}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{Largo()}{Largo()}}
+{\footnotesize\ttfamily static int Coord.\+Largo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{a,  }\item[{\mbox{\hyperlink{struct_coord}{Coord}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Calcula la cantidad de celdas entre dos coordenadas \char`\"{}\+Alineadas\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & La primera coordenada del par\\
+\hline
+{\em b} & La segunda coordenada del par\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+La cantidad de celdas ocupadas por ambas coordenadas, o cero en caso de que {\ttfamily Alineadas(a, b) == false}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_coord_a09b449a2d0d5774d36792cd9eba8f2dd}\label{struct_coord_a09b449a2d0d5774d36792cd9eba8f2dd}} 
+\index{Coord@{Coord}!ToAlfanumérico@{ToAlfanumérico}}
+\index{ToAlfanumérico@{ToAlfanumérico}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{ToAlfanumérico()}{ToAlfanumérico()}}
+{\footnotesize\ttfamily string Coord.\+To\+Alfanumérico (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Convierte la coordenada a su representación alfanumérica 
+
+\begin{DoxyReturn}{Returns}
+Una versión legible de la coordenada (e.\+j\+: F13)
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_coord_ac540eaf3eb456b677b1f6d9b5ae36982}\label{struct_coord_ac540eaf3eb456b677b1f6d9b5ae36982}} 
+\index{Coord@{Coord}!ToStringX@{ToStringX}}
+\index{ToStringX@{ToStringX}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{ToStringX()}{ToStringX()}}
+{\footnotesize\ttfamily string Coord.\+To\+StringX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve una representación de texto del componente X 
+
+\begin{DoxyReturn}{Returns}
+Una letra de la A a la Z correspondiente al componente X 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_coord_ae126ac39a1ee3ad08429f00d6cbccce1}\label{struct_coord_ae126ac39a1ee3ad08429f00d6cbccce1}} 
+\index{Coord@{Coord}!ToStringY@{ToStringY}}
+\index{ToStringY@{ToStringY}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{ToStringY()}{ToStringY()}}
+{\footnotesize\ttfamily string Coord.\+To\+StringY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Devuelve una representación de texto del componente Y 
+
+\begin{DoxyReturn}{Returns}
+La componente Y convertida en string de dos dígitos, empezando en \textquotesingle{}01\textquotesingle{} y terminando en \textquotesingle{}26\textquotesingle{} 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_coord_a9a0fe9d8c84475668776fabc04299a1b}\label{struct_coord_a9a0fe9d8c84475668776fabc04299a1b}} 
+\index{Coord@{Coord}!Coord@{Coord}}
+\index{Coord@{Coord}!Coord@{Coord}}
+\doxysubsubsection{\texorpdfstring{Coord}{Coord}}
+{\footnotesize\ttfamily Coord.\+Coord\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Dado un par de coordenadas \char`\"{}alineadas\char`\"{}, retorna el par ordenado de tal forma que cumplan \char`\"{}\+Coord.\+Alineadas\+YOrdenadas()\char`\"{} 
+
+El orden resultante está indefinido si las coordenadas no están \char`\"{}\+Alineadas\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & La primera coordenada del par\\
+\hline
+{\em b} & La segunda coordenada del par\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True si lo cumplen, false si no lo hacen
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Benjamin Rielli/\+Escritorio/\+UCU/programacion 2/proyecto/\+Proyecto/src/\+Library/Coord.\+cs\end{DoxyCompactItemize}
