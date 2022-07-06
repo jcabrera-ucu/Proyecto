@@ -40,7 +40,7 @@ public class GestorPartidas
     /// <summary>
     ///
     /// </summary>
-    public TimeSpan TiempoReloj { get; } = TimeSpan.FromSeconds(15);
+    public TimeSpan TiempoReloj { get; } = TimeSpan.FromMinutes(2);
 
     /// <summary>
     /// Construye un gestor vacío
