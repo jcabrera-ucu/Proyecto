@@ -3,7 +3,7 @@ using Library;
 
 namespace Test;
 
-public class JugarConHandlerTest
+public class EstadisticasHandlerTest
 {
 
     [SetUp]
@@ -12,7 +12,7 @@ public class JugarConHandlerTest
 
     }
  [Test]
-    public void JugarConRobotinaTest()
+    public void EstadisticaHandlerTest()
     {
         var batalla = new BatallaNaval();
 
@@ -21,12 +21,12 @@ public class JugarConHandlerTest
 
         {
             var res = batalla.ProcesarMensaje(new Message(
-                "jugar",
+                "stats",
                 idJugadorA,
                 "Jugador A"
             ));
 
-            Assert.That(res.Remitente, Contains.Substring("Tu oponente es: Robotina"));
+            Assert.That(res.Remitente, Contains.Substring("Estadísticas:"));
         }
     }
 }
