@@ -27,6 +27,8 @@ public class ControladorJuego
     /// </summary>
     public Jugador JugadorB { get; }
 
+    public AciertosFallos AciertosFallos{get; set;}
+
     /// <summary>
     /// Lista con las longitudes de los barcos que deben ser
     /// agregados por cada usuario
@@ -60,6 +62,7 @@ public class ControladorJuego
         }
 
         Estado = EstadoPartida.Configuración;
+        AciertosFallos = new AciertosFallos();
         JugadorA = jugadorA;
         JugadorB = jugadorB;
     }
@@ -333,10 +336,12 @@ public class ControladorJuego
                 switch (resultadoAtaque)
                 {
                     case ResultadoAtaque.Agua:
+                        AciertosFallos.Fallos++;
                         return ResultadoJugada.Agua;
                     case ResultadoAtaque.Hundido:
                         return ResultadoJugada.Hundido;
                     case ResultadoAtaque.Tocado:
+                        AciertosFallos.Aciertos++;
                         return ResultadoJugada.Tocado;
                     default:
                         throw new InvalidOperationException();

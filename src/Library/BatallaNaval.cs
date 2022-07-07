@@ -51,7 +51,10 @@ public class BatallaNaval
             new RelojHandler(GestorPartidas,
             new RadarHandler(GestorPartidas,
             new TableroHandler(GestorPartidas,
-            new NullHandler()))))))))))));
+            new FallosHandler(GestorPartidas, 
+            new AciertosHandler(GestorPartidas,
+            new NullHandler())
+            )))))))))))));
     }
 
     /// <summary>

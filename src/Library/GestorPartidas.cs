@@ -132,7 +132,7 @@ public class GestorPartidas
                 id: usuarioB.Id,
                 nombre: usuarioB.Nombre,
                 tablero: new Tablero(),
-                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
+                reloj: conReloj ? new Reloj(TiempoReloj) : null,
                 radaresDisponibles: 1,
                 estadistica: Estadísicas.ObtenerEstadística(usuarioB.Id)
             ),
@@ -140,7 +140,7 @@ public class GestorPartidas
                 id: usuarioA.Id,
                 nombre: usuarioA.Nombre,
                 tablero: new Tablero(),
-                reloj: conReloj ?  new Reloj(TiempoReloj) : null,
+                reloj: conReloj ? new Reloj(TiempoReloj) : null,
                 radaresDisponibles: 1,
                 estadistica: Estadísicas.ObtenerEstadística(usuarioA.Id)
             )
