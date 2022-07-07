@@ -435,4 +435,24 @@ public class ControladorJuego
             throw new JugadorIncorrecto(idJugador);
         }
     }
+
+    /// <summary>
+    /// Devuelve el total de aciertos entre ambos jugadores durante
+    /// esta partida.
+    /// </summary>
+    /// <returns>Total de aciertos</returns>
+    public int TotalAciertos()
+    {
+        return JugadorA.EstadisticaPartida.Aciertos + JugadorB.EstadisticaPartida.Aciertos;
+    }
+
+    /// <summary>
+    /// Devuelve el total de fallos entre ambos jugadores durante
+    /// esta partida
+    /// </summary>
+    /// <returns>Total de fallosj</returns>
+    public int TotalFallos()
+    {
+        return JugadorA.EstadisticaPartida.Fallos + JugadorB.EstadisticaPartida.Fallos;
+    }
 }

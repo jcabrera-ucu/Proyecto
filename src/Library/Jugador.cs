@@ -40,6 +40,11 @@ public class Jugador
     public Estadistica Estadistica { get; }
 
     /// <summary>
+    /// Estadísticas de partida del jugador.
+    /// </summary>
+    public EstadisticaPartida EstadisticaPartida { get; }
+
+    /// <summary>
     /// True si el Jugador aún no ha perdido, false en caso contrario
     /// </summary>
     public bool SigueEnJuego
@@ -93,6 +98,7 @@ public class Jugador
         Reloj = reloj;
         RadaresDisponibles = radaresDisponibles;
         Estadistica = estadistica;
+        EstadisticaPartida = new EstadisticaPartida();
     }
 
     /// <summary>
@@ -131,6 +137,37 @@ public class Jugador
     }
 
     /// <summary>
+    /// Incrementa los aciertos (globales y de partida)
+    /// </summary>
+    private void IncAciertos()
+    {
+        Estadistica.Aciertos++;
+        EstadisticaPartida.IncAciertos();
+    }
+
+    /// <summary>
+    /// Incrementa los fallos (globales y de partida)
+    /// </summary>
+    private void IncFallos()
+    {
+        Estadistica.Fallos++;
+        EstadisticaPartida.IncFallos();
+    }
+
+    /// <summary>
+    /// Incrementa los fallos (globales y de partida)
+    /// </summary>
+    /// <remarks>
+    /// Un hundido se concidera un "acierto" en la estadísticas
+    /// de partida.
+    /// </remarks>
+    private void IncHundidos()
+    {
+        Estadistica.Hundidos++;
+        EstadisticaPartida.IncAciertos();
+    }
+
+    /// <summary>
     /// Realiza un ataque sobre otro jugador, y actualiza las estadísticas.
     /// </summary>
     /// <param name="oponente">Jugador al cual enviar el ataque</param>
@@ -150,13 +187,13 @@ public class Jugador
         switch (resultadoAtaque)
         {
             case ResultadoAtaque.Agua:
-                Estadistica.Fallos++;
+                IncFallos();
                 break;
             case ResultadoAtaque.Tocado:
-                Estadistica.Aciertos++;
+                IncAciertos();
                 break;
             case ResultadoAtaque.Hundido:
-                Estadistica.Hundidos++;
+                IncHundidos();
                 break;
             default:
                 break;
